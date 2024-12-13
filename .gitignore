@@ -1,0 +1,5 @@
+.env
+__pycache__
+RAG_based_VTA_with_llamaindex.ipynb
+Evaluation
+VTA_rag.py
