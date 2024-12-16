@@ -8,6 +8,7 @@ from Data_processing import process_pdf_v4
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 
+""" Explore embeddign """
 embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
 
 

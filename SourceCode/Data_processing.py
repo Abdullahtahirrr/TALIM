@@ -51,6 +51,7 @@ def process_pdf_v2():
 
 def process_pdf_v3(pdf_docs):
     start_time = time.time()
+    """ Text spliter and Chunking overlap and size"""
     text_splitter = RecursiveCharacterTextSplitter(chunk_size= 1000 ,chunk_overlap=100)
     """
     Problem is that it is computationally expensive and slow

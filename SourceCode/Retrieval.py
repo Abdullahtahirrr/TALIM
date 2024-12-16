@@ -12,7 +12,14 @@ from langchain.schema import HumanMessage, SystemMessage, AIMessage
 from QueryAnalyser import generate_prompt
 from Vector_database import get_vector_store
 
+"""
+Other techniques :
+Self Query : use of meta data 
+Hyde document embedding: get hypotheical answer before searching
+Parent Document: docs-> parent docs -> multiple child doc
+X -> GraphRAG: Knowledge Bases
 
+"""
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 course_name = "Artifical_Intelligence"

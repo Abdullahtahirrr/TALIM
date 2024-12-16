@@ -49,6 +49,7 @@ def generate_prompt(user_role, intent, query, course_name, relevant_passage, **k
             course_name=course_name, query=query, relevant_passage=relevant_passage
         )
     
+
     elif user_role == "teacher":
         # Define teacher-specific templates
         teacher_templates = {
@@ -86,3 +87,9 @@ course_name = "Artificial Intelligence"
 relevant_passage = "Neural networks are modeled after the human brain..."
 prompt = generate_prompt(role, intent, query, course_name, relevant_passage)
 print(prompt)
+
+"""
+topic and additional comments=> retiver 
+pormpt template  with retriver
+
+"""
