@@ -166,6 +166,7 @@ def get_relevant_docs_RAGFusion(user_query):
 
 def get_relevant_docs_basic(user_query):
     vectordb = get_vector_store(course_name)
+    print('vectordb=',vectordb)
     retriever = vectordb.as_retriever(score_threshold=0.5)
     relevant_docs = retriever.invoke(user_query)
     return relevant_docs
@@ -208,12 +209,24 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
     else:
         return get_relevant_docs_basic(user_query)
     
-
+'''
+Hard coded arguments for generate prompt
+'''
 def generate_answer(query, retriever_type):
     load_dotenv()
     relevant_text = get_relevant_docs_by_selection(retriever_type, query)
     # text = " \n".join([doc.page_content for doc in relevant_text])
-    prompt = generate_prompt(query, relevant_passage=relevant_text)
-    # print(prompt)
+    # user_role, intent, query, course_name, relevant_passage,
+    print('rt=',relevant_text)
+    prompt = generate_prompt('student', 'explain' ,query,'Artificial Intelligence',relevant_passage=relevant_text)
+    print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer
+
+
+# Exported functions
+__all__ = [
+    "generate_subquestions",
+    "get_relevant_docs_basic",
+    "generate_answer",
+]

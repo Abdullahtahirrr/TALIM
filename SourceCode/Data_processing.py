@@ -37,7 +37,6 @@ def process_pdfs_v1(pdf_docs):
 
 
 def process_pdf_v2():
-
     """ 
     returns document object
     with images bool set as False , meta data= {slide name, pageno, pagecontent={only text,no images}}
@@ -60,7 +59,13 @@ def process_pdf_v3(pdf_docs):
     """
     with open("output_pymupdf_chunk.txt", "a", encoding='utf-8') as file:  
         for pdf in pdf_docs:
-            loader = PyMuPDFLoader(file_path=pdf, extract_images=True)
+            full_path = os.path.join(os.path.dirname(__file__), '..', pdf)
+            full_path = os.path.abspath(full_path)
+            print(f"Full path of {pdf}: {full_path}")
+
+   
+
+            loader = PyMuPDFLoader(file_path=full_path, extract_images=True)
             docs = loader.load_and_split(text_splitter=text_splitter)
             for doc in docs:
                 doc.metadata["Instructor_name"] = "Dr. Seemab Latif"
@@ -91,6 +96,6 @@ def process_pdf_v4(pdf_docs):
     return docs
 
 
-pdf_files = [os.path.join("Data", file) for file in os.listdir("Data") if file.endswith('.pdf')]
+pdf_files = [os.path.join("Data", file) for file in os.listdir("../Data") if file.endswith('.pdf')]
 
 
