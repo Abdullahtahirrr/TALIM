@@ -1,87 +1,108 @@
- 
-#  prompt = (
-#       """ You are a helpful expert of {course_name}
-#           You will be shown the user's question, and the relevant information contained in either notes and lectures.
-#           Answer the user's question using only this relevant information . Try to build a good answer uing this information.If no information or example is provided then mention and respond using your own data
+from langchain.prompts import PromptTemplate
+from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+import os 
+load_dotenv()
+os.getenv("GOOGLE_API_KEY")
 
-#           Give Precise answer according to User's Instruction, like if user wants explaination then provide explaination.
-#           If User want an answer in one or two lines then give answer accordingly.
-#           QUESTION: '{query}'\n"
-#           REFERENCE : '{relevant_passage}"""
-# Never generate quiz and assignments. Out of scope 
-#     )
+course_name = "Artifical_Intelligence"
 
-def generate_prompt(user_role, intent, query, course_name, relevant_passage, **kwargs):
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    temperature=0.1,
+    max_tokens=None,
+    timeout=None,
+    max_retries=5,)
+
+def analyze_query_for_context(query: str):
+
     """
-    Generates a prompt template based on user role, intent, and query details.
+    Analyzes the user's query to determine if it requires image/graph context.
+    Returns "yes" or "no" based on the analysis.
     """
-    if user_role == "student":
-        # Define student-specific templates
-        student_templates = {
-            "explain": """
-                You are a knowledgeable assistant for {course_name}.
-                Answer the following query by providing a detailed explanation using the relevant information from the provided notes or lectures.
-                QUESTION: '{query}'
-                REFERENCE: '{relevant_passage}'
-            """,
-            "summarize": """
-                You are a summarization expert for {course_name}.
-                Summarize the key points of the following query based on the provided material. Keep your answer concise and to the point.
-                QUESTION: '{query}'
-                REFERENCE: '{relevant_passage}'
-            """,
-            "example": """
-                You are a subject expert for {course_name}.
-                Provide a relevant example for the following query based on the given material. If no specific example is available, create a general one that fits the topic.
-                QUESTION: '{query}'
-                REFERENCE: '{relevant_passage}'
-            """,
-            "general": """
-                You are an expert for {course_name}.
-                Use the following material to answer the user's question. If no information is provided, respond based on your general knowledge of the topic.
-                QUESTION: '{query}'
-                REFERENCE: '{relevant_passage}'
-            """
-        }
-        # Return appropriate template
-        return student_templates.get(intent, student_templates["general"]).format(
-            course_name=course_name, query=query, relevant_passage=relevant_passage
-        )
+
+
+    # Define the system instruction
+    system_message = SystemMessage(content="""
+    You are an expert query analyzer for a Retrieval-Augmented Generation (RAG) system.
+    Your task is to determine whether a user's query states direct usage of visual context such as images, graphs, or diagrams
+    to answer. You should only return "yes" or "no" based on whether the query requires such context. 
+    Moreover if the user query states to generate quiz or assignment, That is a yes as well.
+    You can only respond with one word "yes" or "no".
+                                   
+    """)
     
-    elif user_role == "teacher":
-        # Define teacher-specific templates
-        teacher_templates = {
-            "quiz": """
-                You are a quiz creation assistant for {course_name}.
-                Create a quiz based on the provided material. Include the following parameters:
-                - Number of questions: {num_questions}
-                - Question type(s): {question_types}
-                - Difficulty level: {difficulty_level}
-                - Topic(s): {topics}
-                REFERENCE: '{relevant_passage}'
-            """,
-            "assignment": """
-                You are an assignment creation assistant for {course_name}.
-                Design an assignment based on the following parameters:
-                - Number of tasks: {num_tasks}
-                - Type: {assignment_type}
-                - Grading criteria: {grading_criteria}
-                - Topic(s): {topics}
-                REFERENCE: '{relevant_passage}'
-            """
-        }
-        # Return appropriate template
-        return teacher_templates.get(intent, "").format(
-            course_name=course_name, 
-            relevant_passage=relevant_passage, 
-            **kwargs
-        )
+    # Define examples to guide the model
+    examples = [
+        {
+            "query": "What does the graph on page 3 represent?",
+            "response": "yes"
+        },
+        {
+            "query": "Explain the relationship between artificial intelligence and machine learning.",
+            "response": "no"
+        },
+        {
+            "query": "Describe the image in the middle of the second slide.",
+            "response": "yes"
+        },
+        {
+            "query": "What is meant by supervised learning?",
+            "response": "no"
+        },
+        {
+            "query": "Make me quiz of the topic: AI from slide 9?",
+            "response": "yes"
+        },
+         {
+            "query": "Make me quiz of the topic: AI from slide 9?",
+            "response": "yes"
+        },
+         {
+            "query": "Generate me a assignment to practice on topic \"Naive Bayes\"? ",
+            "response": "yes"
+        },
 
-# Example Usage
-role = "student"
-intent = "explain"
-query = "Explain the working of neural networks."
-course_name = "Artificial Intelligence"
-relevant_passage = "Neural networks are modeled after the human brain..."
-prompt = generate_prompt(role, intent, query, course_name, relevant_passage)
-print(prompt)
+
+    ]
+
+    # Build the prompt
+    examples_prompt = "\n".join(
+        [f"User Query: {ex['query']}\nAnswer: {ex['response']}" for ex in examples]
+    )
+    user_message = f"User Query: {query}\nAnswer:"
+
+    prompt = f"""
+    {system_message.content}
+
+    Examples:
+    {examples_prompt}
+
+    Now analyze the following query and provide an answer:
+    {user_message}
+    """
+
+    # Call the LLM and return the result
+    response = llm.invoke(prompt)
+    return response.content 
+
+def analyze_query(query: str):
+    """
+    Main function to analyze the query and take appropriate action.
+    """
+    # Step 1: Analyze the query
+    image_context_required = analyze_query_for_context(query)
+
+    # Step 2: Handle based on the response
+    if image_context_required == "yes\n":
+        return "This query cannot be processed as it requires visual context from the slides which is beyond my scope."
+    elif image_context_required == "no\n":
+        # Respond to the user politely
+        return "Valid"
+    # else:
+    #     return "Error: Could not analyze the query properly."
+
+
+
