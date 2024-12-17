@@ -9,7 +9,7 @@ load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 
 """ Explore embeddign """
-embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-005")
+embeddings = GoogleGenerativeAIEmbeddings(model = "models/text-embedding-004")
 
 
 def get_vector_store(course_name):
