@@ -206,12 +206,13 @@ def get_relevant_docs_with_self_query(user_query):
 
     document_content_description = "Detailed content extracted from lecture notes or slides, including titles, topics, and key points discussed in the lecture."
 
-    relevant_docs = SelfQueryRetriever.from_llm(
+    retriever = SelfQueryRetriever.from_llm(
                 llm,
                 vectordb,
                 document_content_description,
                 metadata_field_info,
             )
+    relevant_docs = retriever.invoke(user_query)
 
            
     return relevant_docs 
