@@ -1,5 +1,4 @@
-
-
+ 
 #  prompt = (
 #       """ You are a helpful expert of {course_name}
 #           You will be shown the user's question, and the relevant information contained in either notes and lectures.

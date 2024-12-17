@@ -57,7 +57,7 @@ def process_pdf_v3(pdf_docs):
     for 3 slides: in 564.89 seconds.
     for 3 slides with chunking: 528.98 seconds
     """
-    with open("output_pymupdf_chunk.txt", "a", encoding='utf-8') as file:  
+    with open("../Loaders_result/output_pymupdf_chunk.txt", "a", encoding='utf-8') as file:  
         for pdf in pdf_docs:
             full_path = os.path.join(os.path.dirname(__file__), '..', pdf)
             full_path = os.path.abspath(full_path)
