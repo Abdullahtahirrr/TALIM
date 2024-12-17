@@ -7,16 +7,21 @@ from dotenv import load_dotenv
 from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
 import pandas as pd
+from langchain.chains import HypotheticalDocumentEmbedder, LLMChain
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
 from QueryAnalyser import generate_prompt
 from Vector_database import get_vector_store
+from langchain.chains.query_constructor.schema import AttributeInfo
+from langchain.retrievers.self_query.base import SelfQueryRetriever
+from langchain.prompts.chat import SystemMessagePromptTemplate, ChatPromptTemplate
 
 """
 Other techniques :
 Self Query : use of meta data 
 Hyde document embedding: get hypotheical answer before searching
 Parent Document: docs-> parent docs -> multiple child doc
+Self RAG
 X -> GraphRAG: Knowledge Bases
 
 """
@@ -34,95 +39,49 @@ llm = ChatGoogleGenerativeAI(
 
 
 def generate_subquestions(question: str):
-   
+    """
+    Generate 3-4 sub-questions based on an educational query.
+    This function takes a complex query or question related to educational content 
+    and breaks it down into more specific and manageable sub-questions.
+    """
+
     # Define the system message for task instructions
     system_message = SystemMessage(content="""
-    You are an expert in talent acquisition. Separate this job description into 3-4 more focused aspects for efficient resume retrieval. 
-    Make sure every single relevant aspect of the query is covered in at least one query. You may choose to remove irrelevant information 
-    that doesn't contribute to finding resumes such as the expected salary of the job, the ID of the job, the duration of the contract, etc.
-    Only use the information provided in the initial query. Do not make up any requirements of your own. 
-    Put each result in one line, separated by a linebreak.
+    You are an educational assistant specializing in helping students understand complex topics.
+    Break this question or query into 3-4 sub-questions that focus on specific aspects of the topic.
+    Ensure every aspect of the query is covered in at least one sub-question. 
+    Avoid adding unrelated sub-questions or making assumptions outside the context provided in the query.
+    Put each result on a new line, separated by a linebreak.
+    In case, subquestioning isnt possible, make similar or related versions of the query.                               
+                                   
     """)
 
-    # Provide an example for the model
+        # Provide an example for the model
     oneshot_example = HumanMessage(content="""
-      Generate 3 to 4 sub-queries based on this initial job description:
+        Generate 3 to 4 sub-questions based on this initial educational query:
 
-      Wordpress Developer
-      We are looking to hire a skilled WordPress Developer to design and implement attractive and functional websites and Portals for our Business and Clients. You will be responsible for both back-end and front-end development including the implementation of WordPress themes and plugins as well as site integration and security updates.
-      To ensure success as a WordPress Developer, you should have in-depth knowledge of front-end programming languages, a good eye for aesthetics, and strong content management skills. Ultimately, a top-class WordPress Developer can create attractive, user-friendly websites that perfectly meet the design and functionality specifications of the client.
-      WordPress Developer Responsibilities:
-      Meeting with clients to discuss website design and function.
-      Designing and building the website front-end.
-      Creating the website architecture.
-      Designing and managing the website back-end including database and server integration.
-      Generating WordPress themes and plugins.
-      Conducting website performance tests.
-      Troubleshooting content issues.
-      Conducting WordPress training with the client.
-      Monitoring the performance of the live website.
-      WordPress Developer Requirements:
-      Bachelors degree in Computer Science or a similar field.
-      Proven work experience as a WordPress Developer.
-      Knowledge of front-end technologies including CSS3, JavaScript, HTML5, and jQuery.
-      Knowledge of code versioning tools including Git, Mercurial, and SVN.
-      Experience working with debugging tools such as Chrome Inspector and Firebug.
-      Good understanding of website architecture and aesthetics.
-      Ability to project manage.
-      Good communication skills.
-      Contract length: 12 months
-      Expected Start Date: 9/11/2020
-      Job Types: Full-time, Contract
-      Salary: 12,004.00 - 38,614.00 per month
-      Schedule:
-      Flexible shift
-      Experience:
-      Wordpress: 3 years (Required)
-      web designing: 2 years (Required)
-      total work: 3 years (Required)
-      Education:
-      Bachelor's (Preferred)
-      Work Remotely:
-      Yes
+        "Explain the Beam Search algorithm in AI, focusing on its working mechanism, applications, and limitations."
     """)
     oneshot_response = AIMessage(content="""
-    1. WordPress Developer Skills:
-       - WordPress, front-end technologies (CSS3, JavaScript, HTML5, jQuery), debugging tools (Chrome Inspector, Firebug), code versioning tools (Git, Mercurial, SVN).
-       - Required experience: 3 years in WordPress, 2 years in web designing.
-
-    2. WordPress Developer Responsibilities:
-       - Meeting with clients for website design discussions.
-       - Designing website front-end and architecture.
-       - Managing website back-end including database and server integration.
-       - Generating WordPress themes and plugins.
-       - Conducting website performance tests and troubleshooting content issues.
-       - Conducting WordPress training with clients and monitoring live website performance.
-
-    3. WordPress Developer Other Requirements:
-       - Education requirement: Bachelor's degree in Computer Science or similar field.
-       - Proven work experience as a WordPress Developer.
-       - Good understanding of website architecture and aesthetics.
-       - Ability to project manage and strong communication skills.
-
-    4. Skills and Qualifications:
-       - Degree in Computer Science or related field.
-       - Proven experience in WordPress development.
-       - Proficiency in front-end technologies and debugging tools.
-       - Familiarity with code versioning tools.
-       - Strong communication and project management abilities.
+        1. What is the working mechanism of the Beam Search algorithm?
+        2. How does the Beam Search algorithm compare to A* and BFS in terms of memory efficiency and completeness?
+        3. What are the key applications of Beam Search in AI, such as machine translation or job scheduling?
+        4. What are the limitations of Beam Search, and how do heuristic accuracy and beam width impact its performance?
     """)
 
-    # User message with the job description
+    # User message with the educational query
     user_message = HumanMessage(content=f"""
-    Generate 3 to 4 sub-queries based on this initial job description: 
+    Generate 3 to 4 sub-questions based on this initial query: 
     {question}
     """)
 
-
+    # Get response from the language model
     response = llm.invoke([system_message, oneshot_example, oneshot_response, user_message])
 
-    subquestions = response.content.split("\n")
+    # Split the response into sub-questions
+    subquestions = response.content.strip().split("\n")
     return subquestions
+
 
 def get_subquestion_docs(subquestions):
     relevant_docs = []
@@ -161,8 +120,27 @@ def get_relevant_docs_RAGFusion(user_query):
     results = reciprocal_rank_fusion(relevant_docs)
     print(results)
     return results
+ 
+def get_hypo_doc(query):
+    template = """Imagine you are an subject expert on the topic: '{query}'
+    Your response should be comprehensive and include all key points that would be found in the top search result."""
 
+    system_message_prompt = SystemMessagePromptTemplate.from_template(template = template)
+    chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt])
+    messages = chat_prompt.format_prompt(query = query).to_messages()
+    response =  llm.invoke(messages)
+    hypo_doc = response.content
+    return hypo_doc
 
+def get_relevant_docs_Hyde(user_query):
+    vectordb = get_vector_store(course_name)
+    hypo_doc = get_hypo_doc(user_query)
+    # normally in hyde we dont use the query again but i did add
+    query = user_query + hypo_doc
+    # here currenlty using basic similarity search , could use other too
+    retriever = vectordb.as_retriever(score_threshold=0.5)
+    relevant_docs = retriever.invoke(query)
+    return relevant_docs
 
 def get_relevant_docs_basic(user_query):
     vectordb = get_vector_store(course_name)
@@ -191,7 +169,52 @@ def get_relevant_docs_with_ensemble(user_query):
     relevant_docs = ensemble_retriever.invoke(user_query)
     return relevant_docs
 
+def get_relevant_docs_with_self_query(user_query):
+    vectordb = get_vector_store(course_name)
+    metadata_field_info = [
+    AttributeInfo(
+        name="source",
+        description="The source file from which the content is extracted, typically the name of the lecture note or slide deck.",
+        type="string",
+    ),
+    AttributeInfo(
+        name="file_path",
+        description="The file path where the lecture material is stored.",
+        type="string",
+    ),
+    AttributeInfo(
+        name="page",
+        description="The page number in the lecture material where the content is located.",
+        type="integer",
+    ),
+    AttributeInfo(
+        name="total_pages",
+        description="The total number of pages in the lecture material.",
+        type="integer",
+    ),
+    AttributeInfo(
+        name="title",
+        description="The title of the lecture or course, as extracted from the document metadata.",
+        type="string",
+    ),
+    AttributeInfo(
+        name="author",
+        description="The author or lecturer associated with the lecture material.",
+        type="string",
+    )
+]
 
+    document_content_description = "Detailed content extracted from lecture notes or slides, including titles, topics, and key points discussed in the lecture."
+
+    relevant_docs = SelfQueryRetriever.from_llm(
+                llm,
+                vectordb,
+                document_content_description,
+                metadata_field_info,
+            )
+
+           
+    return relevant_docs 
 
 def generate_response(user_prompt):
     answer = llm.invoke(user_prompt)
@@ -205,6 +228,8 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
     elif retriever_type == "Ensemble Retriever":
         return get_relevant_docs_with_ensemble(user_query)
     elif retriever_type == "RAG Fusion":
+        return get_relevant_docs_RAGFusion(user_query)
+    elif retriever_type == "Self Query":
         return get_relevant_docs_RAGFusion(user_query)
     else:
         return get_relevant_docs_basic(user_query)
