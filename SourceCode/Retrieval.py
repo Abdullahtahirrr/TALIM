@@ -270,10 +270,15 @@ def generate_answer(query, retriever_type):
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,
     print('rt=',relevant_text)
-    if (user_role == "Student"):
-        prompt = generate_prompt_student(query,course_name,relevant_passage=relevant_text)
-    elif (user_role == "Teacher"):
-        prompt = generate_prompt_teacher(user_role, 'explain' ,query,'Artificial_Intelligence_semantic_chunks',relevant_passage=relevant_text)
+    prompt = generate_prompt_student(query,course_name,relevant_passage=relevant_text)
+    print('prompt=',prompt)
+    answer = generate_response(prompt)
+    return relevant_text, answer
+
+def generate_assessment(query,query_data, retriever_type):
+    load_dotenv()
+    relevant_text = get_relevant_docs_by_selection(retriever_type, query)
+    prompt = generate_prompt_teacher(query_data,course_name,relevant_passage=relevant_text)
     print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer
