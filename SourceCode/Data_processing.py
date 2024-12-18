@@ -65,7 +65,7 @@ def process_pdf_v3(pdf_docs):
     for 3 slides: in 564.89 seconds.
     for 3 slides with chunking: 528.98 seconds
     """
-    with open("Loaders_result/output_pymupdf_chunk.txt", "a", encoding='utf-8') as file:  
+    with open("Loaders_result/output_pymupdf_chunk.txt", "w", encoding='utf-8') as file:  
         for pdf in pdf_docs:
             full_path = os.path.join(os.path.dirname(__file__), '..', pdf)
             full_path = os.path.abspath(full_path)
@@ -125,7 +125,7 @@ def semantic_chunking_process(pdf_docs):
     semantic_chunks_with_metadata = []
 
 
-    output_path = "Loaders_result/semantic_chunk_output_combinednext2.txt"
+    output_path = "SourceCode\Loaders_result\semantic_chunk_output_combinednext2.txt"
     with open(output_path, "w", encoding='utf-8') as file:
         # Iterate over each PDF in the input list
         for pdf in pdf_docs:
@@ -150,26 +150,14 @@ def semantic_chunking_process(pdf_docs):
                 for chunk_id, chunk in enumerate(semantic_chunks):
                     metadata = {
                         "Instructor" : 'Seemab Latif',
-                        "Title": '',
+                        "Title": 'Artificial Intelligence',
                         "Course_category": 'Engineering',
         
                         **doc_metadata, 
                     }
-                    # Create a Document-like object (or modify as needed)
                     chunk_data = Document(page_content=chunk.page_content, metadata=metadata)
                     semantic_chunks_with_metadata.append(chunk_data)
-                # for chunk_id, chunk in enumerate(semantic_chunks):
-                #     # Combine metadata from the loader with chunk-specific data
-                #     metadata = {
-                #         "Instructor" : 'Seemab Latif',
-                #         **doc_metadata, 
-                #     }
-                #     # Append chunk and metadata to the results
-                #     semantic_chunks_with_metadata.append({
-                #         "metadata": metadata,
-                #         "content": chunk.page_content
-                #     })
-                    # Write metadata and chunk content to the output file
+            
                     file.write(f"Metadata: {metadata}\n")
                     file.write(f"Content: {chunk.page_content}\n\n")
 

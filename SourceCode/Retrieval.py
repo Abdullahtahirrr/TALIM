@@ -32,7 +32,7 @@ Ranking:
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 
-course_name = "Artificial_Intelligence_semantic_chunks"
+course_name = "Artificial_Intelligence"
 # course_name = "Artificial_Intelligence_recursive_1000_0"
 # course_name = "Artificial_Intelligence_recursive_1000_100"
 # course_name = "Artificial_Intelligence_recursive_500_0"
@@ -160,8 +160,8 @@ def get_relevant_docs_basic(user_query):
     retriever = vectordb.as_retriever(score_threshold=0.5)
     # print("here", retriever)
     # print(user_query)
-    # relevant_docs = retriever.invoke(user_query)
-    relevant_docs = retriever.get_relevant_documents(user_query)
+    relevant_docs = retriever.invoke(user_query)
+    # relevant_docs = retriever.get_relevant_documents(user_query)
 
     # print('relevant_docs=',relevant_docs)
     return relevant_docs
