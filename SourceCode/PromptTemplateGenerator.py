@@ -153,94 +153,208 @@ def generate_prompt_student(query, course_name, relevant_passage):
 
 
 
-def generate_prompt_teacher(course_name, intent, relevant_passage=None, **kwargs):
-    """
-    Generates a prompt for teacher tasks like creating quizzes or assignments.
-    Includes an initial prompt, one-shot example, and chain-of-thought guidance.
-    """
-    # Define templates for teacher tasks
-    teacher_templates = {
-        "quiz": """
-        You are a quiz creation assistant for {course_name}.
-        Create a quiz based on the following parameters:
-        - Number of questions: {num_questions}
-        - Question type(s): {question_types}
-        - Difficulty level: {difficulty_level}
-        - Topic(s): {topics}
-        REFERENCE: '{relevant_passage}'
-        """,
-        "assignment": """
-        You are an assignment creation assistant for {course_name}.
-        Design an assignment based on the following details:
-        - Number of tasks: {num_tasks}
-        - Type: {assignment_type}
-        - Grading criteria: {grading_criteria}
-        - Topic(s): {topics}
-        REFERENCE: '{relevant_passage}'
-        """
-    }
 
-    # Define chain-of-thought guidance
-    chain_of_thought_teacher = {
-        "quiz": "Identify key concepts from the topic and structure questions around them. Ensure a mix of question types to test understanding comprehensively.",
-        "assignment": "Design tasks that progressively challenge the student. Include clear instructions and ensure alignment with the grading criteria."
-    }
 
-    # Define one-shot examples
-    oneshot_examples_teacher = {
-        "quiz": """
-        Parameters:
-        - Number of questions: 5
-        - Question type(s): Multiple Choice, Short Answer
-        - Difficulty level: Moderate
-        - Topic(s): Neural Networks
+def generate_prompt_teacher(query, course_name, relevant_passage):
+   
+    # Extracting values from the query
+    assessment_query = query["Assessment_type"].lower()
+    lecture_name = query["lecture_name"]
+    Key_Topics = query["KeyTopics"]
+    num_mcqs = query["MCQS"]
+    num_theoretical = query["Theortical"]
+    num_numerical = query["Numerical"]
+    difficulty = query["Difficulty"]
+    num_versions = query["Version"]
+    total_marks = query["Total_marks"]
+    rubric = query["Rubric"]
+    additional_requirements = query["Additional_requirements"]
 
-        Quiz:
-        1. What is the purpose of an activation function in a neural network?
-        2. Explain the concept of forward propagation.
-        3. What is a common use case for recurrent neural networks?
-        """,
-        "assignment": """
-        Parameters:
-        - Number of tasks: 3
-        - Type: Practical
-        - Grading criteria: 50% implementation, 30% results, 20% report
-        - Topic(s): Naive Bayes Classifier
+    if assessment_query == "quiz":
+            
+            initial_prompt = f"""
+            You are an assignment creation assistant for the course {course_name} on the topic of {lecture_name} with topics:{Key_Topics}.
+            Please create an quiz based on the following details and maximum use the relevant passage from notes/slides for context and relevance:
+            Please create a quiz based on the following details:
+            - Number of MCQs: {num_mcqs}
+            - Number of Theoretical Questions: {num_theoretical}
+            - Number of Numerical Questions: {num_numerical}
+            - Difficulty Level: {difficulty}
+            - Number of Versions: {num_versions}
+            - Total Marks: {total_marks}
+            - Rubric: {rubric}
+            - Additional Requirements: {additional_requirements}   
+            - Reference: {relevant_passage}"""
 
-        Assignment:
-        Task 1: Implement a Naive Bayes classifier for sentiment analysis.
-        Task 2: Test the classifier on a given dataset and report the accuracy.
-        Task 3: Write a report explaining the implementation and results.
-        """
-    }
+            oneshot_example = f"""
+            Prompt: Generate a quiz from {lecture_name} with the following details:
+            Key Topics: Machine Learning Fundamentals and Advanced Techniques
+            Additional Requirements: Quantitative and technical depth in assessmentDetailed Parameters:
+            - Number of MCQs: 2 
+            - Number of Theoretical Questions: 2
+            - Number of Numerical Questions: 2
+            - Difficulty Level: Medium
+            - Number of Versions: 1
+            - Total Marks: 35
+            - Rubric: Detailed performance-based grading
+            - Additional Requirements: Demonstrate deep understanding of ML techniques
 
-    # Generate the final prompt
-    intent_template = teacher_templates.get(intent, "")
+            Comprehensive Quiz Example:
+            MCQ Section - Quantitative Machine Learning Techniques (2 marks each):
+            1. In gradient descent optimization, what does the learning rate of 0.01 specifically indicate?
+            a) 1% step size in parameter adjustment
+            b) 100% parameter update
+            c) Constant step size regardless of gradient
+            d) Random parameter perturbation
+            Explanation: Quantify how 0.01 represents a 1% incremental adjustment in weight parameters during each iteration.
+
+            2. For a neural network with 95% training accuracy but 65% validation accuracy, this most likely indicates:
+            a) Perfect model performance
+            b) Significant overfitting
+            c) Underfitting
+            d) Optimal model complexity
+            Detailed Ratio Analysis: >30% performance gap suggests overfitting mechanism.
+
+            Theoretical Questions - Deep Technical Analysis (5 marks each):
+            3. Comparative Analysis of Regularization Techniques:
+            - Mathematically compare L1 (Lasso) vs L2 (Ridge) regularization
+            - Quantify sparsity inducement:
+                * L1: Exact zero-weight elimination probability
+                * L2: Weight reduction magnitude
+            - Provide concrete example with numerical coefficients
+            - Discuss computational complexity: O(n) vs O(n²) impact
+
+            4. Advanced Ensemble Learning Techniques:
+            - Detailed breakdown of ensemble methods:
+                * Bagging: Bootstrapping variance reduction
+                * Boosting: Sequential error correction
+                * Stacking: Multi-layer predictive fusion
+            - Quantify performance improvement:
+                * Average accuracy gain
+                * Variance reduction percentage
+                * Computational overhead analysis
+            - Provide mathematical formulation for each technique
+
+            Numerical Questions - Computational Challenges (5 marks each):
+            5. Precision Engineering Calculation:
+            Neural Network Performance Metrics:
+            - True Positives: 750
+            - False Positives: 250
+            - False Negatives: 150
+            Compute and interpret:
+            a) Precision = TP / (TP + FP)
+            b) Recall = TP / (TP + FN)
+            c) F1 Score = 2 * (Precision * Recall) / (Precision + Recall)
+            d) Provide confidence interval for each metric
+            e) Discuss statistical significance of results
+    
+            6. Optimization Algorithm Comparative Analysis:
+            Gradient Descent Variants Computation:
+            - Standard GD Learning Rate: 0.01
+            - Stochastic GD Batch Size: 32
+            - Momentum Coefficient: 0.9
+            Tasks:
+            a) Calculate weight updates for different learning rates
+            b) Compute convergence speed
+            c) Analyze parameter sensitivity
+            d) Provide computational complexity analysis 
+            """
+            chain_of_thought = """
+            1. Question Design Strategy:
+            - Align questions with key learning objectives
+            - Assess multiple levels of cognitive skills
+            - Ensure comprehensive coverage of course topics
+
+            2. Difficulty Progression:
+            - MCQs: Test foundational knowledge
+            - Theoretical Questions: Evaluate deep understanding
+            - Numerical Problems: Challenge analytical thinking
+
+            3. Assessment Principles:
+            - Balanced question distribution
+            - Clear, unambiguous instructions
+            - Multiple versions ( if specifed ) to ensure academic integrity like Version 1, Version 2 etc.
+            """
+
+        # (Similar detailed approach for assignment template)
+    elif assessment_query == "assignment":
+            initial_prompt = f"""
+            You are an assignment creation assistant for the course {course_name} on the topic of {lecture_name} with topics:{Key_Topics}.
+            Please create an assignment based on the following details and maximum use the relevant passage from notes/slides for context and relevance:
+            - Number of Theoretical Questions: {num_theoretical}
+            - Number of Numerical Questions: {num_numerical}
+            - Difficulty Level: {difficulty}
+            - Number of Versions: {num_versions}
+            - Total Marks: {total_marks}
+            - Rubric: {rubric}
+            - Additional Requirements: {additional_requirements}   
+            - Reference: {relevant_passage}"""
+
+            oneshot_example ="""
+            User Query: Generate an assignment from {lecture_name} with the following details:
+            Key Topics: Machine Learning Practical Applications
+            Additional Requirements: Demonstrate end-to-end machine learning project implementation
+
+            Detailed Parameters:
+            - Number of Theoretical Questions: 2
+            - Number of Numerical/Practical Tasks: 3
+            - Difficulty Level: Advanced
+            - Number of Versions: 1
+            - Total Marks: 100
+            - Rubric: Comprehensive project evaluation
+            - Additional Requirements: Include data preprocessing, model development, and performance analysis
+            - Relevant Passage: Course materials on machine learning workflow 
+
+            Answer:
+
+            Version 1: Advanced Machine Learning Project Assignment
+
+            Theoretical Component (20 marks each):
+
+            Ethical AI and Bias Analysis (20 marks) Can you conduct a comprehensive ethical audit of a machine learning system that reveals the hidden biases inherent in modern AI technologies? Develop a rigorous analysis that quantifies bias across multiple demographic attributes. Your investigation should answer: How can we mathematically measure and mitigate algorithmic discrimination? Demonstrate your approach by: Identifying and quantifying bias indices for at least three protected attributes with 95% statistical confidence. Explain the mathematical formulations behind bias measurements. Construct a detailed 10-page report that not only exposes potential biases but also provides a sophisticated mitigation strategy. How would you redesign the machine learning pipeline to ensure fairness and ethical AI deployment?
+            Comparative Algorithmic Performance Analysis (20 marks) Conduct an in-depth comparative study of three advanced machine learning algorithms: Gradient Boosting Machine, Support Vector Machine with Advanced Kernels, and Deep Neural Network. Your challenge is to answer: Which algorithm truly represents the pinnacle of predictive performance across different complexity landscapes? Develop a comprehensive evaluation framework that goes beyond simple accuracy. How will you measure and compare these algorithms using multiple performance metrics? Implement cross-validation with stratified sampling and provide statistically significant evidence of each algorithm's strengths and limitations. Can you create a performance comparison matrix that reveals the nuanced capabilities of each approach?
+            Practical Component (20 marks each):
+
+            End-to-End Machine Learning Project (20 marks) Design and implement a cutting-edge machine learning solution that transforms raw, complex data into actionable insights. Your project must answer: Can you develop a machine learning system that demonstrates exceptional predictive power and technical sophistication? Tackle a real-world problem using a dataset with at least 100,000 data points and 10 complex features. How will you engineer features that unveil hidden patterns? Demonstrate your ability to implement multiple machine learning models, with a focus on ensemble methods and advanced hyperparameter optimization. Can you create a predictive system that not only performs exceptionally but also provides deep insights into its decision-making process?
+            Advanced Machine Learning Pipeline Challenge (20 marks) Can you construct a machine learning pipeline that represents the pinnacle of data preprocessing and model development? Your challenge is to transform messy, real-world data into a refined, predictive system that demonstrates exceptional technical prowess. How will you tackle the most challenging aspects of data cleaning, feature engineering, and model optimization? Develop innovative techniques for handling missing data, detecting and managing outliers, and creating custom feature transformations. Implement advanced hyperparameter optimization using Bayesian techniques. Can you create a pipeline that not only processes data effectively but also provides deep insights into its own functioning?
+            Innovative Modeling Research Challenge (20 marks) Propose and develop a groundbreaking machine learning solution that pushes the boundaries of current technological capabilities. Your task is to answer: Can you create an innovative approach that demonstrates true scientific and technological creativity? Design a novel machine learning method that addresses a complex, open-ended problem. How will you demonstrate both theoretical sophistication and empirical validation? Your solution will be evaluated on its originality, technical complexity, and potential real-world impact. Can you develop an approach that not only solves a challenging problem but also provides insights that could revolutionize the field of machine learning?
+            Submission Requirements:
+            How will you document your journey of discovery? Provide comprehensive documentation that tells the story of your technical exploration. Your submission should be a narrative of innovation, challenging existing paradigms and demonstrating deep technical understanding.
+
+            Evaluation Criteria:
+            How will your work be judged? Each component will be evaluated on:
+
+            Technical sophistication
+            Mathematical rigor
+            Innovative approach
+            Clarity of explanation
+            Depth of analysis
+            Potential real-world impact"""
+            
+            chain_of_thought = """
+            1. Project-Based Learning Approach:
+            - Simulate real-world machine learning challenges
+            - Assess practical skill development
+            - Encourage innovative problem-solving
+
+            2. Comprehensive Skill Assessment:
+            - Theoretical understanding
+            - Practical implementation
+            - Critical analysis
+            - Technical documentation
+
+            3. Learning Outcome Alignment:
+            - Demonstrate course learning objectives
+            - Develop end-to-end machine learning skills"""
+            
+    
     prompt = f"""
-    {intent_template.format(course_name=course_name, relevant_passage=relevant_passage, **kwargs)}
+    {initial_prompt}
     
     One-shot Example:
-    {oneshot_examples_teacher[intent]}
+    {oneshot_example}
     
     Chain of Thought:
-    {chain_of_thought_teacher[intent]}
+    {chain_of_thought}
     """
     return prompt
-
-# query = "Explain how overfitting affects machine learning models."
-# course_name = "Artificial Intelligence"
-# relevant_passage = "Overfitting occurs when a model performs well on training data but poorly on test data."
-# prompt_student = generate_prompt_student(query, course_name, relevant_passage)
-# print(prompt_student)
-
-# course_name = "Artificial Intelligence"
-# intent = "quiz"
-# kwargs = {
-#     "num_questions": 5,
-#     "question_types": "Multiple Choice, Short Answer",
-#     "difficulty_level": "Moderate",
-#     "topics": "Neural Networks",
-#     "relevant_passage": "Content on Neural Networks from lecture notes."
-# }
-# prompt_teacher = generate_prompt_teacher(course_name, intent, **kwargs)
-# print(prompt_teacher)
