@@ -9,7 +9,7 @@ if __name__ == "__main__":
     query_filter = analyze_query(user_query)
     if(query_filter == "Valid"):
         # Use Basic RAG for retrieval
-        retriever_type = "MultiQuery Retriever"
+        retriever_type = "Basic Simliarity Search"
         # relevant_docs = get_relevant_docs_basic(user_query)
         
 
