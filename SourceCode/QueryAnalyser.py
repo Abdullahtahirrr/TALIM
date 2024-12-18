@@ -30,6 +30,7 @@ def analyze_query_for_context(query: str):
     Your task is to determine whether a user's query states direct usage of visual context such as images, graphs, or diagrams
     to answer. You should only return "yes" or "no" based on whether the query requires such context. If the query is asking to explain a slide or page, that is a no. 
     Moreover if the user query states to generate quiz or assignment, That is a yes as well. One last thing,if it is a invalid or random text, that is a yes as well.
+    if user is asking for more detail or explanation, that is a no as well.
                                    
     You can only respond with one word "yes" or "no".
                                    
@@ -59,6 +60,10 @@ def analyze_query_for_context(query: str):
         },
         {
             "query": "explain the example in the the second slide.",
+            "response": "no"
+        },
+        {
+            "query": "tell me more",
             "response": "no"
         },
         {

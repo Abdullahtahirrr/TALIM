@@ -15,7 +15,7 @@ from Vector_database import get_vector_store
 from langchain.chains.query_constructor.schema import AttributeInfo
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.prompts.chat import SystemMessagePromptTemplate, ChatPromptTemplate
-from PromptTemplateGenerator import generate_prompt_student,generate_prompt_teacher
+from PromptTemplateGenerator import generate_prompt_student,generate_prompt_teacher,generate_prompt_history
 
 """
 Other techniques :
@@ -169,8 +169,6 @@ def get_relevant_docs_basic(user_query):
 def get_relevant_docs_with_multi_query(user_query):
     vectordb = get_vector_store(course_name)
     retriever = MultiQueryRetriever.from_llm(retriever=vectordb.as_retriever(score_threshold=0.5), llm=llm)
-    
-
     relevant_docs = retriever.invoke(user_query,k=1)
            
     return relevant_docs
@@ -255,13 +253,14 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
     else:
         return get_relevant_docs_basic(user_query)
 
-def generate_history_aware(chat_history):
+def generate_history_aware(chat_history, query):
     # Format chat history
     formatted_history = "\n".join(
-        f"{msg['sender']}: {msg['message']}" for msg in chat_history
-    )
-    query = history_prompt(formatted_history)
-    prompt= llm.invoke(query)
+            f"{msg['sender']}: {msg['message']}" for msg in chat_history
+        )
+    print(f"Formatted History: {formatted_history}")
+    inter_prompt = generate_prompt_history(formatted_history, query)
+    prompt= generate_response(inter_prompt)
     return prompt
 '''
 Hard coded arguments for generate prompt
@@ -273,7 +272,7 @@ def generate_answer(query,chat_history, retriever_type):
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,
     # print('rt=',relevant_text)
-    prompt = generate_prompt_student(query,course_name,relevant_passage=relevant_text)
+    prompt = generate_prompt_student(new_query,course_name,relevant_passage=relevant_text)
     # print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer

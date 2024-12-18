@@ -365,7 +365,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
     """
     return prompt
 
-def history_prompt(chat_history, query):
+def generate_prompt_history(chat_history, query):
     """
     Prompt for the history of the chat.
     """
@@ -374,7 +374,7 @@ def history_prompt(chat_history, query):
     which can be understood without the chat history. Do NOT answer the question, 
     just reformulate it if needed and otherwise return it as is.
     Here is the history of the conversation till now:
-        '{formatted_history}'
+        '{chat_history}'
     Here is the current question: {query}
     - You must not answer the question and ONLY reformulate the query of return it as is according to need."""
     return history_prompt
