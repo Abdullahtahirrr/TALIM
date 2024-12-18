@@ -10,6 +10,7 @@
 #     )
 
 import re
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 def extract_intent(query):
     keywords_to_intents = {
@@ -274,7 +275,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             - Balanced question distribution
             - Clear, unambiguous instructions
             - Multiple versions ( if specifed ) to ensure academic integrity like Version 1, Version 2 etc.
-            """
+                       """
 
         # (Similar detailed approach for assignment template)
     elif assessment_query == "assignment":
@@ -356,5 +357,24 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
     
     Chain of Thought:
     {chain_of_thought}
+
+     - Multiple versions means make multiple versions of the assessment with different questions but same difficulty level and marks distribution. 
+    - Keep in mind that it does not mean to just instruct the teacher with ways of varying the assessment, you must provide as much versions as asked.
+    -versions can be made by switching the order of options or the options in MCQs, changing the numerical values in numerical questions, changing the theoretical questions with similar difficulty level.
+    - the sum of marks of all questions in the assessment must be equal to the total marks.
     """
     return prompt
+
+def history_prompt(chat_history, query):
+    """
+    Prompt for the history of the chat.
+    """
+    history_prompt = f"""Given a chat history and the latest user question 
+    which might reference context in the chat history, formulate a standalone question 
+    which can be understood without the chat history. Do NOT answer the question, 
+    just reformulate it if needed and otherwise return it as is.
+    Here is the history of the conversation till now:
+        '{formatted_history}'
+    Here is the current question: {query}
+    - You must not answer the question and ONLY reformulate the query of return it as is according to need."""
+    return history_prompt

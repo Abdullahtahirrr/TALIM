@@ -4,7 +4,7 @@ from QueryAnalyser import analyze_query
 import logging
 import time
 # logging.basicConfig(level=logging.DEBUG)/
-user_role="Student"
+user_role="Instructor"
 # Example usage:
 if __name__ == "__main__":
     # Get user query
