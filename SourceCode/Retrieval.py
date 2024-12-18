@@ -27,7 +27,14 @@ X -> GraphRAG: Knowledge Bases
 """
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
-course_name = "Artifical_Intelligence"
+# course_name = "Artificial_Intelligence_semantic_chunks"
+# course_name = "Artificial_Intelligence_semantic_chunks"
+# course_name = "Artificial_Intelligence_semantic_chunks"
+# course_name = "Artificial_Intelligence_semantic_chunks"
+# course_name = "Artificial_Intelligence_recursive_1000_0"
+# course_name = "Artificial_Intelligence_recursive_1000_100"
+# course_name = "Artificial_Intelligence_recursive_500_0"
+course_name = "Artificial_Intelligence_recursive_500_100"
 
 
 llm = ChatGoogleGenerativeAI(
@@ -239,12 +246,12 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
 Hard coded arguments for generate prompt
 '''
 def generate_answer(query, retriever_type):
-    load_dotenv()
+    # load_dotenv()
     relevant_text = get_relevant_docs_by_selection(retriever_type, query)
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,
     print('rt=',relevant_text)
-    prompt = generate_prompt('student', 'explain' ,query,'Artificial Intelligence',relevant_passage=relevant_text)
+    prompt = generate_prompt('student', 'explain' ,query,'Artificial_Intelligence_semantic_chunks',relevant_passage=relevant_text)
     print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer

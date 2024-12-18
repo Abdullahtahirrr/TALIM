@@ -7,6 +7,8 @@ from langchain_community.document_loaders import PyPDFium2Loader
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain.schema import Document
+
 
 
 os.getenv("GOOGLE_API_KEY")
@@ -145,18 +147,25 @@ def semantic_chunking_process(pdf_docs):
                 # Use the loader's metadata
                 doc_metadata = doc.metadata or {}
                 semantic_chunks = semantic_chunker.create_documents([doc.page_content])
-                
                 for chunk_id, chunk in enumerate(semantic_chunks):
-                    # Combine metadata from the loader with chunk-specific data
                     metadata = {
                         "Instructor" : 'Seemab Latif',
                         **doc_metadata, 
                     }
-                    # Append chunk and metadata to the results
-                    semantic_chunks_with_metadata.append({
-                        "metadata": metadata,
-                        "content": chunk.page_content
-                    })
+                    # Create a Document-like object (or modify as needed)
+                    chunk_data = Document(page_content=chunk.page_content, metadata=metadata)
+                    semantic_chunks_with_metadata.append(chunk_data)
+                # for chunk_id, chunk in enumerate(semantic_chunks):
+                #     # Combine metadata from the loader with chunk-specific data
+                #     metadata = {
+                #         "Instructor" : 'Seemab Latif',
+                #         **doc_metadata, 
+                #     }
+                #     # Append chunk and metadata to the results
+                #     semantic_chunks_with_metadata.append({
+                #         "metadata": metadata,
+                #         "content": chunk.page_content
+                #     })
                     # Write metadata and chunk content to the output file
                     file.write(f"Metadata: {metadata}\n")
                     file.write(f"Content: {chunk.page_content}\n\n")
@@ -230,24 +239,31 @@ def recursive_chunking_process(pdf_docs):
                     # Use the loader's metadata
                     doc_metadata = doc.metadata or {}
                     recursive_chunks = recursive_data_splitter.create_documents([doc.page_content])
-
                     for chunk_id, chunk in enumerate(recursive_chunks):
-                        # Combine metadata from the loader with chunk-specific data
+                        # Create a Document-like object (or modify as needed)
                         metadata = {
                             "Instructor": 'Seemab Latif',
                             **doc_metadata,
                         }
-                        # Append chunk and metadata to the results
-                        recursive_chunks_with_metadata.append({
-                            "metadata": metadata,
-                            "content": chunk.page_content
-                        })
+                        chunk_data = Document(page_content=chunk.page_content, metadata=metadata)
+                        recursive_chunks_with_metadata.append(chunk_data)
+        
+                    # for chunk_id, chunk in enumerate(recursive_chunks):
+                    #     # Combine metadata from the loader with chunk-specific data
+                       
+                    #     # Append chunk and metadata to the results
+                    #     recursive_chunks_with_metadata.append({
+                    #         "metadata": metadata,
+                    #         "content": chunk.page_content
+                    #     })
                         # Write metadata and chunk content to the output file
                         file.write(f"Metadata: {metadata}\n")
                         file.write(f"Content: {chunk.page_content}\n\n")
 
         # Store the results for the current variation
         all_variations_results[f"{chunk_size}_{chunk_overlap}"] = recursive_chunks_with_metadata
+        print(f"Processed PDFs and created recursive chunks version in {time.time() - start_time:.2f} seconds.")
+
 
     end_time = time.time()
     print(f"Processed PDFs and created recursive chunks in {end_time - start_time:.2f} seconds.")
@@ -256,9 +272,9 @@ def recursive_chunking_process(pdf_docs):
     return all_variations_results
 
 
-pdf_files = [os.path.join("Data", file) for file in os.listdir("..\Data") if file.endswith('.pdf')]
-
-course_name = "Artifical_Intelligence"
 # pdf_files = [os.path.join("Data", file) for file in os.listdir("..\Data") if file.endswith('.pdf')]
-data = recursive_chunking_process(pdf_files)
-print('pdf_files',pdf_files)
+
+# course_name = "Artifical_Intelligence"
+# # pdf_files = [os.path.join("Data", file) for file in os.listdir("..\Data") if file.endswith('.pdf')]
+# data = recursive_chunking_process(pdf_files)
+# print('pdf_files',pdf_files)

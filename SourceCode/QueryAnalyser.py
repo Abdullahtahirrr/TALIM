@@ -77,11 +77,11 @@ def generate_prompt(user_role, intent, query, course_name, relevant_passage, **k
             **kwargs
         )
 
-# Example Usage
-role = "student"
-intent = "explain"
-query = "Explain the working of neural networks."
-course_name = "Artificial Intelligence"
-relevant_passage = "Neural networks are modeled after the human brain..."
-prompt = generate_prompt(role, intent, query, course_name, relevant_passage)
-print(prompt)
+# # Example Usage
+# role = "student"
+# intent = "explain"
+# query = "Explain the working of neural networks."
+# course_name = "Artificial Intelligence"
+# relevant_passage = "Neural networks are modeled after the human brain..."
+# prompt = generate_prompt(role, intent, query, course_name, relevant_passage)
+# print(prompt)
