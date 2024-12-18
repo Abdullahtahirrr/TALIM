@@ -3,7 +3,7 @@ from Vector_database import get_vector_store, add_documents_to_vector_store
 from QueryAnalyser import analyze_query
 import logging
 import time
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)/
 user_role="Student"
 # Example usage:
 if __name__ == "__main__":
@@ -16,7 +16,7 @@ if __name__ == "__main__":
         print('vector_db_size',vector_db_size)
         if(query_filter == "Valid"):
             # Use Basic RAG for retrieval
-            retriever_type = "MultiQuery Retriever"
+            retriever_type = "RAG Fusion"
 
             start=time.time()
             # Generate the final answer
@@ -24,8 +24,8 @@ if __name__ == "__main__":
             # Output resultsh
             print('time taken: ', time.time()-start)
             print("\nRelevant Documents:")
-            for doc in relevant_text:
-                print(doc.page_content)
+            # for doc in relevant_text:
+            #     print(doc.page_content)
             print("\nGenerated Answer:")
             print(answer)
         else: 

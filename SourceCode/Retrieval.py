@@ -167,16 +167,12 @@ def get_relevant_docs_basic(user_query):
 
 
 def get_relevant_docs_with_multi_query(user_query):
-    print("hello I just reahed  retriver")
     vectordb = get_vector_store(course_name)
-    print("hello I got db")
     retriever = MultiQueryRetriever.from_llm(retriever=vectordb.as_retriever(score_threshold=0.5), llm=llm)
-    print("hello I got retriver")
     
 
     relevant_docs = retriever.invoke(user_query,k=1)
            
-    print("hello I got docs")
     return relevant_docs
 
 def get_relevant_docs_with_ensemble(user_query):
