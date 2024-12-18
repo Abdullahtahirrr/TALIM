@@ -29,7 +29,8 @@ def analyze_query_for_context(query: str):
     You are an expert query analyzer for a Retrieval-Augmented Generation (RAG) system.
     Your task is to determine whether a user's query states direct usage of visual context such as images, graphs, or diagrams
     to answer. You should only return "yes" or "no" based on whether the query requires such context. 
-    Moreover if the user query states to generate quiz or assignment, That is a yes as well.
+    Moreover if the user query states to generate quiz or assignment, That is a yes as well. One last thing,if it is a invalid or random text, that is a yes as well.
+                                   
     You can only respond with one word "yes" or "no".
                                    
     """)
@@ -94,10 +95,10 @@ def analyze_query(query: str):
     """
     # Step 1: Analyze the query
     image_context_required = analyze_query_for_context(query)
-
+    print("hello, I am query analyzer")
     # Step 2: Handle based on the response
     if image_context_required == "yes\n":
-        return "This query cannot be processed as it requires visual context from the slides which is beyond my scope."
+        return "Sorry, This query cannot be processed as it is beyond my scope. Try me with a different question :) ."
     elif image_context_required == "no\n":
         # Respond to the user politely
         return "Valid"

@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
 import pandas as pd
+import time 
 from langchain.chains import HypotheticalDocumentEmbedder, LLMChain
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
@@ -14,7 +15,7 @@ from Vector_database import get_vector_store
 from langchain.chains.query_constructor.schema import AttributeInfo
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.prompts.chat import SystemMessagePromptTemplate, ChatPromptTemplate
-from PromptTemplateGenerator import generate_prompt
+from PromptTemplateGenerator import generate_prompt_student,generate_prompt_teacher
 
 """
 Other techniques :
@@ -33,6 +34,7 @@ load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 
 course_name = "Artificial_Intelligence"
+user_role="Student"
 # course_name = "Artificial_Intelligence_recursive_1000_0"
 # course_name = "Artificial_Intelligence_recursive_1000_100"
 # course_name = "Artificial_Intelligence_recursive_500_0"
@@ -169,9 +171,16 @@ def get_relevant_docs_basic(user_query):
 
 
 def get_relevant_docs_with_multi_query(user_query):
+    print("hello I just reahed  retriver")
     vectordb = get_vector_store(course_name)
+    print("hello I got db")
     retriever = MultiQueryRetriever.from_llm(retriever=vectordb.as_retriever(score_threshold=0.5), llm=llm)
-    relevant_docs = retriever.invoke(user_query)
+    print("hello I got retriver")
+    
+
+    relevant_docs = retriever.invoke(user_query,k=1)
+           
+    print("hello I got docs")
     return relevant_docs
 
 def get_relevant_docs_with_ensemble(user_query):
@@ -261,7 +270,10 @@ def generate_answer(query, retriever_type):
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,
     print('rt=',relevant_text)
-    prompt = generate_prompt('student', 'explain' ,query,'Artificial_Intelligence_semantic_chunks',relevant_passage=relevant_text)
+    if (user_role == "Student"):
+        prompt = generate_prompt_student(query,course_name,relevant_passage=relevant_text)
+    elif (user_role == "Teacher"):
+        prompt = generate_prompt_teacher(user_role, 'explain' ,query,'Artificial_Intelligence_semantic_chunks',relevant_passage=relevant_text)
     print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer
