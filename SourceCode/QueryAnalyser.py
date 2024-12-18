@@ -57,7 +57,7 @@ def analyze_query_for_context(query: str):
             "response": "yes"
         },
          {
-            "query": "Make me quiz of the topic: AI from slide 9?",
+            "query": "Generate quiz of the topic: AI from slide 9?",
             "response": "yes"
         },
          {

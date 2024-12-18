@@ -150,6 +150,9 @@ def semantic_chunking_process(pdf_docs):
                 for chunk_id, chunk in enumerate(semantic_chunks):
                     metadata = {
                         "Instructor" : 'Seemab Latif',
+                        "Title": '',
+                        "Course_category": 'Engineering',
+        
                         **doc_metadata, 
                     }
                     # Create a Document-like object (or modify as needed)

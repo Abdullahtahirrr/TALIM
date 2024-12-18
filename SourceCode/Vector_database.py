@@ -14,11 +14,19 @@ embeddings = GoogleGenerativeAIEmbeddings(model = "models/text-embedding-004")
 
 def get_vector_store(course_name):
     collection_name = course_name
-    vector_store = Chroma( collection_name=collection_name,
+    vector_store = Chroma(collection_name=collection_name,
                           embedding_function=embeddings, 
                           persist_directory="../database",
                           create_collection_if_not_exists=True
                             )
+    # # print("Vector DB contents:", vector_store._collection_name)
+    # all_docs = vector_store._collection.get(include=["documents", "metadatas"])
+
+    # print("Documents in Chroma DB:")
+    # for  document, metadata in zip( all_docs["documents"], all_docs["metadatas"]):
+    #     print(f"Document: {document}\nMetadata: {metadata}\n")
+
+
     return vector_store
 
 def add_documents_to_vector_store(data, course_name):
@@ -61,8 +69,21 @@ def save_embeddings_for_all_variations(pdf_docs, base_course_name):
 # pdf_docs = [os.path.join("Data", file) for file in os.listdir("..\Data") if file.endswith('.pdf')]
 # base_course_name = "Artificial_Intelligence"
 # save_embeddings_for_all_variations(pdf_docs, base_course_name)
+# #     add_documents_to_vector_store(semantic_chunks, f"{base_course_name}_semantic_chunks")
 
+# pdf_docs = [
+#     r"Loaders_result\recursive_chunk_500_0.txt",
+#     r"Loaders_result\recursive_chunk_500_100.txt",
+#     r"Loaders_result\recursive_chunk_1000_0.txt",
+#     r"Loaders_result\recursive_chunk_1000_100.txt",
+#     r"Loaders_result\semantic_chunk_output_combinednext2.txt"
 
+# ]
+
+#     base_course_name = "Artificial_Intelligence"
+#     add_documents_to_vector_store(semantic_chunks, f"{base_course_name}_semantic_chunks")
+
+    # save_embeddings_for_all_variations(i, base_course_name)
 __all__ = [
     "get_vector_store",
     "add_documents_to_vector_store",

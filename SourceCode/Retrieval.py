@@ -24,17 +24,19 @@ Parent Document: docs-> parent docs -> multiple child doc
 Self RAG
 X -> GraphRAG: Knowledge Bases
 
+
+Ranking:
+1. 
+
 """
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
-# course_name = "Artificial_Intelligence_semantic_chunks"
-# course_name = "Artificial_Intelligence_semantic_chunks"
-# course_name = "Artificial_Intelligence_semantic_chunks"
-# course_name = "Artificial_Intelligence_semantic_chunks"
+
+course_name = "Artificial_Intelligence_semantic_chunks"
 # course_name = "Artificial_Intelligence_recursive_1000_0"
 # course_name = "Artificial_Intelligence_recursive_1000_100"
 # course_name = "Artificial_Intelligence_recursive_500_0"
-course_name = "Artificial_Intelligence_recursive_500_100"
+# course_name = "Artificial_Intelligence_recursive_500_100"
 
 
 llm = ChatGoogleGenerativeAI(
@@ -126,6 +128,7 @@ def get_relevant_docs_RAGFusion(user_query):
     print(relevant_docs)
     results = reciprocal_rank_fusion(relevant_docs)
     print(results)
+    
     return results
  
 def get_hypo_doc(query):
@@ -150,10 +153,17 @@ def get_relevant_docs_Hyde(user_query):
     return relevant_docs
 
 def get_relevant_docs_basic(user_query):
+    # print('course_name=',course_name)
     vectordb = get_vector_store(course_name)
-    print('vectordb=',vectordb)
+    # print('vectordb=',vectordb)
+
     retriever = vectordb.as_retriever(score_threshold=0.5)
-    relevant_docs = retriever.invoke(user_query)
+    # print("here", retriever)
+    # print(user_query)
+    # relevant_docs = retriever.invoke(user_query)
+    relevant_docs = retriever.get_relevant_documents(user_query)
+
+    # print('relevant_docs=',relevant_docs)
     return relevant_docs
 
 
@@ -246,7 +256,7 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
 Hard coded arguments for generate prompt
 '''
 def generate_answer(query, retriever_type):
-    # load_dotenv()
+    load_dotenv()
     relevant_text = get_relevant_docs_by_selection(retriever_type, query)
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,

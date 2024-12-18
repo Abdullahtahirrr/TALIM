@@ -1,3 +1,1431 @@
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 0}
+Content: Dr. Seemab latif
+Lecture 1
+10th Sept 2024
+A R T I F I C I A L I N T E L L I G E N C E
+ArtificialIntelligence
+03
++
+MachineLearning
+DeepLearning
+:0
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 1}
+Content: A tech enthusiasts committed to AI 
+Who Am I…
+5 Years of AI Innovation
+Team
+• 11-member team with AI experience
+Dr. Seemab Latif
+• HoD AI&DS
+• Tenured Associate Professor
+• PhD Artificial Intelligence (Uni of Manchester)
+• 70 plus publications
+• 7 commercial IPs
+• CPInS Lab
+• Funded Research and Commercial Projects
+• UG, PG, PhD Research
+YCHINA-PAKISTAN
+INTELLIGENTSYSTEMS(EPInS)LABaawazeS
+OneScreen'SKYELECTRICG
+C
+SkyLabs
+AI
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 2}
+Content: What is AI
+• Artificial intelligence is the ability of machines to perform tasks that 
+are typically associated with human intelligence, such as learning and 
+problem-solving.
+• Such machines have the ability to learn about the world that 
+surrounds them and take actions that will have the best chances of 
+achieving success. 
+• Research into AI involves using a lot of tools from other sciences such 
+as psychology, linguistics, computer science, and many others.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 3}
+Content: AI vs. HI
+• Human intelligence and 
+artificial intelligence go handin-hand. 
+• AI can handle repetitive, datadriven tasks and give databased results. 
+• Human intelligence can work 
+on creative, emotional and 
+critically complex tasks
+0:
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 4}
+Content: Areas of AI
+ARTIFICIALINTELLIGENCE
+Programswiththeabilityto
+learnandreasonlikehumans
+MACHINELEARNING
+Algorithmswiththeabilitytolearn
+withoutbeingexplicitlyprogrammed
+DEEPLEARNING
+Subsetofmachine learning
+inwhichartificialneural
+networksadaptandlearn
+fromvastamountsofdata
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 5}
+Content: Applications 
+of Artificial 
+Intelligence
+Automatic
+Language
+Recognition
+Image
+Translation
+Medical
+Diagnosis
+Speech
+Stock
+Recognition
+Market
+trading
+Applications
+of
+Online
+Fraud
+Traffic
+Machinelearning
+Detection
+Prediction
+Virtual
+Product
+Personal
+recommend
+Email Spam
+Assistant
+andMalware
+-ations
+Self
+driving
+Filtering
+cars
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 6}
+Content: WHAT
+CAN DO
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 7}
+Content: Source: https://kling.kuaishou.com
+K可灵AI可灵AI可灵AI可灵AIC可灵AIo-
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 8}
+Content: Create Audio
+• AI music generators, audio tools, and voice generators, you can add 
+a soundtrack to a podcast, add a voice overlay to marketing videos, 
+and even create your own music to enhance projects.
+• For example, using Mubert, you can easily generate music with a text 
+prompt and a few clicks. We used the prompt "First lecture of the 
+semester, hurray” and created this clip in less than a minute.
+ProductsBlog Aboutus Contact BecomeAffiliateForArtists
+Sign Up LogIn
+PRODUCTHUNT
+#1Product of theDay
+Human
+XAl GenerativeMusic
+For your video content,podcastsand apps
+Generateatracknow
+MubertRender
+Mubert Studio
+For contentcreators
+Forartists
+Createasoundtrackthatwill
+Earn moneyon tracks,samples
+fit yourcontent'smood,
+andloops.TeamupwithAl to
+durationandtempo.Instantly,
+producesomethingincredible.
+easily,perfectly.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 9}
+Content: Keep Track of Your Business
+Running a business is time-consuming, especially if it’s a one-person operation. Thanks 
+to advancements in artificial intelligence, hiring a human to assist you is no longer 
+required. Whether you need help writing a blog post, managing appointments, or 
+financial tips, AI assistants can help with several tasks to help you be more productive. 
+For example, using a financial assistant, such as Tykr, you can manage your stock 
+portfolio, get insights on investment opportunities, and learn the basics of investing.
+ykr
+Benefits
+Reviews
+Pricing
+Courses
+Webinars
+Education
+Support
+Login
+Yes,Iwanta free trial
+Beating inflation
+is way easier
+Tykr Score
+than you think
+89元100
+Tykr isa stockscreener and educationplatform all-
+in-one that helpsyoumakebetterinvestment
+This stock hasa scoreof 89/100and anMargin
+decisions andbeatinflation.
+of Safety of 72%thereforeit'sOnSale
+OnSale
+5160
+Yes,wantareetria
+5120
+5.40
+No credit card required
+Trustindex
+Freefor14days
+6Sep
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 9}
+Content: 16Nov
+Cancel at any time
+Basedon161reviews
+S150.82LoW
+52WChange
+S180.56High
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 10}
+Content: Create Avatars
+AI avatar generators are all the rage right now. Thanks to companies like Picsart, Lensa AI, 
+and Synthesia, you can create static and video avatars. Whether you’re looking to establish a 
+more professional representation for your company, revamp your social media avatars, or even 
+fashion lifelike 3D avatars for marketing videos or online business chat, these tools have you 
+covered.
+Lensa
+Get the app
+Profile
+Create Your Own
+Magic Al Avatars
+Generatepersonalized avatars infive steps
+Getstarted
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 11}
+Content: Help with Branding
+If you’re looking to rebrand your current business or start a new venture, artificial intelligence 
+can help. There are some great logo generators to spark creativity and fantastic features 
+available through companies like Wix Logo Generator that will make you feel like a graphic 
+design professional in no time. Whether you want to create social media posts or build out your 
+brand standards, branding has never been easier.
+WIX
+Logo Maker
+TopLogoCategories
+LogosbyDesign
+More
+christinagwira
+Free Business Tools> Logo Maker
+LOGOMAKER
+Design a professional
+logo in minutes
+GetMyLogo→
+G
+Home
+Shop
+Our Story.
+米
+米
+GNDOS
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 12}
+Content: Sales and Marketing Tools
+If you want to create leads and grow revenue, some excellent AI sales and marketing tools help 
+you take your business to the next level. These tools can help you build an email list, reach out 
+to them with video assets, and explore opportunities to analyse your client interactions. For 
+example, using Seamless.AI‘s built-in search engine, you can leverage the power of AI to update 
+your contact lists with the most up-to-date contact information. Additionally, using software 
+such as Ocoya, you can create social media posts and schedule them, giving you more time to 
+focus on other aspects of your business.
+Seamless.Al
+Products
+Customers
+Company
+Pricing
+Login
+GetaDemo
+GetStartedFree
+TheWorld'sBest
+Contacts
+Companies
+SalesLeads
+R
+Jessica Smith
+Senior SalesDirector,Captive Tech
+Ouralessoftwarefindsverifiedcelphones,mails,and
+directdialsforanyoneyouneedtosellto.Get50freecredits
+withnocreditcarddownanddiscoverwhy4o0,o00+
+Mason Johnson
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 12}
+Content: Creative Manager,OrgCache
+companiesuseSeamless.Altogrowtheirbusiness.
+501-456-9876
+X
+m.johnson@orgcache.com
+Business Email
+GetStartedFree
+AshleyWilliams
+Hiring Manager,HotshotDesign Co.
+NoCreditCard Required
+★★★★★
+4.2/5G2Rating
+OR
+SignupwithGoogle
+SignupwithLinkedln
+Christopher Miller
+VPof Sales,City CRM
+By submitting thisform,youagreeto theSeamless.AlTermsofUse&PrivacyPolicy
+Trustedby4o0,0o0+users
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 13}
+Content: Assist in Image Editing
+If you’re a freelancer or web agency owner, you know how challenging it can be to get good 
+client photos. Thankfully, artificial intelligence can turn you into a photo editing wizard while 
+saving a ton of time. Whether you’re looking to upscale images, enhance them, or create 
+new compositions with Photoshop, image editing tools help you finish the job quickly.
+E
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 14}
+Content: Have In
+-Depth Conversations
+One of the most creative ways to use artificial intelligence is through chatbots like Writesonic. 
+Built on OpenAI’s GPT-4, you can converse with it to get answers to questions, help you develop 
+blog post ideas, and more. One of the coolest things about Writesonic is their Botsonic tool, 
+which allows you to create your own chatbot in a few minutes. This is a great tool to create 
+personalized chat experiences for your site’s visitors providing answers directly related to your 
+products and services. Alternatively, you can incorporate Character.AI to gain a unique 
+perspective by chatting with historical figures, celebrities or any personality you choose.
+IntroducingthesuperiorAlArticleWriter5.0
+AIArticle
+Craftfactual,document-awarearticlesinyourownbrandvoice
+TryItOutNow
+Writer5.0
+inminutes.
+Writesonic
+Features
+Resources
+Chatsonic
+Botsonic
+Pricing
+Academy
+Signin
+Getstarted
+Best Al Writer for Creating
+Freelancer
+Marketer
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 14}
+Content: CreateSEO-optimized andplagiarism-freecontent
+foryourblogs,ads,emails,andwebsitexfastr.
+Blogger
+StartWriting ForFree
+Nocreditcardrequired.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 15}
+Content: Increase Productivity
+No matter what you need AI for, whether it’s to get insights on how your website is 
+performing or advanced SEO techniques, there are many AI productivity tools to help you 
+get the job done fast. Need a good CRM? No problem. Freshworks Freddy AI can help with 
+marketing automation, all while building a better system to interact with your customers. 
+Alternatively, if you need a way to transcribe meeting notes, check out Otter AI.
+freshworks
+Products
+Platform
+Resources
+Demo
+Pricing
+FreeTrial
+Freshsales
+Features
+Integrations
+What'sNew
+FREDDYAI
+Redefinecustomerrelationshipswith
+artificialintelligence
+Getactionableinsightsacrossthecustomerjourneyanddeliver
+highlypersonalized engagementwith anAl-powered CRM.
+SIGNUP
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 16}
+Content: Develop AI Software
+One of the most powerful uses of artificial intelligence is the ability to create your own. 
+With AI development tools, you can propel your business into the future by incorporating 
+systems to assist with time-consuming tasks, freeing you up to perform more important 
+feats. For example, if you’re planning on starting your own international ecommerce 
+marketplace, you could incorporate Google’s Translation AIto provide content based on a 
+user’s location, then translating your text into the appropriate language.
+Google Cloud
+Overview
+SolutionsProductsPricing
+Resources
+ContactUs
+α
+Docs Support
+English
+Console
+：
+Startfree
+Alandmachine learning products
+InnovativeAl andmachine learningproducts,solutions,andservicespoweredby Google'sresearch
+and technology.Newcustomersget$3oo infreecreditstorun,test,and deployworkloads.
+Getstartedforfree
+Contact sales
+GenerativeAl
+Data Science
+ResponsibleAl
+BuildgenerativeAlapplicationsquickly,
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 16}
+Content: Generateinsightsfromdatawithourcomplete
+Discovertoolsandframeworkstounderstandand
+efficientlyandresponsiblypoweredbyGoogles
+suiteofdatamanagement,analytics,and
+interpret your machine learning models.Learn
+most advanced technology.
+machine learning tools.
+whyvalues-basedAlisnecessaryfordevelopers.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 17}
+Content: Write Copy
+One of the most notable uses for artificial intelligence is for writing copy. Using AI writing 
+software such as Copy.AI, Writesonic, or ChatGPT, you can create new copy for social 
+media posts, informational text, blogs, and more.
+Alternatively, if you need a little help making your copy more focused and concise, you can 
+use a rewriter tool, such as Quillbot, to help you clarify your original content to flow better, 
+all while retaining the authentic tone it was written in.
+QuillBot
+Paraphraser
+Upgrade to Premium
+中
+Modes:
+StandardFluency
+FormalSimpleCreativeExpand
+Shorten
+Synonyms:
+目
+QuillBotwill rewriteyour text.Startbywritingorpastingsomethinghereand
+thenpresstheParaphrasebutton.
+66
+Try SampleText
+PasteText
+?
+UploadDoc
+Paraphrase
+口
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 18}
+Content: Make Creative Assets
+Imagery is one of the most important aspects of any website or marketing material. With 
+the introduction of AI art generators in late 2022, anyone, regardless of the level of artistic 
+ability, can create beautiful images for their projects. Between Adobe Firefly, Stable 
+Diffusion, Midjourney, and others, there is no shortage of platforms. If you need more than 
+images, these AI design tools can help you create brochures, social media templates, color
+palettes, and more.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 19}
+Content: Write Code
+In the past, if you wanted to create a custom plugin or an entire static HTML, you’d need to 
+prepare yourself for a long project. With the number of AI coding assistants hitting the 
+market at the speed of light, you no longer have to spend countless hours coding on your 
+own. Using software such as GitHub Copilot, you can code faster and more efficiently than 
+ever before. The best part about these coding assistants is the majority of them will work 
+alongside your favorite code editor, so you don’t have to spend time learning a new 
+platform.
+Search or jump to...
+Pullrequests
+Issues
+CodespacesMarketplaceExplore
+Features
+Actions
+Packages
+Security
+Codespaces
+Copilot
+Codereview
+Search
+Issues
+Discussions
+YourAlpairprogrammer
+GitHub Copilot uses the OpenAl Codex to suggest code and entire functions in
+real-time,rightfrom your editor.
+GetCopilot>
+Compare plans
+sentiments.ts
+oowrite_sql.go
+parse_expenses.py
+addresses.rb
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 20}
+Content: Build Websites
+Making a website is a lot easier now, thanks to AI website builders. Big players in the industry, 
+such as Wix and Hostinger, have started offering services to streamline the process. You can 
+answer a few questions through Wix and have a custom website in a few minutes. Other 
+tools, like Framer, can generate a fully functional website with a text prompt.
+Alternatively, you can combine tools like Midjourney and ChatGPT to generate images and 
+content for your new site. If you’re a WordPress user, there are even a few AI plugins to make 
+working in WordPress a lot easier.
+VessTete
+Conafi Frrunss
+Det Our Reorn Wetout
+Weo
+Srenet Cortiee
+BSOWGOSS
+CAIHONSTS
+FADOr
+Cor
+lon6m.
+sooeble
+boliamie
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 21}
+Content: Generate Video Assets
+Another excellent use of artificial intelligence is AI video generators. You can create 
+marketing videos from a blog post URL using Pictory. Alternatively, you can create realistic 
+training videos with animated avatars using Synthesia.
+There are even programs, such as Runway, that will give you the tools to improve existing 
+videos by adding slow-motion effects, making color enhancements, and removing artifacts.
+synthesia
+Create a free AIvideo
+Thisiswhatyourvideowilllooklike
+Selectatemplate&edityourscript.Political,sexualanddiscriminatorycontent
+will notbeapproved.
+1
+SELECTVIDEOTEMPLATE
+SynthesiaDemo
+SalesPitch
+Learning&Development
+ACMECOMPANY
+Compliment
+How-ToVideo
+Evelyn Johnson
+Jonathan
+EDITYOURVIDEOSCRIPT
+2
+You canuse anypopularlanguage
+Evelyn
+HeyJohn,EvelynfromAcmehere！Aspromised,Iam
+sendingyouabriefsummaryofthekeypointsofthe
+Hey John,
+proposalwediscussedtoday.Iwillputyouintouchwith
+Evelyn fromAcmeherelAspromised,Iamsendingyou abrief
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 21}
+Content: summary of thekeypointsof theproposal we discussed today.
+youronboardingpartnerrightaway.
+Iwill put you in touch withyouronboarding partner right away.
+-aura
+Bridget
+English(US)-Meticulous
+Play script
+3charactersleft
+Kenneth
+Continue
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 22}
+Content: Improve SEO
+The last AI tools on our list can help you get your site’s SEO up to par. With AI SEO tools, you 
+can generate page titles and meta descriptions in bulk, rewrite copy, check for plagiarism, and 
+develop SEO-friendly outlines, and more. Some tools, such as Alli AI, will help you quickly 
+identify any SEO problem areas and provide steps to correct them.
+AlliAI
+Features
+Pricing
+Company
+Helpdesk
+FAQ
+Demo
+Login
+Starta Trial
+Optimize, Automate,
+Deploy and Scale SEO.
+AttentionAgenciesandSEO teams:NoCodingRequired.Workswithany
+CMs.Makethousandstomillionsofcodeandcontentchangesinminutes.
+ManageallyourSEofromonedashboard.Installautomate,andscale.
+StartaFreeTrial
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 23}
+Content: ousoNs?
+?
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 1.pdf', 'page': 24}
+Content: We become what we behold.
+We shape our tools,
+and thereafter our tools shape us.
+-Marshall McLuhan
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 0}
+Content: Dr. Seemab latif
+Lecture 3
+1 Oct 2024
+A R T I F I C I A L I N T E L L I G E N C E
+ArtificialIntelligence
+03
++
+MachineLearning
+DeepLearning
+:0
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 1}
+Content: AI: Representation and Problem Solving
+Informed Search
+Slide credits: CMU AI, http://ai.berkeley.edu
+Mdrmil
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 2}
+Content: Uninformed vs Informed Search
+XD
+裕
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 3}
+Content: Today
+•Informed Search
+• Heuristics
+• Greedy Search
+• A* Search
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 4}
+Content: Search Heuristics
+A heuristic is:
+ A function that estimates how close a state is to a goal
+ Designed for a particular search problem
+ Examples: Manhattan distance, Euclidean distance for 
+pathing
+10
+5
+11.2
+52NOPE.
+GOAL!
+Heuristi-TronNoPE.
+GOAL!
+Heuristi-Tron
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 5}
+Content: Example: Euclidean distance to Bucharest
+Giurgiu
+Urziceni
+Hirsova
+Eforie
+Neamt
+Oradea
+Zerind
+Arad
+Timisoara
+Lugoj
+Mehadia
+Drobeta
+Craiova
+Sibiu Fagaras
+Pitesti
+Vaslui
+Iasi
+Rimnicu Vilcea
+Bucharest
+71
+75
+118
+111
+70
+75
+120
+151
+140
+99
+80
+97
+101
+211
+138
+146 85
+90
+98
+142
+92
+87
+86
+h(state)  value
+Arad
+366
+Mehadia
+241
+Bucharest
+0
+Neamt
+234
+Craiova
+160
+Oradea
+380
+Drobeta
+242
+Pitesti
+100
+Eforie
+161
+Rimnicu Vilcea
+193
+Fagaras
+176
+Sibiu
+253
+Giurgiu
+77
+Timisoara
+329
+Hirsova
+151
+Urziceni
+80
+Iasi
+226
+Vaslui
+199
+Lugoj
+244
+Zerind
+374
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 6}
+Content: Effect of heuristics
+Guide search towards the goal instead of all over the place
+Start Goal Start Goal
+Informed Uninformed
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 7}
+Content: Greedy Search
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 8}
+Content: Sibiu Fagaras
+Pitesti
+Rimnicu Vilcea
+Bucharest
+99
+80
+97
+101
+211
+• Expand the node that seems closest…(order frontier by h)
+• What can possibly go wrong?
+h=193
+h= 253
+h=100
+h=0
+h=176
+Sibiu-Fagaras-Bucharest =
+99+211 = 310
+Sibiu-Rimnicu Vilcea-Pitesti-Bucharest =
+80+97+101 = 278
+1000000
+Greedy Search
+？!
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 9}
+Content: Greedy Search
+• Strategy: expand a node that seems closest to 
+a goal state, according to h
+• Problem 1: it chooses a node even if it’s at the 
+end of a very long and winding road
+• Problem 2: it takes h literally even if it’s 
+completely wrong
+…
+b
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 10}
+Content: A* Search
+D
+裕
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 11}
+Content: A* Search
+UCS Greedy
+A*
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 12}
+Content: Combining UCS and Greedy
+• Uniform-cost orders by path cost, or backward cost g(n)
+• Greedy orders by goal proximity, or forward cost h(n)
+• A* Search orders by the sum: f(n) = g(n) + h(n)
+S a d
+b
+G
+h=5
+h=6
+h=2
+1
+8
+1
+1
+2
+h=6 h=0
+c
+h=7
+3
+e h=1
+1
+Example: Teg Grenager
+S
+a
+b
+c
+d e
+G d
+G
+g = 0 
+h=6
+g = 1 
+h=5
+g = 2 
+h=6
+g = 3 
+h=7
+g = 4 
+h=2
+g = 6 
+h=0
+g = 9 
+h=1
+g = 10 
+h=2
+g = 12 
+h=0
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 13}
+Content: S a d
+b
+G
+h=5
+h=6
+h=2
+1
+8
+1
+1
+2
+h=6 h=0
+c
+h=7
+3
+e h=1
+1
+Current Open list (Greedy) Close
+S(6) A(5) -
+A(5) E(1), D(2), B(6) S(6)
+E(1) D(2), B(6) S(6), A(5)
+D(2) G(0), B(6) S(6), A(5), E(1)
+G(0) Goal S(6), A(5), E(1), D(2)
+Path = S-A-E-D-G
+Cost = 1+8+1+2 = 12
+A* Search orders by the sum: f(n) = g(n) + h(n)
+Current Open list (UCS) Close
+S(0) A(1)
+A(1) B(2), D(4), E(9) S(0)
+B(2) C(3) , D(4), E(9) S(0), A(1)
+C(3) D(4), E(9) S(0), A(1), B(2)
+D(4) G(6), E(9) S(0), A(1), B(2), 
+C(3)
+G(6) = goal 
+node
+E(9) S(0), A(1), B(2), 
+C(3)D(4)
+Current Open list (A*) Close
+S(0+6=6) A(1+5=6)
+A(6) D(6), B(8), E(10) S(6)
+D(6) G(6), B(8), E(10) S(6), A(6)
+G(6) = goal node B(8), E(10) S(6), A(6), D(6)
+Path = S-A-D-G
+Cost = 6
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 14}
+Content: A*
+Sad
+b
+G
+h=5
+h=6
+h=2
+1
+8
+1
+1
+2
+h=6 h=0 c
+h=7
+3
+e h=1
+1
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 15}
+Content: function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
+initialize the explored set to be empty
+initialize the frontier as a priority queue using g(n) as the priority
+add initial state of problem to frontier with priority g(S) = 0
+loop do 
+if the frontier is empty then
+return failure
+choose a node and remove it from the frontier
+if the node contains a goal state then
+return the corresponding solution
+add the node state to the explored set
+for each resulting child from node
+if the child state is not already in the frontier or explored set then
+add child to the frontier
+else if the child is already in the frontier with higher g(n) then
+replace that frontier node with child
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 16}
+Content: function A-STAR-SEARCH(problem) returns a solution, or failure
+initialize the explored set to be empty
+initialize the frontier as a priority queue using f(n) = g(n) + h(n) as the priority
+add initial state of problem to frontier with priority f(S) = 0 + h(S)
+loop do 
+if the frontier is empty then
+return failure
+choose a node and remove it from the frontier
+if the node contains a goal state then
+return the corresponding solution
+add the node state to the explored set
+for each resulting child from node
+if the child state is not already in the frontier or explored set then
+add child to the frontier
+else if the child is already in the frontier with higher f(n) then
+replace that frontier node with child
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 17}
+Content: A* Search Algorithms 
+• A* Tree Search 
+• Same tree search algorithm but with a frontier that is a priority queue using 
+priority f(n) = g(n) + h(n) 
+• A* Graph Search 
+• Same as UCS graph search algorithm but with a frontier that is a priority 
+queue using priority f(n) = g(n) + h(n)
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 18}
+Content: UCS vs A* Contours 
+UCS vs A* Contours
+A* expands mainly toward the 
+goal, but does hedge its bets 
+to ensure optimality 
+Start Goal
+Start Goal
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 19}
+Content: Greedy Uniform Cost A*
+Comparison
+5
+SCORE:55
+C
+SCORE:aiogW%
+SCORE:
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 20}
+Content: Is A* Optimal?
+• What went wrong?
+• Actual bad goal cost < estimated good goal cost
+• We need estimates to be less than actual costs!
+A
+G
+S
+1 3
+h = 6
+h = 0
+5
+h = 7
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 21}
+Content: Admissible Heuristics
+GETTING
+YAY!
+CLASER...
+->
+Heuristi-Tron
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 22}
+Content: Admissible Heuristics
+• A heuristic h is admissible (optimistic) if:
+0  h(n)  h*(n) 
+where h*(n) is the true cost to a nearest goal
+• Example:
+• Coming up with admissible heuristics is most of what’s 
+involved in using A* in practice.
+15
+52
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 23}
+Content: Optimality of A* Tree Search
+巧
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 24}
+Content: A* Tree Search
+S
+A
+C
+G
+1
+3
+1
+3
+h=2
+h=4
+h=1
+h=0
+S (0+2)
+A (1+4)
+C (2+1)
+G (5+0)
+C (3+1)
+G (6+0)
+State space graph Search tree
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 25}
+Content: Optimality of A* Tree Search
+Assume:
+• A is an optimal goal node
+• B is a suboptimal goal node
+• h is admissible
+Claim:
+• A will be chosen for exploration (popped off the frontier) before B
+…
+A
+B
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 26}
+Content: Optimality of A* Tree Search: Blocking
+Proof:
+• Imagine B is on the frontier
+• Some ancestor n of A is on the frontier, 
+too (Maybe the start state; maybe A
+itself!)
+• Claim: n will be explored before B
+1. f(n) is less than or equal to f(A)
+f(n) = g(n) + h(n) Definition of f-cost
+f(n)  g(A) Admissibility of h
+…
+g(A) = f(A) h = 0 at a goal
+A
+B
+n
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 27}
+Content: Optimality of A* Tree Search: Blocking
+Proof:
+• Imagine B is on the frontier
+• Some ancestor n of A is on the frontier, 
+too (Maybe the start state; maybe A
+itself!)
+• Claim: n will be explored before B
+1. f(n) is less than or equal to f(A)
+2. f(A) is less than f(B)
+…
+A
+B
+n
+g(A) < g(B) Suboptimality of B
+f(A) < f(B) h = 0 at a goal
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 28}
+Content: Optimality of A* Tree Search: Blocking
+Proof:
+• Imagine B is on the frontier
+• Some ancestor n of A is on the frontier, too 
+(Maybe the start state; maybe A itself!)
+• Claim: n will be explored before B
+1. f(n) is less than or equal to f(A)
+2. f(A) is less than f(B)
+3. n is explored before B
+• All ancestors of A are explored before B
+• A is explored before B
+• A* search is optimal
+…
+A
+B
+n
+f(n)  f(A) < f(B)
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 29}
+Content: Optimality of A* Graph Search
+巧
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 30}
+Content: S
+A
+C
+G
+1
+3
+1
+3
+What paths does A* graph search consider during its search?
+A) S, S-A, S-C, S-C-G
+C) S, S-A, S-A-C, S-A-C-G
+D) S, S-A, S-C, S-A-C, S-A-C-G
+B) S, S-A, S-C, S-A-C, S-C-G
+0
+P
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 31}
+Content: S
+A
+C
+G
+1
+3
+1
+3
+What paths does A* graph search consider during its search?
+A) S, S-A, S-C, S-C-G
+C) S, S-A, S-A-C, S-A-C-G
+D) S, S-A, S-C, S-A-C, S-A-C-G
+B) S, S-A, S-C, S-A-C, S-C-G
+0
+P
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 32}
+Content: A* Graph Search
+S
+A
+C
+G
+1
+3
+1
+3
+h=2
+h=4
+h=1
+h=0
+What does the resulting graph tree look like?
+S
+A
+C
+G
+S
+A
+C
+G
+A)
+B)
+C & D)
+S
+A
+C
+G
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 33}
+Content: A* Graph Search Gone Wrong?
+S
+A
+C
+G
+1
+3
+1
+3
+h=2
+h=4
+h=1
+h=0
+S (0+2)
+A (1+4) C (3+1)
+G (6+0)
+State space graph Search tree
+Simple check against explored set blocks C
+Fancy check allows new C if cheaper than old
+but requires recalculating C’s descendants
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 34}
+Content: Admissibility of Heuristics
+• Main idea: Estimated heuristic values ≤ actual costs
+• Admissibility:
+heuristic value ≤ actual cost to goal
+h(A) ≤ actual cost from A to G
+3
+A
+C
+G
+h=4
+1
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 35}
+Content: Consistency of Heuristics
+• Main idea: Estimated heuristic costs ≤ actual costs
+• Admissibility:
+heuristic cost ≤ actual cost to goal
+h(A) ≤ actual cost from A to G
+• Consistency:
+“heuristic step cost” ≤ actual cost for each step
+h(A) – h(C) ≤ cost(A to C)
+triangle inequality
+h(A) ≤ cost(A to C) + h(C)
+• Consequences of consistency:
+• The f value along a path never decreases
+• A* graph search is optimal
+A
+C
+G
+h=4 h=1
+1
+h=2
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 36}
+Content: Optimality of A* Graph Search
+• Sketch: consider what A* does with a 
+consistent heuristic:
+• Fact 1: In tree search, A* expands nodes 
+in increasing total f value (f-contours)
+• Fact 2: For every state s, nodes that 
+reach s optimally are explored before 
+nodes that reach s suboptimally
+• Result: A* graph search is optimal
+…
+f  3
+f  2
+f  1
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 37}
+Content: Optimality
+• Tree search:
+• A* is optimal if heuristic is admissible
+• UCS is a special case (h = 0)
+• Graph search:
+• A* optimal if heuristic is consistent
+• UCS optimal (h = 0 is consistent)
+• Consistency implies admissibility
+• In general, most natural admissible heuristics tend to be 
+consistent, especially if from relaxed problems
+巧
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 38}
+Content: Creating Heuristics
+YOUGOT
+HEURISTIC
+UPGRRDE!
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 39}
+Content: Creating Admissible Heuristics
+• Most of the work in solving hard search problems optimally is in 
+coming up with admissible heuristics
+• Often, admissible heuristics are solutions to relaxed problems, where 
+new actions are available
+15
+366
+52Straight-line distance
+Oradea
+to Bucharest
+71
+Neamt
+Arad
+366
+口
+87
+Bucharest
+0
+Zerind
+151
+75
+Craiova
+160
+lasi
+Dobreta
+242
+Arad
+140
+Eforie
+161
+92
+Fagaras
+Sibiu
+178
+99
+Fagaras
+Giurgiu
+118
+77
+口
+Vaslui
+Hirsova
+80
+151
+Iasi
+226
+RimnicuVilcea
+Timisoara
+Lugoj
+244
+142
+Mehadia
+241
+11↑
+211
+Pitesti
+Neamt
+97
+234
+Lugoj
+Oradea
+380
+70
+98
+Pitesti
+98
+146
+101
+85
+口
+Hirsova
+Mehadia
+Urziceni
+Rimnicu Vilcea
+■
+193
+75
+86
+Sibiu
+138
+253
+Bucharest
+Timisoara
+120
+329
+Dobreta
+90
+口
+Urziceni
+80
+■
+Craiova
+Eforie
+Vaslui
+199
+Giurgiu
+Zerind
+374
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 40}
+Content: Example: 8 Puzzle
+• What are the states?
+• How many states?
+• What are the actions?
+• How many actions from the start state?
+• What should the step costs be?
+Start State Actions Goal State
+3
+7
+1
+2
+4
+5
+8
+672
+4
+5
+6
+83
+11
+2
+34
+5
+6
+7
+8
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 41}
+Content: 8 Puzzle I
+• Heuristic: Number of tiles misplaced
+• Why is it admissible?
+• h(start) =
+• This is a relaxed-problem heuristic
+8
+Average nodes expanded when 
+the optimal path has…
+…4 steps …8 steps …12 steps
+UCS 112 6,300 3.6 x 106
+A*TILES 13 39 227
+Start State Goal State
+Statistics from Andrew Moore
+1
+5
++
+87
+2
+4
+1
+2
+34
+5
+6
+5
+83
+1
+6
+7
+8
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 42}
+Content: 8 Puzzle II
+• What if we had an easier 8-puzzle 
+where any tile could slide any 
+direction at any time, ignoring 
+other tiles?
+• Total Manhattan distance
+• Why is it admissible?
+• h(start) = 3 + 1 + 2 + … = 18
+Average nodes expanded when 
+the optimal path has…
+…4 steps …8 steps …12 steps
+A*TILES 13 39 227
+A*MANHATTAN 12 25 73
+Start State Goal State
+7
+2
+4
+1
+2
+34
+5
+6
+5
+83
+1
+6
+7
+8
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 43}
+Content: Combining heuristics
+• Dominance: ha ≥ hcif 
+n ha(n)  hc(n)
+• Roughly speaking, larger is better as long as both are admissible
+• The zero heuristic is pretty bad (what does A* do with h=0?)
+• The exact heuristic is pretty good, but usually too expensive!
+• What if we have two heuristics, neither dominates the other?
+• Form a new heuristic by taking the max of both:
+h(n) = max( ha(n), hb(n) )
+• Max of admissible heuristics is admissible and dominates both!
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 44}
+Content: A*: Summary
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 45}
+Content: A*: Summary
+• A* uses both backward costs and (estimates of) forward costs
+• A* is optimal with admissible / consistent heuristics
+• Heuristic design is key: often use relaxed problems
+D
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 46}
+Content: In-Class Activity 
+• Q1: Practice creating heuristics and running Greedy and A* search 
+• Q2: Walk through Amazon Robot Example
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 47}
+Content: • Notes added on LMS
+• https://www.oreilly.com/library/view/graph-algorithms/9781492047674/ch04.html
+Recommended
+Reading
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI - Lec 3.pdf', 'page': 48}
+Content: ousoNs?
+?
+
 Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 2 Notes.pdf', 'page': 0}
 Content: CS 188 Introduction to Artificial Intelligence
 Fall 2018 Note 1
@@ -1445,4 +2873,496 @@ Content: We become what we behold.
 We shape our tools,
 and thereafter our tools shape us.
 -Marshall McLuhan
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 0}
+Content: CS 188 Introduction to Artificial Intelligence
+Fall 2018 Note 6
+These lecture notes are heavily based on notes originally written by Josh Hug and Jacky Liang.
+Probabilistic Inference
+In artificial intelligence, we often want to model the relationships between various nondeterministic events.
+If the weather predicts a 40% chance of rain, should I carry my umbrella? How many scoops of ice cream
+should I get if the more scoops I get, the more likely I am to drop it all? If there was an accident 15 minutes
+ago on the freeway on my route to Oracle Arena to watch the Warriors’ game, should I leave now or in 30
+minutes? All of these questions (and innumerable more) can be answered with probabilistic inference.
+We’re assuming that you’ve learned the foundations of probability in CS70, so these notes will not review
+basic concepts of probability like PDFs, conditional probabilities, independence, and conditional independence.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 0}
+Content: In previous sections of this class, we modeled the world as existing in a specific state that is always known.
+For the next several weeks, we will instead use a new model where each possible state for the world has
+its own probability. For example, we might build a weather model, where the state consists of the season,
+temperature and weather. Our model might say that P(winter, 35, cloudy) = 0.023. This number represents
+the probability of the specific outcome that it is winter, 35, and cloudy.
+More precisely, our model is a joint distribution, i.e. a table of probabilities which captures the likelihood
+of each possible outcome, also known as an assignment. As an example, consider the table below:
+Season Temperature Weather Probability
+summer hot sun 0.30
+summer hot rain 0.05
+summer cold sun 0.10
+summer cold rain 0.05
+winter hot sun 0.10
+winter hot rain 0.05
+winter cold sun 0.15
+winter cold rain 0.20
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 0}
+Content: This model allows us to answer questions that might be of interest to us, for example:
+• What is the probability that it is sunny? P(W = sun)
+• What is the probability distribution for the weather, given that we know it is winter? P(W | S = winter)
+• What is the probability that it is winter, given that we know it is rainy and cold? P(S = winter | T =
+cold,W = rain)
+• What is the probability distribution for the weather and season give that we know that it is cold?
+P(S,W | T = cold)
+CS 188, Fall 2018, Note 6 1
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 1}
+Content: Given a joint PDF, we can trivially perform compute any desired probablity distribution P(Q1 ...Qk | e1 ...ek)
+using a simple and intuitive procedure known as inference by enumeration, for which we define three types
+of variables we will be dealing with:
+1. Query variables Qi, which are unknown and appear on the left side of the probability distribution we
+are trying to compute.
+2. Evidence variables ei, which are observed variables whose values are known and appear on the right
+side of the probability distribution we are trying to compute.
+3. Hidden variables, which are values present in the overall joint distribution but not in the distribution
+we are currently trying to compute.
+In this procedure, we collect all the rows consistent with the observed evidence variables, sum out all the
+hidden variables, and finally normalize the table so that it is a probability distribution (i.e. values sum to 1).
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 1}
+Content: For example, if we wanted to compute P(W | S = winter), we’d select the four rows where S is winter, then
+sum out over T and normalize. This yields the following probability table:
+W S Unnormalized Sum Probability
+sun winter 0.10+0.15 = 0.25 0.25/(0.25+0.25) = 0.5
+rain winter 0.05+0.20 = 0.25 0.25/(0.25+0.25) = 0.5
+Hence P(W = sun | S = winter) = 0.5 and P(W = rain | S = winter) = 0.5, and we learn that in winter
+there’s a 50% chance of sun and a 50% chance of rain (classic California weather).
+So long as we have the joint PDF table, inference by enumeration (IBE) can be used to compute any desired
+probablity distribution, even for multiple query variables Q1...Qk.
+Bayes Nets (Representation)
+While inference by enumeration can compute probabilities for any query we might desire, representing an
+entire joint distribution in the memory of a computer is impractical for real problems - if each of n variables
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 1}
+Content: we wish to represent can take on d possible values (it has a domain of size d), then our joint distribution
+table will have dn entries, exponential in the number of variables and quite impractical to store!
+Bayes nets avoid this issue by taking advantage of the idea of conditional probability. Rather than storing
+information in a giant table, probabilities are instead distributed across a large number of smaller local
+probability tables along with a directed acyclic graph (DAG) which captures the relationships between
+variables. The local probability tables and the DAG together encode enough information to compute any
+probability distribution that we could have otherwise computed given the entire joint distribution.
+Specifically, each node in the graph represents a single random variable and each directed edge represents
+one of the conditional probability distributions we choose to store (i.e. an edge from node A to node B
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 1}
+Content: indicates that we store the probability table for P(B|A)). Each node is conditionally independent of all its
+ancestor nodes in the graph, given all of its parents. Thus, if we have a node representing variable X, we
+store P(X|A1,A2,...,AN), where A1,...,AN are the parents of X.
+As an example of a Bayes Net, consider a model where we have five binary random variables described
+below:
+CS 188, Fall 2018, Note 6 2
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 2}
+Content: • B: Burglary occurs.
+• A: Alarm goes off.
+• E: Earthquake occurs.
+• J: John calls.
+• M: Mary calls.
+Assume the alarm can go off if either a burglary or an earthquake occurs, and that Mary and John will call
+if they hear the alarm. We can represent these dependencies with the graph shown below.
+As a reality check, it’s important to internalize that Bayes Nets are only a type of model. Models attempt
+to capture the way the world works, but because they are always a simplification they are always wrong.
+However, with good modeling choices they can still be good enough approximations that they are useful for
+solving real problems in the real world. In general, they will not account for every variable or even every
+interaction between variables.
+Returning to our discussion, we formally define a Bayes Net as consisting of:
+• A directed acyclic graph of nodes, one per variable X.
+• A conditional distribution for each node P(X|A1 ...An), where Ai is the i
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 2}
+Content: th parent of X, stored as a
+conditional probability table or CPT. Each CPT has n+2 columns: one for the values of each of the
+n parent variables A1 ...An, one for the values of X, and one for the conditional probability of X.
+In the alarm model above, we would store probability tables P(B),P(E),P(A | B,E),P(J | A) and P(M | A).
+Given all of the CPTs for a graph, we can calculate the probability of a given assignment using the chain
+rule: P(X1,X2,...,Xn) = ’n
+i=1 P(Xi|parents(Xi)).
+For the alarm model above, we might calculate the probability of one event as follows: P(b,e,+a,+j,m) =
+P(b)·P(e)·P(+a|b,e)·P(+j|+a)·P(m|+a).
+CS 188, Fall 2018, Note 6 3
+B
+E
+A
+T
+M
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 3}
+Content: This works because of the conditional independence relationships given by the graph. Specifically, we rely
+on the fact that P(xi|x1,..., xi1) = P(xi|parents(Xi)). Or in other words, that the probability of a specific
+value of Xi depends only on the values assigned to Xi’s parents.
+Bayes Nets (Inference)
+Inference is the process of calculating the joint PDF for some set of query variables based on some set
+of observed variables. We can solve this problem naively by forming the joint PDF and using inference by
+enumeration as described above. This requires the creation of and iteration over an exponentially large table.
+An alternate approach is to eliminate variables one by one. To eliminate a variable X, we:
+1. Join (multiply together) all factors involving X.
+2. Sum out X.
+A factor is defined simply as an unnormalized probability. At all points during variable elimination, each
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 3}
+Content: factor will be proportional to the probability it corresponds to but the underlying distribution for each factor
+won’t necessarily sum to 1 as a probability distribution should.
+Let’s make these ideas more concrete with an example. Suppose we have a model as shown below, where
+T, C, S, and E can take on binary values, as shown below. Here, T represents the chance that an adventurer
+takes a treasure, C represents the chance that a cage falls on the adventurer given that he takes the treasure,
+S represents the chance that snakes are released if an adventurer takes the treasure, and E represents the
+chance that the adventurer escapes given information about the status of the cage and snakes.
+In this case, we have the factors P(T), P(C|T), P(S|T), and P(E|C,S). Suppose we want to calculate
+P(T| + e). The inference by enumeration approach would be to form the 16 row joint PDF P(T,C,S,E),
+select only the rows corresponding to +e, then summing out C and S and finally normalizing.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 3}
+Content: The alternate approach is to eliminate C, then S, one variable at a time. We’d proceed as follows:
+• Join (multiply) all the factors involving C, forming P(C,+e|T,S) = P(C|T)·P(+e|C,S).
+• Sum out C from this new factor, leaving us with a new factor P(+e|T,S).
+• Join all factors involving S, forming P(+e,S|T) = P(S|T)·P(+e|T,S).
+CS 188, Fall 2018, Note 6 4
+T
+C
+S
+E
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 4}
+Content: • Sum out S, yielding P(+e|T).
+Once we have P(+e|T), we can easily compute P(T|+e).
+While this process is more involved from a conceptual point of view, the maximum size of any factor
+generated is only 8 rows instead of 16 as it would be if we formed the entire joint PDF.
+An alternate way of looking at the problem is to observe that the calculation of P(+e,T) can either be done,
+as it is in inference by enumeration, as follows:
+ÂsÂc
+P(T)P(s|T)P(c|T)P(+e|c,s)
+Variable elimination is equivalent to calculating P(+e,T) as follows:
+P(T)ÂsP(s|T)ÂcP(c|T)P(+e|c,s)
+Bayes Nets (Sampling)
+An alternate approach for probabilistic reasoning is to implicitly calculate the probabilities for our query by
+simply counting samples.
+For example, suppose we wanted to calculate P(T| + e). If we had a magic machine that could generate
+samples from our distribution, we could collect all samples for which the adventurer escapes the maze, and
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 4}
+Content: then compute the fraction of those escapes for which the adventurer also took the treasure. Put differently,
+if we could run simulations of say, a few million adventurers, we’d easily be able to compute any inference
+we’d want just by looking at the samples.
+Given a Bayes Net model, we can easily write a simulator. For example, consider the CPTs given below for
+the simplified model with only two variables T and C.
+CS 188, Fall 2018, Note 6 5
+T
+P(T)
++t
+0.99
+T
+-t
+0.01
+T
+C
+P(C|T)
++t
++C
+0.95
++t
+-C
+0.05
+-t
++C
+0.0
+-t
+-C
+1.0
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 5}
+Content: A simple simulator in Python would be as follows:
+import random
+def get_t():
+if random.random() < 0.99:
+return True
+return False
+def get_c(t):
+if t and random.random() < 0.95:
+return True
+return False
+def get_sample():
+t = get_t()
+c = get_c(t)
+return [t, c]
+We call this simple approach prior sampling. The downside of this approach is that it may require the
+generation of a very large number of samples in order to perform analysis of unlikely scenarios. If we
+wanted to compute P(C|t), we’d have to throw away 99% of our samples.
+One way to mitigate this this problem, we can modify our procedure to early reject any sample inconsistent
+with our evidence. For example, for the query P(C|t), we’d avoid generating a value for C unless t is true.
+This still means we have to throw away most of our samples, but at least the bad samples we generate take
+less time to create. We call this approach rejection sampling.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 5}
+Content: These two approaches work for the same reason, which is that any valid sample occurs with the same
+probability as specified in the joint PDF. In other words, the probability of every sample is based on the
+product of every CPT, or as I personally call it, the "every CPT participates principle".
+A more exotic approach is likelihood weighting, which ensures that we never generate a bad sample. In
+this approach, we manually set all variables equal to the evidence in our query. For example, if we wanted
+to compute P(C|t), we’d simply declare that t is false. The problem here is that this may yield samples
+that are inconsistent with the correct distribution. As an example, consider the more complex four variable
+model for T, C, S, and E given earlier in these notes. If we wanted to compute P(T,S,+c,+e), and simply
+picked values for T and S without taking into account the fact that c = false, and e = true, then there’s no
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 5}
+Content: guarantee that our samples actually obey the joint PDF given by the Bayes Net. For example, if the cage
+only ever falls if the treasure is taken, then we’d want to ensure that T is always true instead of using the
+P(T) distribution given in the Bayes Net.
+Put differently, if we simply force some variables equal to the evidence, then our samples occur with probability given only equal to the products of the CPTs of the non-evidence variables. This means the joint PDF
+has no guarantee of being correct (though may be for some cases like our two variable Bayes Net). Instead,
+if we have sampled variables Z1 through Zp and fixed evidence variables E1 through Em a sample is given
+by the probability P(Z1...Zp,E1...Em) = ’p
+i P(Zi)|Parents(Zi). What is missing is that the probability of a
+sample does not include all the probabilities of P(Ei|Parents(Ei)), i.e. not every CPT participates.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 5}
+Content: Likelihood weighting solves this issue by using a weight for each sample, which is the probability of the
+evidence variables given the sampled variables. That is, instead of counting all samples equally, we can
+CS 188, Fall 2018, Note 6 6
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 6}
+Content: define a weight wj for sample j that reflects how likely the observed values for the evidence variables are,
+given the sampled values. In this way, we ensure that every CPT participates. To do this, we iterate through
+each variable in the Bayes net, as we do for normal sampling), sampling a value if the variable is not an
+evidence variable, or changing the weight for the sample if the variable is evidence.
+For example, suppose we want to calculate P(T|+c,+e). For the jth sample, we’d perform the following
+algorithm:
+• Set wj to 1.0, and c = true and e = true.
+• For T: This is not an evidence variable, so we sample tj from P(T).
+• For C: This is an evidence variable, so we multiply the weight of the sample by P(+c|tj), i.e. wj =
+wj ·P(+c|tj).
+• For S: sample sj from P(S | tj).
+• For E: multiply the weight of the sample by P(+e|+c,sj), i.e. wj = wj ·P(+e|+c,sj).
+Then when we perform the usual counting process, we weight sample j by wj instead of 1, where 0 <=
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 6}
+Content: wj <= 1. This approach works because in the final calculations for the probabilities, the weights effectively
+serve to replace the missing CPTs. In effect, we ensure that the weighted probability of each sample is given
+by P(z1...zp, e1...em)=[’p
+i P(zi | Parents(zi))] · [’m
+i P(ei) | Parents(ei))].
+For all three of our sampling methods (prior sampling, rejection sampling, and likelihod weighting), we
+can get increasing amounts of accuracy by generating additional samples. However, of the three, likelihood
+weighting is the most computationally efficient, for reasons beyond the scope of this course.
+Gibbs Sampling is a fourth approach for sampling. In this approach, we first set all variables to some totally
+random value (not taking into account any CPTs). We then repeatedly pick one variable at a time, clear its
+value, and resample it given the values currently assigned to all other variables.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 6}
+Content: For the T,C,S,E example above, we might assign t = true, c = true, s = false, and e = true. We then pick
+one of our four variables to resample, say S, and clear it. We then pick a new variable from the distribution
+P(S| +t,+c,+e). This requires us knowing this conditional distribution. It turns out that we can easily
+compute the distribution of any single variable given all other variables. More specifically, P(S|T,C,E) can
+be calculated only using the CPTs that connect S with its neighbors. Thus, in a typical Bayes Net, where
+most variables have only a small number of neighbors, we can precompute the conditional distributions for
+each variable given all of its neighbors in linear time.
+We will not prove this, but if we repeat this process enough times, our later samples will eventually converge
+to the correct distribution even though we may start from a low-probability assignment of values. If you’re
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 6}
+Content: curious, there are some caveats beyond the scope of the course that you can read about under the Failure
+Modes section of the Wikipedia article for Gibbs Sampling.
+Bayes Nets (D-Separation)
+One useful question to ask about a set of random variables is whether or not one variable is independent from
+another, or if one random variable is conditionally independent of another given a third random variable.
+Bayes’ Nets representation of joint probability distributions gives us a way to quickly answer such questions
+by inspecting the topological structure of the graph.
+CS 188, Fall 2018, Note 6 7
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 7}
+Content: We already mentioned that a node is conditionally independent of all its ancestor nodes in the graph
+given all of its parents.
+We will present all three canonical cases of connected three-node two-edge Bayes’ Nets, or triples, and the
+conditional independence relationships they express.
+Causal Chains
+Figure 1: Causal Chain with no observations. Figure 2: Causal Chain with Y observed.
+Figure 1 is a configuration of three nodes known as a causal chain. It expresses the following representation
+of the joint distribution over X, Y, and Z:
+P(x, y,z) = P(z|y)P(y|x)P(x)
+It’s important to note that X and Z are not guaranteed to be independent, as shown by the following counterexample:
+P(y|x) = (
+1 if x = y
+0 else
+P(z|y) = (
+1 if z = y
+0 else
+In this case, P(z|x) = 1 if x = z and 0 otherwise, so X and Z are not independent.
+However, we can make the statement that X ?? Z | Y, as in Figure 2. Recall that this conditional indepdence
+means:
+P(X|Z,Y) = P(X|Y)
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 7}
+Content: We can prove this statement as follows:
+P(X|Z, y) = P(X,Z, y)
+P(Z, y) = P(Z|y)P(y|X)P(X)
+Âx P(X, y,Z) = P(Z|y)P(y|X)P(X)
+P(Z|y)Âx P(y|x)P(x)
+= P(y|X)P(X)
+Âx P(y|x)P(x) = P(y|X)P(X)
+P(y) = P(X|y)
+An analogous proof can be used to show the same thing for the case where X has multiple parents. To
+summarize, in the causal chain chain configuration, X ?? Z | Y.
+Common Cause
+Another possible configuration for a triple is the common cause. It expresses the following representation:
+P(x, y,z) = P(x|y)P(z|y)P(y)
+Just like with causal chain, we can show that X is not guaranteed to be independent of Z with the following
+counterexample distribution:
+CS 188, Fall 2018, Note 6 8
+X
+Y
+ZX
+Y
+Z
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 8}
+Content: Figure 3: Common Cause with no observations. Figure 4: Common Cause with Y observed.
+P(x|y) = (
+1 if x = y
+0 else
+P(z|y) = (
+1 if z = y
+0 else
+Then P(x|z) = 1 if x = z and 0 otherwise, so X and Z are not independent.
+But it is true that X ?? Z | Y. That is, X and Z are independent if Y is observed as in Figure 4. We can show
+this as follows:
+P(X|Z, y) = P(X,Z, y)
+P(Z, y) = P(X|y)P(Z|y)P(y)P(Z|y)P(y) = P(X|y)
+Common E↵ect
+The final possible configuration for a triple is the common effect, as shown in the figures below.
+Figure 5: Common Effect with no observations. Figure 6: Common Effect with Y observed.
+It expresses the representation:
+P(x, y,z) = P(y|x,z)P(x)P(z)
+In the configuration shown in Figure 5, X and Z are independent: X ?? Z. However, they are not necessarily
+independent when conditioned on Y (Figure 6). As an example, suppose all three are binary variables. X
+CS 188, Fall 2018, Note 6 9
+Y
+X
+ZY
+X
+ZX
+Z
+YX
+Z
+Y
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 9}
+Content: and Z are true and false with equal probability:
+P(X = true) = P(X = f alse) = 0.5
+P(Z = true) = P(Z = f alse) = 0.5
+and Y is determined by whether X and Z have the same value:
+P(Y|X,Z) =
+8
+><
+>:
+1 if X = Z and Y = true
+1 if X 6= Z and Y = f alse
+0 else
+Then X and Z are independent if Y is unobserved. But if Y is observed, then knowing X will tell us the value
+of Z, and vice-versa. So X and Z are not conditionally independent given Y.
+Common Effect can be viewed as “opposite” to Causal Chains and Common Cause – X and Z are guaranteed
+to be independent if Y is not conditioned on. But when conditioned on Y, X and Z may be dependent
+depending on the specific probability values for P(Y | X,Z)).
+This same logic applies when conditioning on descendents of Y in the graph. If one of Y’s descendent nodes
+is observed, as in Figure 7, X and Z are not guaranteed to be independent.
+Figure 7: Common Effect with child observations.
+General Case, and D-separation
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 9}
+Content: We can use the previous three cases as building blocks to help us answer conditional independence questions
+on an arbitrary Bayes’ Net with more than three nodes and two edges. We formulate the problem as follows:
+Given a Bayes Net G, two nodes X and Y, and a (possibly empty) set of nodes {Z1,...Zk} that represent
+observed variables, must the following statement be true: X ?? Y|{Z1,... Zk}?
+D-separation (directed separation) is a property of the structure of the Bayes Net graph that implies this
+conditional independence relationship, and generalizes the cases we’ve seen above. If a set of variables
+Z1,···Zk d-separates X and Y, then X ?? Y | {Z1,···Zk} in all possible distributions that can be encoded by
+the Bayes net.
+CS 188, Fall 2018, Note 6 10
+X
+Z
+Y
+W
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 10}
+Content: We start with an algorithm that is based on a notion of reachability from node X to node Y. (Note: this
+algorithm is not quite correct! We’ll see how to fix it in a moment.)
+1. Shade all observed nodes {Z1,...Zk} in the graph.
+2. If there exists an undirected path from X and Y that is not blocked by a shaded node, X and Y are
+“connected”.
+3. If X and Y are connected, they’re not conditionally independent given {Z1,...Zk}. Otherwise, they
+are.
+However, this algorithm only works if the Bayes’ Net has no Common Effect structure within the graph, because if it exists, then two nodes are “reachable” when the Y node in Common Effect is activated (observed).
+To adjust for this, we arrive at the following d-separation algorithm:
+1. Shade all observed nodes {Z1,...,Zk} in the graph.
+2. Enumerate all undirected paths from X to Y.
+3. For each path:
+(a) Decompose the path into triples (segments of 3 nodes).
+(b) If all triples are active, this path is active and d-connects X to Y.
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 10}
+Content: 4. If no path d-connects X and Y, then X and Y are d-separated, so they are conditionally independent
+given {Z1,...,Zk}
+Any path in a graph from X to Y can be decomposed into a set of 3 consecutive nodes and 2 edges - each
+of which is called a triple. A triple is active or inactive depending on whether or not the middle node is
+observed. If all triples in a path are active, then the path is active and d-connects X to Y, meaning X is
+not guaranteed to be conditionally independent of Y given the observed nodes. If all paths from X to Y are
+inactive, then X and Y are conditionally independent given the observed nodes.
+Active triples: We can enumerate all possibilities of active and inactive triples using the three canonical
+graphs we presented above in Figure 8 and 9.
+CS 188, Fall 2018, Note 6 11
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 11}
+Content: Figure 8: Active triples Figure 9: Inactive triples
+Examples
+Here are some examples of applying the d-separation algorithm:
+This graph contains the common effect and causual
+chain canonical graphs.
+a) R ?? B – Guaranteed
+b) R ?? B | T – Not guaranteed
+c) R ?? B | T0 – Not guaranteed
+d) R ?? T0 | T – Guaranteed
+CS 188, Fall 2018, Note 6 12
+0008
+C
+OO
+00
+O
+OQ
+OQR
+B
+T
+T'
+
+Metadata: {'Instructor': 'Seemab Latif', 'source': 'E:\\FYP\\code\\TALIM\\Data\\AI-Lec 8 Notes.pdf', 'page': 12}
+Content: This graph contains combinations of all three canonical graphs (can you list them all?).
+a) L ?? T0 | T – Guaranteed
+b) L ?? B – Guaranteed
+c) L ?? B | T – Not guaranteed
+d) L ?? B | T0 – Not guaranteed
+e) L ?? B | T,R – Guaranteed
+This graph contains combinations of all three canonical graphs.
+a) T ?? D – Not guaranteed
+b) T ?? D | R – Guaranteed
+c) T ?? D | R,S – Not guaranteed
+Conclusion
+To summarize, Bayes’ Nets is a powerful representation of joint probability distributions. Its topological
+structure encodes independence and conditional independence relationships, and we can use it to model
+arbitrary distributions to perform inference and sampling.
+CS 188, Fall 2018, Note 6 13
+L
+R
+B
+D
+T
+T'R
+T
+D
+S
 
