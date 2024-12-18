@@ -7,7 +7,6 @@ user_role="Student"
 # Example usage:
 if __name__ == "__main__":
     # Get user query
-<<<<<<< HEAD
     if user_role == "Student":
         user_query = input("Enter your query: ")
         query_filter = analyze_query(user_query)
@@ -19,15 +18,6 @@ if __name__ == "__main__":
             retriever_type = "MultiQuery Retriever"
             # relevant_docs = get_relevant_docs_basic(user_query)
             print("hello I am before retriver")
-=======
-    user_query = input("Enter your query: ")
-    query_filter = analyze_query(user_query)
-    if(query_filter == "Valid"):
-        # Use Basic RAG for retrieval
-        retriever_type = "Basic Simliarity Search"
-        # relevant_docs = get_relevant_docs_basic(user_query)
-        
->>>>>>> b404e21f50d4637fc3093d6869c838858905ec67
 
             # Generate the final answer
             relevant_text, answer = generate_answer(user_query, retriever_type)
