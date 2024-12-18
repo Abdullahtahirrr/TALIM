@@ -50,6 +50,14 @@ def analyze_query_for_context(query: str):
             "response": "yes"
         },
         {
+            "query": "explain the example in the the second slide.",
+            "response": "no"
+        },
+        {
+            "query": "explain the example teacher explained in the lecture.",
+            "response": "no"
+        },
+        {
             "query": "What is meant by supervised learning?",
             "response": "no"
         },
