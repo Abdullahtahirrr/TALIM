@@ -57,14 +57,6 @@ def save_embeddings(pdf_docs, base_course_name):
     semantic_chunks = semantic_chunking_process(pdf_docs)
     add_documents_to_vector_store(semantic_chunks, course_name)
 
-    # Process recursive chunking and save embeddings for each variation in Chroma
-    recursive_chunks_with_metadata = recursive_chunking_process(pdf_docs)
-    # variation_count = 2  # You can adjust this number if you have more variations
-    for variation_key, chunks in recursive_chunks_with_metadata.items():
-        # Use variation_key to create a unique collection name
-        collection_name = f"{base_course_name}_recursive_{variation_key}"
-        add_documents_to_vector_store(chunks, collection_name)
-        # variation_count += 1
 
 # # Example usage:
 pdf_docs = [os.path.join("Data", file) for file in os.listdir("Data") if file.endswith('.pdf')]
