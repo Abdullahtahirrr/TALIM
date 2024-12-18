@@ -10,11 +10,11 @@ import pandas as pd
 from langchain.chains import HypotheticalDocumentEmbedder, LLMChain
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.schema import HumanMessage, SystemMessage, AIMessage
-from QueryAnalyser import generate_prompt
 from Vector_database import get_vector_store
 from langchain.chains.query_constructor.schema import AttributeInfo
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.prompts.chat import SystemMessagePromptTemplate, ChatPromptTemplate
+from PromptTemplateGenerator import generate_prompt
 
 """
 Other techniques :
