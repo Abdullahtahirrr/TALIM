@@ -33,7 +33,7 @@ def extract_intent(query):
 
 
 
-def generate_prompt_student(query, course_name, relevant_passage):
+def generate_prompt_student(query,formatted_history, course_name, relevant_passage):
     """
     Generates a tailored prompt for student queries based on the detected intent.
     Each intent has its own specific initial prompt, one-shot example, and chain-of-thought reasoning.
@@ -48,8 +48,9 @@ def generate_prompt_student(query, course_name, relevant_passage):
         You are an expert tutor for the course '{course_name}'.
         Your job is to explain concepts in a clear and detailed manner, ensuring the student understands the topic.
         Use the provided relevant passage to craft your explanation. If additional context is needed and not present in the passage, you can use your own knowledge but mention this to the student.
-        - Do not start with "In the provided notes" or "According to the lecture" or related way, you can use the reference in between the answer.
+        - Do not start with "In the provided notes" or "According to the lecture" or "According to the provided" or related way, you can use the reference in between the answer.
         - If you feel the query might lead to follow-up questions asked by the student from the REFERENCE only add a sentence involving any topic/followup, 'Do you need more information ? I am here to help, feel free to ask again. ( This is optional)'
+        
         """
 
         # One-shot Example for "Explain"
@@ -148,6 +149,8 @@ def generate_prompt_student(query, course_name, relevant_passage):
     
     QUESTION: '{query}'
     REFERENCE: '{relevant_passage}'
+    Here is the history of the conversation till now:
+        '{formatted_history}'
     """
     return prompt
 

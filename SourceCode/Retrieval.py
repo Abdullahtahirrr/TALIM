@@ -258,14 +258,18 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
 '''
 Hard coded arguments for generate prompt
 '''
-def generate_answer(query, retriever_type):
+def generate_answer(query,chat_history, retriever_type):
     load_dotenv()
     relevant_text = get_relevant_docs_by_selection(retriever_type, query)
     # text = " \n".join([doc.page_content for doc in relevant_text])
     # user_role, intent, query, course_name, relevant_passage,
     print('rt=',relevant_text)
     if (user_role == "Student"):
-        prompt = generate_prompt_student(query,course_name,relevant_passage=relevant_text)
+        # Format chat history
+        formatted_history = "\n".join(
+            f"{msg['sender']}: {msg['message']}" for msg in chat_history
+        )
+        prompt = generate_prompt_student(query,formatted_history,course_name,relevant_passage=relevant_text)
     elif (user_role == "Teacher"):
         prompt = generate_prompt_teacher(user_role, 'explain' ,query,'Artificial_Intelligence_semantic_chunks',relevant_passage=relevant_text)
     print('prompt=',prompt)
