@@ -127,22 +127,26 @@ def get_relevant_docs_RAGFusion(user_query):
     subquestions = generate_subquestions(user_query)
     print(subquestions)
     relevant_docs = get_subquestion_docs(subquestions)
-    print(relevant_docs)
+    # print(relevant_docs)
     results = reciprocal_rank_fusion(relevant_docs)
-    print(results)
+    # print(results)
     
     return results
  
 def get_hypo_doc(query):
-    template = """Imagine you are an subject expert on the topic: '{query}'
-    Your response should be comprehensive and include all key points that would be found in the top search result."""
 
-    system_message_prompt = SystemMessagePromptTemplate.from_template(template = template)
-    chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt])
-    messages = chat_prompt.format_prompt(query = query).to_messages()
-    response =  llm.invoke(messages)
+    messages=[{"role": "system", "content": "Imagine you are a subject matter expert on the topic. Your response should be comprehensive and include all key points that would be found in the top search result."},
+    {"role": "user", "content": f"{query}"}]
+    
+    # Call the LLM with properly formatted messages
+    response = llm.invoke(messages)
     hypo_doc = response.content
     return hypo_doc
+
+def generate_response(user_prompt):
+    answer = llm.invoke(user_prompt)
+    return answer.content
+
 
 def get_relevant_docs_Hyde(user_query):
     vectordb = get_vector_store(course_name)
@@ -155,32 +159,20 @@ def get_relevant_docs_Hyde(user_query):
     return relevant_docs
 
 def get_relevant_docs_basic(user_query):
-    # print('course_name=',course_name)
     vectordb = get_vector_store(course_name)
-    # print('vectordb=',vectordb)
-
     retriever = vectordb.as_retriever(score_threshold=0.5)
-    # print("here", retriever)
-    # print(user_query)
     relevant_docs = retriever.invoke(user_query)
-    # relevant_docs = retriever.get_relevant_documents(user_query)
-
-    # print('relevant_docs=',relevant_docs)
     return relevant_docs
 
 
 
 def get_relevant_docs_with_multi_query(user_query):
-    print("hello I just reahed  retriver")
     vectordb = get_vector_store(course_name)
-    print("hello I got db")
     retriever = MultiQueryRetriever.from_llm(retriever=vectordb.as_retriever(score_threshold=0.5), llm=llm)
-    print("hello I got retriver")
     
 
     relevant_docs = retriever.invoke(user_query,k=1)
            
-    print("hello I got docs")
     return relevant_docs
 
 def get_relevant_docs_with_ensemble(user_query):
@@ -257,10 +249,12 @@ def get_relevant_docs_by_selection(retriever_type, user_query):
     elif retriever_type == "RAG Fusion":
         return get_relevant_docs_RAGFusion(user_query)
     elif retriever_type == "Self Query":
-        return get_relevant_docs_RAGFusion(user_query)
+        return get_relevant_docs_with_self_query(user_query)
+    elif retriever_type == "Hyde":
+        return get_relevant_docs_Hyde(user_query)
     else:
         return get_relevant_docs_basic(user_query)
-    
+
 '''
 Hard coded arguments for generate prompt
 '''

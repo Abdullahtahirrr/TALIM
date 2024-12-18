@@ -58,28 +58,12 @@ def save_embeddings(pdf_docs, base_course_name):
     add_documents_to_vector_store(semantic_chunks, course_name)
 
 
-# # Example usage:
-pdf_docs = [os.path.join("Data", file) for file in os.listdir("Data") if file.endswith('.pdf')]
+# # # Example usage:
+# pdf_docs = [os.path.join("Data", file) for file in os.listdir("Data") if file.endswith('.pdf')]
 # base_course_name = "Artificial_Intelligence"
 # save_embeddings_for_all_variations(pdf_docs, base_course_name)
 # #     add_documents_to_vector_store(semantic_chunks, f"{base_course_name}_semantic_chunks")
 
-# pdf_docs = [
-#     r"Loaders_result\recursive_chunk_500_0.txt",
-#     r"Loaders_result\recursive_chunk_500_100.txt",
-#     r"Loaders_result\recursive_chunk_1000_0.txt",
-#     r"Loaders_result\recursive_chunk_1000_100.txt",
-#     r"Loaders_result\semantic_chunk_output_combinednext2.txt"
-
-# ]
-
-#     base_course_name = "Artificial_Intelligence"
-#     add_documents_to_vector_store(semantic_chunks, f"{base_course_name}_semantic_chunks")
-
-    # save_embeddings_for_all_variations(i, base_course_name)
-
-
-# save_embeddings(pdf_docs,course_name)
 
 
 __all__ = [
