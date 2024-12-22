@@ -19,14 +19,6 @@ def get_vector_store(course_name):
                           persist_directory="database",
                           create_collection_if_not_exists=True
                             )
-    # # print("Vector DB contents:", vector_store._collection_name)
-    # all_docs = vector_store._collection.get(include=["documents", "metadatas"])
-
-    # print("Documents in Chroma DB:")
-    # for  document, metadata in zip( all_docs["documents"], all_docs["metadatas"]):
-    #     print(f"Document: {document}\nMetadata: {metadata}\n")
-
-
     return vector_store
 
 def add_documents_to_vector_store(data, course_name):

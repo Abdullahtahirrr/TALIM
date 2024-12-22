@@ -164,13 +164,10 @@ def get_relevant_docs_basic(user_query):
     relevant_docs = retriever.invoke(user_query)
     return relevant_docs
 
-
-
 def get_relevant_docs_with_multi_query(user_query):
     vectordb = get_vector_store(course_name)
     retriever = MultiQueryRetriever.from_llm(retriever=vectordb.as_retriever(score_threshold=0.5), llm=llm)
-    relevant_docs = retriever.invoke(user_query,k=1)
-           
+    relevant_docs = retriever.invoke(user_query)
     return relevant_docs
 
 def get_relevant_docs_with_ensemble(user_query):
@@ -269,11 +266,7 @@ def generate_answer(query,chat_history, retriever_type):
     load_dotenv()
     new_query = generate_history_aware(chat_history, query)
     relevant_text = get_relevant_docs_by_selection(retriever_type, new_query)
-    # text = " \n".join([doc.page_content for doc in relevant_text])
-    # user_role, intent, query, course_name, relevant_passage,
-    # print('rt=',relevant_text)
     prompt = generate_prompt_student(new_query,course_name,relevant_passage=relevant_text)
-    # print('prompt=',prompt)
     answer = generate_response(prompt)
     return relevant_text, answer
 
