@@ -175,7 +175,9 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             
             initial_prompt = f"""
             You are an assignment creation assistant for the course {course_name} on the topic of {lecture_name} with topics:{Key_Topics}.
-            Please create an quiz based on the following details and maximum use the relevant passage from notes/slides for context and relevance:
+            Always give minimum marks to MCQs and maximum to the Numerical Questions. Total marks must be divided among all section. 
+            Please create an quiz based on the following details and maximum use the relevant passage from notes/slides for context and relevance.
+            Never generate the answer key unless specified and if yes then always generate quiz first then the answer key seperately.
             Please create a quiz based on the following details:
             - Number of MCQs: {num_mcqs}
             - Number of Theoretical Questions: {num_theoretical}
@@ -191,7 +193,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             Prompt: Generate a quiz from {lecture_name} with the following details:
             Key Topics: Machine Learning Fundamentals and Advanced Techniques
             Additional Requirements: Quantitative and technical depth in assessmentDetailed Parameters:
-            - Number of MCQs: 2 
+            - Number of MCQs: 1
             - Number of Theoretical Questions: 2
             - Number of Numerical Questions: 2
             - Difficulty Level: Medium
@@ -201,7 +203,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             - Additional Requirements: Demonstrate deep understanding of ML techniques
 
             Comprehensive Quiz Example:
-            MCQ Section - Quantitative Machine Learning Techniques (2 marks each):
+            MCQ Section - Quantitative Machine Learning Techniques (1 marks each):
             1. In gradient descent optimization, what does the learning rate of 0.01 specifically indicate?
             a) 1% step size in parameter adjustment
             b) 100% parameter update
@@ -209,15 +211,9 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             d) Random parameter perturbation
             Explanation: Quantify how 0.01 represents a 1% incremental adjustment in weight parameters during each iteration.
 
-            2. For a neural network with 95% training accuracy but 65% validation accuracy, this most likely indicates:
-            a) Perfect model performance
-            b) Significant overfitting
-            c) Underfitting
-            d) Optimal model complexity
-            Detailed Ratio Analysis: >30% performance gap suggests overfitting mechanism.
 
-            Theoretical Questions - Deep Technical Analysis (5 marks each):
-            3. Comparative Analysis of Regularization Techniques:
+            Theoretical Questions - Deep Technical Analysis (Total Marks: ):
+            3. Perform the Comparative Analysis of Regularization Techniques in each case: (2 marks each part - Total 8 Marks)
             - Mathematically compare L1 (Lasso) vs L2 (Ridge) regularization
             - Quantify sparsity inducement:
                 * L1: Exact zero-weight elimination probability
@@ -225,7 +221,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             - Provide concrete example with numerical coefficients
             - Discuss computational complexity: O(n) vs O(n²) impact
 
-            4. Advanced Ensemble Learning Techniques:
+            4. Explore theAdvanced Ensemble Learning Techniques and answer each part. (2 marks each part - Total 6 Marks)
             - Detailed breakdown of ensemble methods:
                 * Bagging: Bootstrapping variance reduction
                 * Boosting: Sequential error correction
@@ -236,8 +232,8 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
                 * Computational overhead analysis
             - Provide mathematical formulation for each technique
 
-            Numerical Questions - Computational Challenges (5 marks each):
-            5. Precision Engineering Calculation:
+            Numerical Questions - Computational Challenges (Total Marks: 20 Marks)
+            5. Perform Precision Engineering Calculation below: (10 Marks)
             Neural Network Performance Metrics:
             - True Positives: 750
             - False Positives: 250
@@ -249,7 +245,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             d) Provide confidence interval for each metric
             e) Discuss statistical significance of results
     
-            6. Optimization Algorithm Comparative Analysis:
+            6. Perform Optimization Algorithm Comparative Analysis below: (10 Marks)
             Gradient Descent Variants Computation:
             - Standard GD Learning Rate: 0.01
             - Stochastic GD Batch Size: 32
@@ -281,7 +277,9 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
     elif assessment_query == "assignment":
             initial_prompt = f"""
             You are an assignment creation assistant for the course {course_name} on the topic of {lecture_name} with topics:{Key_Topics}.
+            Always give maximum to the Numerical Questions. Total marks must be divided among all section.
             Please create an assignment based on the following details and maximum use the relevant passage from notes/slides for context and relevance:
+            Never generate the answer key unless specified and if yes then always generate quiz first then the answer key seperately.
             - Number of Theoretical Questions: {num_theoretical}
             - Number of Numerical Questions: {num_numerical}
             - Difficulty Level: {difficulty}
@@ -310,20 +308,21 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
 
             Version 1: Advanced Machine Learning Project Assignment
 
-            Theoretical Component (20 marks each):
+            Theoretical Component (40 marks Total):
 
-            Ethical AI and Bias Analysis (20 marks) Can you conduct a comprehensive ethical audit of a machine learning system that reveals the hidden biases inherent in modern AI technologies? Develop a rigorous analysis that quantifies bias across multiple demographic attributes. Your investigation should answer: How can we mathematically measure and mitigate algorithmic discrimination? Demonstrate your approach by: Identifying and quantifying bias indices for at least three protected attributes with 95% statistical confidence. Explain the mathematical formulations behind bias measurements. Construct a detailed 10-page report that not only exposes potential biases but also provides a sophisticated mitigation strategy. How would you redesign the machine learning pipeline to ensure fairness and ethical AI deployment?
-            Comparative Algorithmic Performance Analysis (20 marks) Conduct an in-depth comparative study of three advanced machine learning algorithms: Gradient Boosting Machine, Support Vector Machine with Advanced Kernels, and Deep Neural Network. Your challenge is to answer: Which algorithm truly represents the pinnacle of predictive performance across different complexity landscapes? Develop a comprehensive evaluation framework that goes beyond simple accuracy. How will you measure and compare these algorithms using multiple performance metrics? Implement cross-validation with stratified sampling and provide statistically significant evidence of each algorithm's strengths and limitations. Can you create a performance comparison matrix that reveals the nuanced capabilities of each approach?
-            Practical Component (20 marks each):
+           1) Ethical AI and Bias Analysis (20 marks) Can you conduct a comprehensive ethical audit of a machine learning system that reveals the hidden biases inherent in modern AI technologies? Develop a rigorous analysis that quantifies bias across multiple demographic attributes. Your investigation should answer: How can we mathematically measure and mitigate algorithmic discrimination? Demonstrate your approach by: Identifying and quantifying bias indices for at least three protected attributes with 95% statistical confidence. Explain the mathematical formulations behind bias measurements. Construct a detailed 10-page report that not only exposes potential biases but also provides a sophisticated mitigation strategy. How would you redesign the machine learning pipeline to ensure fairness and ethical AI deployment?
+            2) Comparative Algorithmic Performance Analysis (20 marks) Conduct an in-depth comparative study of three advanced machine learning algorithms: Gradient Boosting Machine, Support Vector Machine with Advanced Kernels, and Deep Neural Network. Your challenge is to answer: Which algorithm truly represents the pinnacle of predictive performance across different complexity landscapes? Develop a comprehensive evaluation framework that goes beyond simple accuracy. How will you measure and compare these algorithms using multiple performance metrics? Implement cross-validation with stratified sampling and provide statistically significant evidence of each algorithm's strengths and limitations. Can you create a performance comparison matrix that reveals the nuanced capabilities of each approach?
+            
+            Practical Component (60 total marks ):
 
-            End-to-End Machine Learning Project (20 marks) Design and implement a cutting-edge machine learning solution that transforms raw, complex data into actionable insights. Your project must answer: Can you develop a machine learning system that demonstrates exceptional predictive power and technical sophistication? Tackle a real-world problem using a dataset with at least 100,000 data points and 10 complex features. How will you engineer features that unveil hidden patterns? Demonstrate your ability to implement multiple machine learning models, with a focus on ensemble methods and advanced hyperparameter optimization. Can you create a predictive system that not only performs exceptionally but also provides deep insights into its decision-making process?
-            Advanced Machine Learning Pipeline Challenge (20 marks) Can you construct a machine learning pipeline that represents the pinnacle of data preprocessing and model development? Your challenge is to transform messy, real-world data into a refined, predictive system that demonstrates exceptional technical prowess. How will you tackle the most challenging aspects of data cleaning, feature engineering, and model optimization? Develop innovative techniques for handling missing data, detecting and managing outliers, and creating custom feature transformations. Implement advanced hyperparameter optimization using Bayesian techniques. Can you create a pipeline that not only processes data effectively but also provides deep insights into its own functioning?
-            Innovative Modeling Research Challenge (20 marks) Propose and develop a groundbreaking machine learning solution that pushes the boundaries of current technological capabilities. Your task is to answer: Can you create an innovative approach that demonstrates true scientific and technological creativity? Design a novel machine learning method that addresses a complex, open-ended problem. How will you demonstrate both theoretical sophistication and empirical validation? Your solution will be evaluated on its originality, technical complexity, and potential real-world impact. Can you develop an approach that not only solves a challenging problem but also provides insights that could revolutionize the field of machine learning?
+            1) End-to-End Machine Learning Project (20 marks) Design and implement a cutting-edge machine learning solution that transforms raw, complex data into actionable insights. Your project must answer: Can you develop a machine learning system that demonstrates exceptional predictive power and technical sophistication? Tackle a real-world problem using a dataset with at least 100,000 data points and 10 complex features. How will you engineer features that unveil hidden patterns? Demonstrate your ability to implement multiple machine learning models, with a focus on ensemble methods and advanced hyperparameter optimization. Can you create a predictive system that not only performs exceptionally but also provides deep insights into its decision-making process?
+            2) Advanced Machine Learning Pipeline Challenge (20 marks) Can you construct a machine learning pipeline that represents the pinnacle of data preprocessing and model development? Your challenge is to transform messy, real-world data into a refined, predictive system that demonstrates exceptional technical prowess. How will you tackle the most challenging aspects of data cleaning, feature engineering, and model optimization? Develop innovative techniques for handling missing data, detecting and managing outliers, and creating custom feature transformations. Implement advanced hyperparameter optimization using Bayesian techniques. Can you create a pipeline that not only processes data effectively but also provides deep insights into its own functioning?
+            3) Innovative Modeling Research Challenge (20 marks) Propose and develop a groundbreaking machine learning solution that pushes the boundaries of current technological capabilities. Your task is to answer: Can you create an innovative approach that demonstrates true scientific and technological creativity? Design a novel machine learning method that addresses a complex, open-ended problem. How will you demonstrate both theoretical sophistication and empirical validation? Your solution will be evaluated on its originality, technical complexity, and potential real-world impact. Can you develop an approach that not only solves a challenging problem but also provides insights that could revolutionize the field of machine learning?
             Submission Requirements:
-            How will you document your journey of discovery? Provide comprehensive documentation that tells the story of your technical exploration. Your submission should be a narrative of innovation, challenging existing paradigms and demonstrating deep technical understanding.
+            Provide comprehensive documentation that tells the story of your technical exploration. Your submission should be a narrative of innovation, challenging existing paradigms and demonstrating deep technical understanding.
 
             Evaluation Criteria:
-            How will your work be judged? Each component will be evaluated on:
+             Each component will be evaluated on:
 
             Technical sophistication
             Mathematical rigor
