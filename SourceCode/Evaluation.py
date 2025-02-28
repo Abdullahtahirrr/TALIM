@@ -2,7 +2,7 @@ from datasets import Dataset
 from dotenv import load_dotenv
 from ragas import evaluate
 import os 
-from VTA_rag import generate_answer
+from Retrieval import generate_answer, generate_assessment
 
 
 
@@ -10,7 +10,7 @@ load_dotenv()
 os.getenv("OPENAI_API_KEY")
 os.getenv("GOOGLE_API_KEY")
 
-retriever_type = "Basic Simliarity Search"
+retriever_type = "MultiQuery Retriever"
 
 questions = ["What nodes does DFS expand?",
              "What is the summary of lecture 1 of AI?"]
@@ -24,7 +24,8 @@ references = []
 
 # Simulate response
 for query in questions:
-    cxt, response = generate_answer(query,retriever_type)
+    history=[]
+    cxt, response = generate_answer(query,history, retriever_type)
     answers.append(response)
     context.append([doc.page_content for doc in cxt])
     references.append(ground_truths[questions.index(query)][0])
