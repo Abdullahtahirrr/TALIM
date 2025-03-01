@@ -3,28 +3,46 @@ import Button from "../components/Button";
 import Sidebar from "../components/Sidebar"; 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { FaPlusCircle, FaLayerGroup ,FaGripHorizontal} from "react-icons/fa";
+import CourseCard from "../components/CourseCard";
+import courseImage from "../assets/course_image.jpeg";
+import { FaPlusCircle, FaLayerGroup, FaGripHorizontal } from "react-icons/fa";
+import "../styles/AddCourse.css";
 
 const navLinks = [
   { label: "Dashboard", href: "#", icon: FaGripHorizontal, active: true },
   { label: "Create New Course", href: "https://github.com/", icon: FaPlusCircle, active: false },
   { label: "My Courses", href: "#", icon: FaLayerGroup, active: false },
 ];
+
 const MockupPage = () => {
-  const handleClick = (variant) => {
-    alert(`${variant} button clicked!`);
+  const handleEnroll = () => {
+    alert("You have enrolled in the course!");
   };
 
   return (
     <>
-    <div className="flex">
-    <Navbar />
-    <Sidebar links={navLinks} /> </div>
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 gap-4">
-      {/* <Button variant="dark" onClick={handleClick}>Dark Purple</Button>
-      <Button variant="light">Light Purple </Button> */}
-    </div>
-    <Footer />
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Main Layout: Sidebar + CourseCard */}
+      <div className="flex min-h-screen">
+        {/* Sidebar (Left) */}
+        {/* <Sidebar links={navLinks} /> */}
+
+        {/* Right Content Section */}
+        <div className="flex flex-1 justify-center p-8 bg-gray-100">
+          <CourseCard
+            image={courseImage}
+            instructor="Seemab Latif"
+            university="NUST"
+            title="Deep Learning"
+            onEnroll={handleEnroll}
+          />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 };
