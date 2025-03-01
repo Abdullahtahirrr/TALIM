@@ -1,7 +1,8 @@
 .button {
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 10px 15px;
+    border-radius: 8px;
     font-size: 16px;
+    border-color: rgb(7, 7, 7);
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
@@ -17,7 +18,7 @@
   
   .button-light {
     background-color: #D8BFD8;
-    color: #4B0082; /* Dark purple text */
+    color: #4B0082;
   }
   
   .button-light:hover {
