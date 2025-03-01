@@ -1,39 +1,38 @@
-import { FaTachometerAlt, FaPlusCircle, FaLayerGroup, FaSignOutAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
+import "../styles/Sidebar.css"; // Import the CSS file
+import logo from "../assets/logo_light.png";
 
-const Sidebar = () => {
-  const links = [
-    { name: "Dashboard", href: "https://github.com/", icon: FaTachometerAlt, active: true },
-    { name: "Create New Course", href: "https://github.com/", icon: FaPlusCircle, active: false },
-    { name: "My Courses", href: "https://github.com/", icon: FaLayerGroup, active: false },
-  ];
+const Sidebar = ({ links }) => {
+  const [activeIndex, setActiveIndex] = useState(null); // Track active index
 
   return (
-    <div className="h-screen w-64 bg-gray-900 text-white flex flex-col justify-between p-4">
-      {/* Logo and Brand */}
-      <div className="flex items-center space-x-2">
-        <img src="frontend\src\assets\LOGO.png" alt="Logo" className="w-8 h-8" />
-        <h1 className="text-lg font-bold">TALIM</h1>
+    <div className="sidebar">
+      {/* Logo and Navigation Wrapper */}
+      <div className="top-section">
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="nav-links">
+          {links.map((link, index) => (
+            <a
+              key={index}
+              href={link.href}
+              className={`nav-item ${activeIndex === index ? "active" : ""}`}
+              onClick={() => setActiveIndex(index)} // Set active state on click
+            >
+              <link.icon size={20} />
+              <span>{link.label}</span>
+            </a>
+          ))}
+        </nav>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-col space-y-4 mt-6">
-        {links.map((link, index) => (
-          <a
-            key={index}
-            href={link.href}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md ${
-              link.active ? "bg-purple-700" : "hover:text-purple-400"
-            }`}
-          >
-            <link.icon className="w-5 h-5" />
-            <span>{link.name}</span>
-          </a>
-        ))}
-      </nav>
-
-      {/* Sign-out */}
-      <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white">
-        <FaSignOutAlt className="w-5 h-5" />
+      {/* Sign-out Button */}
+      <a href="#" className="sign-out">
+        <FaSignOutAlt size={20} />
         <span>Sign-out</span>
       </a>
     </div>
