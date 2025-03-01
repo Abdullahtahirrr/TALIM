@@ -2,7 +2,8 @@ import React from "react";
 import Button from "../components/Button";
 import Sidebar from "../components/Sidebar"; 
 import Navbar from "../components/Navbar";
-import {  FaPlusCircle, FaLayerGroup ,FaGripHorizontal} from "react-icons/fa";
+import Footer from "../components/Footer";
+import { FaPlusCircle, FaLayerGroup ,FaGripHorizontal} from "react-icons/fa";
 
 const navLinks = [
   { label: "Dashboard", href: "#", icon: FaGripHorizontal, active: true },
@@ -20,10 +21,11 @@ const MockupPage = () => {
     <Navbar />
     <Sidebar links={navLinks} /> </div>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 gap-4">
-      <h1 className="text-2xl font-bold">Test Buttons</h1>
-      <Button variant="dark" onClick={handleClick}>Dark Purple</Button>
-      <Button variant="light">Light Purple </Button>
-    </div></>
+      {/* <Button variant="dark" onClick={handleClick}>Dark Purple</Button>
+      <Button variant="light">Light Purple </Button> */}
+    </div>
+    <Footer />
+    </>
   );
 };
 

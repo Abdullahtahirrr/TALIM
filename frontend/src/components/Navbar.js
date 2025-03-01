@@ -1,8 +1,8 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa"; 
 import logo from "../assets/logo.png"; 
-import Button from "../components/Button"; // Your existing Sign-out component
-import "../styles/Navbar.css"; // Import CSS
+import Button from "../components/Button"; 
+import "../styles/Navbar.css"; 
 
 const Navbar = () => {
   return (
