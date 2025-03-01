@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "../components/Button";
-import Sidebar from "../components/Sidebar";
-import { FaTachometerAlt, FaPlusCircle, FaLayerGroup ,FaGripHorizontal} from "react-icons/fa";
+import Sidebar from "../components/Sidebar"; 
+import Navbar from "../components/Navbar";
+import {  FaPlusCircle, FaLayerGroup ,FaGripHorizontal} from "react-icons/fa";
 
 const navLinks = [
   { label: "Dashboard", href: "#", icon: FaGripHorizontal, active: true },
@@ -16,6 +17,7 @@ const MockupPage = () => {
   return (
     <>
     <div className="flex">
+    <Navbar />
     <Sidebar links={navLinks} /> </div>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 gap-4">
       <h1 className="text-2xl font-bold">Test Buttons</h1>
