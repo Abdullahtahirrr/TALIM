@@ -1,0 +1,26 @@
+.button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-dark {
+    background-color: #4B0082;
+    color: white;
+  }
+  
+  .button-dark:hover {
+    background-color: #3a006b;
+  }
+  
+  .button-light {
+    background-color: #D8BFD8;
+    color: #4B0082; /* Dark purple text */
+  }
+  
+  .button-light:hover {
+    background-color: #c6a6c6;
+  }
+  
