@@ -1,0 +1,59 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #060606;
+  margin-bottom: 5px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #cdcbcb;
+  border-radius: 6px;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-field:focus {
+  border-color: #999;
+  background-color: #f1eaf5;
+}
+
+.input-error {
+  border-color: red !important;
+}
+
+.error-text {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+
+/* Dropdown Styling */
+select.input-field {
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+select.input-field:focus {
+  background-color: #f1eaf5;
+}
+
+
+select.input-field {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666" width="18px" height="18px"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  background-color: #fff;
+  padding-right: 30px;
+}
