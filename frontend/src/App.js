@@ -1,5 +1,5 @@
 import React from "react";
-import MockupPage from "./pages/StudentDashboard.js"; // Ensure the correct path
+import MockupPage from "./pages/TeacherDashboard.js"; // Ensure the correct path
 
 function App() {
   return (
