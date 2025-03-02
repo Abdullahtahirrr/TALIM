@@ -102,14 +102,28 @@
     top: var(--header-height); /* Starts below the header */
 }
 
-/* Footer dynamically stays at the bottom */
-.footer {
-    width: 100%;
-    margin-top: auto; /* Pushes footer to the bottom when content is less */
-    position: relative;
-}
-
 /* Ensure the button aligns to the right */
 .right-button {
     margin-left: auto;
+}
+.footer-links a {
+    color: rgb(113, 113, 113);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    max-width: 100%; /* Prevents horizontal overflow */
+    width: fit-content; /* Adjusts width to content */
+    padding: 10px;
+    background-color: #f8f8f8; /* Optional */
 }

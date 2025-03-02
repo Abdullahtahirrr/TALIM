@@ -79,11 +79,23 @@ const StudentDashboard = () => {
               <CourseCard key={index} {...course} />
             ))}
           </div>
+                <div className="footer-content">
+                  {/* Center: Navigation Links */}
+                  <nav className="footer-links">
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/contact">Contact Us</a>
+                  </nav>
+          
+                  {/* Right: Copyright Info */}
+                  <div className="footer-copy">
+                    <p>&copy; {new Date().getFullYear()} Talim. All rights reserved.</p>
+                  </div>
+                </div>
         </div>
       </div>
 
-      {/* Footer at the bottom */}
-      <Footer />
+
     </div>
   );
 };
