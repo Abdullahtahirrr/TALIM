@@ -138,15 +138,26 @@
     top: var(--header-height); /* Starts below the header */
 }
 
+.sidebar a:hover {
+  background-color: #e9e3ff; /* Light purple on hover */
+}
 /* Ensure the button aligns to the right */
 
+.sidebar a.active {
+  background-color: #a285ff; /* Purple background for active link */
+  color: white; /* White text for contrast */
+  font-weight: bold;
+}
 
 .footer-links a {
-    color: rgb(113, 113, 113);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
+    margin-right: 10px; /* Adds spacing between the links */
+    text-decoration: none; /* Optional: Removes underlines */
+    color: #000; /* Optional: Ensures proper visibility */
+  }
+  
+  .footer-links a:last-child {
+    margin-right: 0; /* Prevents extra margin on the last link */
+  }
 
 .footer-content {
     display: flex;
