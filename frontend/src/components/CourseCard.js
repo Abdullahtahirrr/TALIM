@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/CourseCard.css"; 
+import "../styles/CourseCard.css";
 
-const CourseCard = ({ image, instructor, university, title, onEnroll }) => {
+const CourseCard = ({ image, instructor, university, title, buttonText, onButtonClick }) => {
   return (
     <div className="course-card">
       {/* Course Image */}
@@ -13,9 +13,9 @@ const CourseCard = ({ image, instructor, university, title, onEnroll }) => {
         <p className="instructor">{instructor} - {university}</p>
       </div>
 
-      {/* Enroll Button */}
-      <button className="enroll-btn" onClick={onEnroll}>
-        Enroll
+      {/* Dynamic Button */}
+      <button className="enroll-btn" onClick={onButtonClick}>
+        {buttonText}
       </button>
     </div>
   );

@@ -31,13 +31,15 @@ const MockupPage = () => {
 
         {/* Right Content Section */}
         <div className="flex flex-1 justify-center p-8 bg-gray-100">
-          <CourseCard
-            image={courseImage}
-            instructor="Seemab Latif"
-            university="NUST"
-            title="Deep Learning"
-            onEnroll={handleEnroll}
-          />
+        <CourseCard 
+  image={courseImage}
+  instructor="John Doe"
+  university="Harvard University"
+  title="React for Beginners"
+  buttonText="Open Course"
+  onButtonClick={() => window.location.href = "/course-dashboard"} 
+/>
+
         </div>
       </div>
 
