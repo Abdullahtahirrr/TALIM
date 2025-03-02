@@ -72,6 +72,8 @@
     font-size: 1rem;
     color: #4a5568; /* Gray-600 */
     transition: 0.3s;
+    margin-top: auto; /* Pushes it to the bottom */
+    padding: 10px;
   }
   
   .sign-out:hover {

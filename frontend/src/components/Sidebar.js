@@ -10,10 +10,6 @@ const Sidebar = ({ links }) => {
     <div className="sidebar">
       {/* Logo and Navigation Wrapper */}
       <div className="top-section">
-        <div className="logo-container">
-          <img src={logo} alt="Logo" className="logo" />
-        </div>
-
         {/* Navigation Links */}
         <nav className="nav-links">
           {links.map((link, index) => (
