@@ -1,27 +1,37 @@
 .button {
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 16px;
-    border-color: rgb(7, 7, 7);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button-dark {
-    background-color: #4B0082;
-    color: white;
-  }
-  
-  .button-dark:hover {
-    background-color: #3a006b;
-  }
-  
-  .button-light {
-    background-color: #D8BFD8;
-    color: #4B0082;
-  }
-  
-  .button-light:hover {
-    background-color: #c6a6c6;
-  }
-  
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.button-dark {
+  background: linear-gradient(135deg, #4B0082, #6a0dad);
+  color: white;
+  border-color: #3a006b;
+}
+
+.button-dark:hover {
+  background: linear-gradient(135deg, #3a006b, #5a009b);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.button-light {
+  background: linear-gradient(135deg, #D8BFD8, #E6CFE6);
+  color: #4B0082;
+  border-color: #c6a6c6;
+}
+
+.button-light:hover {
+  background: linear-gradient(135deg, #c6a6c6, #b494b4);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}

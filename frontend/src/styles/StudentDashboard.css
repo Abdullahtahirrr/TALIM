@@ -16,67 +16,103 @@
 .dashboard-main {
     display: flex;
     flex: 1; /* Makes content take up available space */
+    background-color: #fefeff;
+    position: relative; 
 }
   
-/* Define header height as a CSS variable */
 .dashboard-header {
-    --header-height: 80px; /* Adjust this value based on actual header height */
-    height: var(--header-height);
-}
-  
-  .profile-section {
+    border: 2px solid #E8E8E8; /* Light border */
+    padding: 20px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 15px;
-  }
+    justify-content: space-between;
+    width: 90%; /* Adjust width */
+    height:100px;
+    max-width: 1000px; /* Prevents full width */
+    margin: 20px auto; /* Centers it */
+    background-color: #fff; /* Background */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 54px; /* Spacing between icon & text */
+}
   
   .profile-image {
-    width: 80px;
-    height: 80px;
+    width: 2000px;
+    height: 2000px;
     border-radius: 50%;
   }
   
   .profile-info h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 30px;
+    padding-right: 390px;
   }
   
   .profile-info p {
     margin: 0;
     color: #777;
   }
-  
-  .dashboard-stats {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .stat-box {
-    flex: 1;
+
+
+.dashboard-heading{
+    font-size:35px;
     text-align: center;
-    padding: 20px;
+}
+.dashboard-stats {
+    display: flex;
+    justify-content: center; /* Centers the boxes */
+    gap: 20px; /* Reduced gap */
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.stat-box {
+    width: 400px; /* Set a fixed width */
+    height: 90px;
+    text-align: center;
+    padding: 15px 10px;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 16px; /* Smaller text */
     font-weight: bold;
-    color: #fff;
-  }
-  
-  .pink {
-    background-color: #f9c2ff;
-  }
-  
-  .purple {
-    background-color: #d6bcfa;
-  }
-  
-  .green {
-    background-color: #c6f6d5;
-  }
-  
+    color: #0a0606;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-box p {
+    font-size: 24px; /* Make number stand out */
+    margin: 5px 0;
+}
+
+.stat-box span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Background Colors */
+.pink {
+    background-color: #fddaff;
+}
+
+.purple {
+    background-color: #e9e3ff;
+}
+
+.green {
+    background-color: #e3ffe3;
+}
+
+
   .learning-heading {
-    font-size: 18px;
+    font-size: 25px;
     margin-bottom: 15px;
+    text-align: center;
   }
   
   .courses-section {
@@ -103,9 +139,8 @@
 }
 
 /* Ensure the button aligns to the right */
-.right-button {
-    margin-left: auto;
-}
+
+
 .footer-links a {
     color: rgb(113, 113, 113);
     text-decoration: none;
@@ -120,10 +155,13 @@
     justify-content: center;
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center; /* Ensures text aligns properly */
     max-width: 100%; /* Prevents horizontal overflow */
     width: fit-content; /* Adjusts width to content */
     padding: 10px;
-    background-color: #f8f8f8; /* Optional */
+    padding-left: 290px;
+    background-color: #fefeff; /* Optional */
 }

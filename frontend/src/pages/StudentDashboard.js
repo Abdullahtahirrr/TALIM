@@ -47,14 +47,16 @@ const StudentDashboard = () => {
           {/* Profile Header */}
           <div className="dashboard-header">
             <div className="profile-section">
-              <FaUserCircle size={80} className="profile-icon" />
+              <FaUserCircle size={100} className="profile-icon" />
               <div className="profile-info">
                 <h2>MIA PARKER</h2>
                 <p>7th Semester</p>
               </div>
-              <Button variant="light" className="right-button">All Courses →</Button>
+              <Button variant="light" className="right-button">All Courses</Button>
             </div>
           </div>
+
+          <h2 className="dashboard-heading">Dashboard</h2>
 
           {/* Statistics Section */}
           <div className="dashboard-stats">
@@ -79,7 +81,7 @@ const StudentDashboard = () => {
               <CourseCard key={index} {...course} />
             ))}
           </div>
-                <div className="footer-content">
+          <div className="footer-content">
                   {/* Center: Navigation Links */}
                   <nav className="footer-links">
                     <a href="/privacy-policy">Privacy Policy</a>
