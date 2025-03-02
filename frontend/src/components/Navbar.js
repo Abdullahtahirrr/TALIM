@@ -1,6 +1,6 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa"; 
-import logo from "../assets/logo.png"; 
+import logo from "../assets/LOGO.png"; 
 import Button from "../components/Button"; 
 import "../styles/Navbar.css"; 
 
