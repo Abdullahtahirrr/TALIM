@@ -1,0 +1,113 @@
+.personal-details-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f5ff;
+  }
+  
+  .details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .signout-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .header-text {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .signout-button {
+    background-color: #f4e0ff;
+    color: #8e24aa;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .details-modal-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    /* This adds the background image to the entire modal wrapper */
+    background-image: url('../assets/signup-illustration.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40% auto;
+  }
+  
+  .details-modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .details-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .button-container {
+    margin-top: 1rem;
+  }
+  
+  .button-container button {
+    width: 100%;
+    background-color: #8e24aa;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 992px) {
+    .details-modal-wrapper {
+      background-image: none;
+      padding: 1rem;
+    }
+    
+    .details-modal {
+      max-width: 100%;
+    }
+    
+    .details-header {
+      padding: 1rem;
+    }
+  }

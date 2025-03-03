@@ -1,0 +1,201 @@
+.signin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fff;
+  }
+  
+  .signin-left {
+    flex: 1;
+    background-color: #f8f5ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .illustration-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* You can add the background image here or use an img tag */
+    background-image: url('../assets/signin-illustration.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  
+  .signin-right {
+    flex: 1;
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .signin-logo {
+    height: 40px;
+  }
+  
+  .signup-link-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .signup-text {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .signup-button {
+    background-color: #f4e0ff;
+    color: #8e24aa;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .signin-form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .signin-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .role-toggle {
+    display: flex;
+    margin-bottom: 2rem;
+    gap: 10px;
+  }
+  
+  .role-button {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .role-button.active {
+    background-color: #8e24aa;
+    color: white;
+  }
+  
+  .role-button:not(.active) {
+    background-color: #f4e0ff;
+    color: #8e24aa;
+  }
+  
+  .signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .password-field-container {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 40px; /* Adjust as needed to align with the input field */
+  }
+  
+  .show-password-btn {
+    background: none;
+    border: none;
+    color: #8e24aa;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    accent-color: #8e24aa;
+  }
+  
+  .remember-me label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .forgot-password span {
+    font-size: 14px;
+    color: #8e24aa;
+    cursor: pointer;
+  }
+  
+  .forgot-password span:hover {
+    text-decoration: underline;
+  }
+  
+  .button-container {
+    margin-top: 1rem;
+  }
+  
+  .button-container button {
+    width: 100%;
+    background-color: #8e24aa;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 992px) {
+    .signin-container {
+      flex-direction: column;
+    }
+    
+    .signin-left {
+      display: none; /* Hide illustration on small screens */
+    }
+    
+    .signin-right {
+      padding: 2rem;
+    }
+    
+    .signin-form-container {
+      max-width: 100%;
+    }
+  }
