@@ -3,5 +3,4 @@ __pycache__
 RAG_based_VTA_with_llamaindex.ipynb
 VTA_rag.py
 .venv
-node_modules
-**/node_modules/
+
