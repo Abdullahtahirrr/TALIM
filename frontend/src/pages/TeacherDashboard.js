@@ -1,102 +1,115 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import { FaHome, FaBook, FaUserGraduate, FaCog, FaPlusCircle } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
-import Button from "../components/Button";
+import SimpleFooter from "../components/SimpleFooter";
+import courseImage1 from "../assets/course_image.jpeg";
 import "../styles/TeacherDashboard.css";
-import courseImage from "../assets/course_image.jpeg";
-import { FaLayerGroup, FaGripHorizontal, FaUserCircle } from "react-icons/fa";
 
 const TeacherDashboard = () => {
-  const navLinks = [
-    { label: "Dashboard", href: "#", icon: FaGripHorizontal, active: true },
-    { label: "My Courses", href: "#", icon: FaLayerGroup, active: false },
-    { label: "Create New Course", href: "#", icon: FaLayerGroup, active: false },
+  // Sidebar links configuration
+  const sidebarLinks = [
+    { label: "Dashboard", icon: FaHome, href: "/TeacherDashboard" },
+    { label: "My Courses", icon: FaBook, href: "/TeacherMyCourses" },
+    { label: "Create a Course", icon: FaPlusCircle, href: "/TeacherStudents" },
   ];
 
-  const courses = [
+  // Sample course data
+  const recentCourses = [
     {
-      image: courseImage,
-      instructor: "John Doe",
-      university: "Harvard University",
-      title: "Reiki Level I, II and Master/Teacher Program",
-      buttonText: "Open Course",
-      onButtonClick: () => alert("Opening Course..."),
+      id: 1,
+      title: "Introduction to Artificial Intelligence Concepts",
+      instructor: "Mia Parker",
+      university: "Stanford University",
+      image: courseImage1,
+      students: 19,
     },
     {
-      image: courseImage,
-      instructor: "Jane Smith",
-      university: "Stanford University",
-      title: "Copywriting - Become a Freelance Copywriter",
-      buttonText: "Open Course",
-      onButtonClick: () => alert("Opening Course..."),
+      id: 2,
+      title: "Advanced Data Science with Python",
+      instructor: "Mia Parker",
+      university: "Harvard University",
+      image: courseImage1,
+      students: 24,
     },
   ];
 
   return (
     <div className="dashboard-container">
-      {/* Navbar */}
-      <Navbar />
-
-      <div className="dashboard-main">
-        {/* Sidebar */}
-        <Sidebar links={navLinks} />
-
-        {/* Main Content */}
-        <div className="dashboard-content">
-          {/* Profile Header */}
-          <div className="dashboard-header">
-            <div className="profile-section">
-              <FaUserCircle size={100} className="profile-icon" />
+      <Sidebar links={sidebarLinks} />
+      
+      <div className="dashboard-content">
+        <Navbar />
+        
+        <div className="dashboard-main">
+          {/* User Profile Section */}
+          <div className="user-profile-section">
+            <div className="user-profile">
+              <img src={courseImage1} alt="Mia Parker" className="profile-avatar" />
               <div className="profile-info">
-                <h2>MIA PARKER</h2>
-                <p>Assistant Professor</p>
+                <h2 className="profile-name">MIA PARKER</h2>
+                <p className="profile-title">Assistant Professor</p>
               </div>
-              <Button variant="light" className="right-button">All Courses</Button>
             </div>
+            <button className="all-courses-btn" onClick={() => window.location.href = "/AllCourses"}>
+              All Courses <span className="arrow">→</span>
+            </button>
           </div>
-
-          <h2 className="dashboard-heading">Dashboard</h2>
-
-          {/* Statistics Section */}
-          <div className="dashboard-stats">
-            <div className="stat-box pink">
-              <p>957</p>
-              <span>Total Courses</span>
-            </div>
-            <div className="stat-box purple">
-              <p>6</p>
-              <span>Active Courses</span>
-            </div>
-          </div>
-
-          {/* Courses Section */}
-          <h3 className="learning-heading">Let’s Teach, Mia</h3>
-          <div className="courses-section">
-            {courses.map((course, index) => (
-              <CourseCard key={index} {...course} />
-            ))}
-          </div>
-          <div className="footer-content">
-                  {/* Center: Navigation Links */}
-                  <nav className="footer-links">
-                    <a href="/privacy-policy">Privacy Policy</a>
-                    <a href="/terms">Terms of Service</a>
-                    <a href="/contact">Contact Us</a>
-                  </nav>
           
-                  {/* Right: Copyright Info */}
-                  <div className="footer-copy">
-                    <p>&copy; {new Date().getFullYear()} Talim. All rights reserved.</p>
+          <h1 className="dashboard-title">Dashboard</h1>
+          
+          {/* Stats Cards */}
+          <div className="stats-container">
+            <div className="stat-card purple-light">
+              <div className="stat-icon">
+                <FaBook />
+              </div>
+              <div className="stat-details">
+                <h2>957</h2>
+                <p>Total Courses</p>
+              </div>
+            </div>
+            
+            <div className="stat-card blue-light">
+              <div className="stat-icon">
+                <FaUserGraduate />
+              </div>
+              <div className="stat-details">
+                <h2>6</h2>
+                <p>Active Courses</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Recent Courses Section */}
+          <div className="recent-courses">
+            <h2 className="section-title">Let's Teach, Mia</h2>
+            
+            <div className="courses-grid">
+              {recentCourses.map((course) => (
+                <div key={course.id} className="course-container">
+                  <CourseCard
+                    image={course.image}
+                    title={course.title}
+                    instructor={course.instructor}
+                    university={course.university}
+                    buttonText="Open Course"
+                    onButtonClick={() => window.location.href = `/TeacherCourseContent/${course.id}`}
+                  />
+                  <div className="course-stats">
+                    <p>{course.students} students enrolled</p>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
         </div>
+        
+        <SimpleFooter />
       </div>
-
-
     </div>
   );
 };
 
 export default TeacherDashboard;
- 

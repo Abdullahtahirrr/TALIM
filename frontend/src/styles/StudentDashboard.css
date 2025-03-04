@@ -1,167 +1,123 @@
+/* Main Dashboard Layout */
 .dashboard-container {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensures full-height layout */
-}
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
   
-/* Ensures content expands properly */
-.dashboard-content {
-    flex-grow: 1;
-    padding: 20px;
+  .dashboard-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-}
-
-/* Ensures main layout is flex-based */
-.dashboard-main {
-    display: flex;
-    flex: 1; /* Makes content take up available space */
-    background-color: #fefeff;
-    position: relative; 
-}
+    background-color: #f7f8fc;
+  }
   
-.dashboard-header {
-    border: 2px solid #E8E8E8; /* Light border */
-    padding: 20px;
-    border-radius: 8px;
+  .dashboard-main {
+    flex: 1;
+    padding: 0 0 20px 0;
+    overflow-y: auto;
+  }
+  
+  /* User Profile Section */
+  .user-profile-section {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    width: 90%; /* Adjust width */
-    height:100px;
-    max-width: 1000px; /* Prevents full width */
-    margin: 20px auto; /* Centers it */
-    background-color: #fff; /* Background */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
-
-.profile-section {
+    align-items: center;
+    padding: 40px 70px;
+    background-color: white;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .user-profile {
     display: flex;
     align-items: center;
-    gap: 54px; /* Spacing between icon & text */
-}
+    gap: 15px;
+  }
   
-  .profile-image {
-    width: 2000px;
-    height: 2000px;
+  .profile-avatar {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    object-fit: cover;
   }
   
-  .profile-info h2 {
+  .profile-name {
     margin: 0;
-    font-size: 30px;
-    padding-right: 390px;
-  }
-  
-  .profile-info p {
-    margin: 0;
-    color: #777;
-  }
-
-
-.dashboard-heading{
-    font-size:35px;
-    text-align: center;
-}
-.dashboard-stats {
-    display: flex;
-    justify-content: center; /* Centers the boxes */
-    gap: 20px; /* Reduced gap */
-    margin-bottom: 20px;
-    margin-top: 30px;
-}
-
-.stat-box {
-    width: 400px; /* Set a fixed width */
-    height: 90px;
-    text-align: center;
-    padding: 15px 10px;
-    border-radius: 10px;
-    font-size: 16px; /* Smaller text */
+    font-size: 24px;
     font-weight: bold;
-    color: #0a0606;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.stat-box p {
-    font-size: 24px; /* Make number stand out */
-    margin: 5px 0;
-}
-
-.stat-box span {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-/* Background Colors */
-.pink {
-    background-color: #fddaff;
-}
-
-.purple {
-    background-color: #e9e3ff;
-}
-
-.green {
-    background-color: #e3ffe3;
-}
-
-
-  .learning-heading {
-    font-size: 25px;
-    margin-bottom: 15px;
-    text-align: center;
   }
   
-  .courses-section {
+  .profile-title {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .all-courses-btn {
+    background-color: #f2d4fa;
+    color: #661083;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
     display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .all-courses-btn:hover {
+    background-color: #e8c0f5;
+  }
+  
+  .arrow {
+    font-size: 16px;
+  }
+  
+  .dashboard-title {
+    margin: 20px 30px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  
+  /* Recent Courses Section */
+  .recent-courses {
+    margin: 30px 30px 0 30px;
+  }
+  
+  .section-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .courses-grid {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
   }
-
-/* Navbar width dynamically adjusts */
-.navbar {
-    width: auto; /* Makes width adjust based on content */
-    max-width: 100%; /* Ensures it does not overflow */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-/* Sidebar takes full height minus the header only */
-.sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    height: calc(100vh - var(--header-height)); /* Dynamically adjust based on header height */
-    position: sticky;
-    top: var(--header-height); /* Starts below the header */
-}
-
-/* Ensure the button aligns to the right */
-
-
-.footer-links a {
-    color: rgb(113, 113, 113);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
-
-.footer-content {
+  
+  .course-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    text-align: center; /* Ensures text aligns properly */
-    max-width: 100%; /* Prevents horizontal overflow */
-    width: fit-content; /* Adjusts width to content */
-    padding: 10px;
-    padding-left: 290px;
-    background-color: #fefeff; /* Optional */
-}
+  }
+  
+  .course-stats {
+    margin-top: -10px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .stats-container {
+      flex-direction: column;
+    }
+    
+    .courses-grid {
+      justify-content: center;
+    }
+  }

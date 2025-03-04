@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MockupPage from "./pages/TeacherDashboard.js"; // Ensure the correct path
+import MockupPage from "./pages/TeacherDashboard.js";
+import StudentDashboard from "./pages/StudentDashboard.js"; // Ensure the correct path
 import SignUp from "./pages/SignUp.js"; // Ensure the correct path
 import SignIn from "./pages/SignIn";
 import UserPersonalDetail from "./pages/UserPersonalDetail";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/SignIn" element={<SignIn />} />   
           <Route path="/UserPersonalDetail" element={<UserPersonalDetail />} />
           <Route path="/course" element={<StudentCourseContent />} />
+          <Route path="/StudentDashboard" element={<StudentDashboard />} />
 
 
     
