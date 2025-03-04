@@ -4,6 +4,7 @@ import MockupPage from "./pages/TeacherDashboard.js"; // Ensure the correct path
 import SignUp from "./pages/SignUp.js"; // Ensure the correct path
 import SignIn from "./pages/SignIn";
 import UserPersonalDetail from "./pages/UserPersonalDetail";
+import StudentCourseContent from "./pages/StudentCourseContent";
 
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />   
           <Route path="/UserPersonalDetail" element={<UserPersonalDetail />} />
+          <Route path="/course" element={<StudentCourseContent />} />
+
+
     
         </Routes>
       </Router>
