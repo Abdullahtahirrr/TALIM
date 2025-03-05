@@ -1,0 +1,245 @@
+.upload-content-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-color: #F5F7FA;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header-section {
+    background-color: #F5F7FA;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1D2026;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  .breadcrumb span {
+    color: #6E7485;
+  }
+  
+  .breadcrumb .separator {
+    margin: 0 8px;
+  }
+  
+  .breadcrumb .current {
+    color: #1D2026;
+  }
+  
+  .content-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin: 0 24px 24px 24px;
+  }
+  
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E9EAF0;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .course-title {
+    font-weight: 600;
+  }
+  
+  .lectures-count {
+    font-size: 14px;
+    color: #8C94A3;
+  }
+  
+  .lectures-container {
+    background-color: #F5F7FA;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .lecture-item {
+    background: white;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .lecture-name {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lecture-name-icon {
+    color: #8C94A3;
+    margin-right: 8px;
+  }
+  
+  .lecture-actions {
+    position: relative;
+  }
+  
+  .actions-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .action-button {
+    background-color: #E6BFEC;
+    color: #661083;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+  }
+  
+  .action-button:hover {
+    background-color: #eab1fe;
+  }
+  
+  .action-dropdown {
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+  }
+  
+  .edit-delete-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    color: #8C94A3;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  
+  .icon-button:hover {
+    color: #661083;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 200px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-top: 4px;
+  }
+  
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #4E5566;
+    font-size: 14px;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #F5F7FA;
+  }
+  
+  .add-lecture-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 16px;
+    border: 1px dashed #E9EAF0;
+    background: transparent;
+    border-radius: 4px;
+    color: #8C94A3;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .add-lecture-button:hover {
+    background-color: #F5F7FA;
+  }
+  
+  .uploaded-files {
+    margin-top: 20px;
+  }
+  
+  .file-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #E9EAF0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background-color: #F9F9FB;
+  }
+  
+  .file-name {
+    font-weight: 500;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .file-type {
+    color: #661083;
+    background-color: #E6BFEC;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .file-lecture {
+    color: #8C94A3;
+    font-size: 14px;
+  }
+  
+  .bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 24px 40px 24px;
+  }
+  
+  /* Dialog styles */
+  .dialog-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #E9EAF0;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
