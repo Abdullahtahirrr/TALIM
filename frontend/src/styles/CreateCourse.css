@@ -1,0 +1,393 @@
+.create-course-page {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .layout-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8fa;
+  }
+  
+  .content-container {
+    flex: 1;
+    padding: 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .greeting {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    color: #333;
+    margin: 5px 0;
+    font-weight: 500;
+  }
+  
+  /* Step Indicators */
+  .step-indicators {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+  
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    padding: 10px 0;
+    position: relative;
+    opacity: 0.6;
+  }
+  
+  .step-indicator.active {
+    color: #661083;
+    opacity: 1;
+    font-weight: 500;
+  }
+  
+  .step-indicator.active::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #661083;
+  }
+  
+  .step-icon {
+    font-size: 20px;
+  }
+  
+  .step-completion {
+    margin-left: auto;
+    font-size: 12px;
+    color: #661083;
+  }
+  
+  /* Form Container */
+  .form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .form-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .character-count {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .text-editor-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .editor-btn {
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Thumbnail Section */
+  .thumbnail-section {
+    margin-bottom: 30px;
+  }
+  
+  .thumbnail-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .thumbnail-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .thumbnail-preview {
+    width: 200px;
+    height: 150px;
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .thumbnail-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .thumbnail-info {
+    flex: 1;
+  }
+  
+  .thumbnail-info p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #666;
+  }
+  
+  /* Curriculum Builder */
+  .curriculum-builder {
+    margin-top: 20px;
+  }
+  
+  .validation-error {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  
+  .lectures-container {
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .lectures-header {
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .lectures-header h3 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .lecture-container {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .lecture-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+  }
+  
+  .lecture-drag-handle {
+    margin-right: 10px;
+    color: #999;
+    cursor: move;
+  }
+  
+  .lecture-title-input {
+    flex: 1;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    padding: 5px 0;
+    background-color: transparent;
+  }
+  
+  .lecture-title-input:focus {
+    border-bottom: 2px solid #661083;
+  }
+  
+  .lecture-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .expand-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #661083;
+    font-size: 14px;
+  }
+  
+  .expand-btn.expanded {
+    font-weight: bold;
+  }
+  
+  .lecture-content {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .pdf-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .pdf-input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .pdf-upload-label {
+    flex: 1;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .pdf-upload-btn {
+    padding: 10px 15px;
+    background-color: #661083;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .content-type-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .content-type-selector p {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .content-type-selector select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .add-lecture-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #661083;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  /* Form Actions */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Enrollment Key Dialog */
+  .enrollment-key-container {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .enrollment-key {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #661083;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .thumbnail-container {
+      flex-direction: column;
+    }
+    
+    .thumbnail-preview {
+      width: 100%;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .form-actions button {
+      width: 100%;
+    }
+  }

@@ -9,6 +9,7 @@ import StudentCourseContent from "./pages/StudentCourseContent";
 import Quiz from "./pages/Quiz.js";
 import Assignment from "./pages/Assignment.js";
 import EnrolledCourses from "./pages/EnrolledCourses.js";
+import CreateCourse from "./pages/CreateCourse.js";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/Assignment" element={<Assignment />} />
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/EnrolledCourses" element={<EnrolledCourses />} />
+          <Route path="/CreateCourse" element={<CreateCourse />} />
           
 
 
