@@ -6,6 +6,8 @@ import SignUp from "./pages/SignUp.js"; // Ensure the correct path
 import SignIn from "./pages/SignIn";
 import UserPersonalDetail from "./pages/UserPersonalDetail";
 import StudentCourseContent from "./pages/StudentCourseContent";
+import Quiz from "./pages/Quiz.js";
+import Assignment from "./pages/Assignment.js";
 
 
 function App() {
@@ -20,6 +22,12 @@ function App() {
           <Route path="/UserPersonalDetail" element={<UserPersonalDetail />} />
           <Route path="/course" element={<StudentCourseContent />} />
           <Route path="/StudentDashboard" element={<StudentDashboard />} />
+          <Route path="/Assignment" element={<Assignment />} />
+          <Route path="/Quiz" element={<Quiz />} />
+          
+
+
+          
 
 
     

@@ -1,0 +1,130 @@
+/* Main layout structure */
+.assignment-page-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .assignment-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .assignment-content-area {
+    flex: 1;
+    padding: 20px 40px;
+    background-color: #f5f7f9;
+  }
+  
+  /* Greeting section */
+  .greeting-section {
+    margin-bottom: 30px;
+  }
+  
+  .greeting-section p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .greeting-section h1 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  /* Form styling */
+  .assignment-form-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  input[type="text"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #661083;
+    box-shadow: 0 0 0 2px rgba(102, 16, 131, 0.1);
+  }
+  
+  .character-count {
+    text-align: right;
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+  
+  /* Form actions */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  /* Dialog content styling */
+  .assignment-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .assignment-dialog-content p {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .download-icon {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  /* Ensuring the layout is responsive */
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .assignment-content-area {
+      padding: 15px;
+    }
+    
+    .assignment-form-container {
+      padding: 20px;
+    }
+  }
