@@ -8,6 +8,7 @@ import UserPersonalDetail from "./pages/UserPersonalDetail";
 import StudentCourseContent from "./pages/StudentCourseContent";
 import Quiz from "./pages/Quiz.js";
 import Assignment from "./pages/Assignment.js";
+import EnrolledCourses from "./pages/EnrolledCourses.js";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/StudentDashboard" element={<StudentDashboard />} />
           <Route path="/Assignment" element={<Assignment />} />
           <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/EnrolledCourses" element={<EnrolledCourses />} />
           
 
 
