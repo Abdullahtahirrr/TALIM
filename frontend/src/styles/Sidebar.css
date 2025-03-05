@@ -1,82 +1,89 @@
 /* Sidebar styles */
 .sidebar {
-    height: 100vh;
-    width: 15%;
-    background-color: #000000; /* Gray-200 */
-    color: #72777A; /* Gray-900 */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-  }
+  height: 100%;
+  min-height: 100vh;
+  width: 15%;
+  background-color: #000000; /* Black background */
+  color: #72777A; /* Gray-900 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+}
   
-  /* Top section to hold the logo and navigation */
-  .top-section {
-    display: flex;
-    flex-direction: column;
-  }
+/* Top section to hold the logo and navigation */
+.top-section {
+  display: flex;
+  flex-direction: column;
+}
   
-  /* Logo container */
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
   
-  .logo {
-    /* width: 120px; */
-    height: 40px;
-  }
+.logo {
+  /* width: 120px; */
+  height: 40px;
+}
   
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
   
-  /* Navigation links */
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+/* Navigation links */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
   
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 6px;
-    text-decoration: none;
-    color: inherit;
-    transition: 0.3s;
-  }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s;
+}
   
-  .nav-item:hover {
-    color: rgb(94, 59, 150); /* Purple-700 */
-  }
+.nav-item:hover {
+  color: rgb(94, 59, 150); /* Purple-700 */
+}
   
-  .nav-item.active {
-    background-color: #661083; /* Purple-700 */
-    color: white;
-  }
+.nav-item.active {
+  background-color: #661083; /* Purple-700 */
+  color: white;
+}
   
-  /* Sign-out button */
-  .sign-out {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    color: #4a5568; /* Gray-600 */
-    transition: 0.3s;
-    margin-top: auto; /* Pushes it to the bottom */
-    padding: 10px;
-  }
+/* Sign-out button */
+.sign-out {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #4a5568; /* Gray-600 */
+  transition: 0.3s;
+  margin-top: auto; /* Pushes it to the bottom */
+  padding: 10px;
+}
   
-  .sign-out:hover {
-    color: #e53e3e; /* Red-600 */
-  }
-  
+.sign-out:hover {
+  color: #e53e3e; /* Red-600 */
+}
+
+/* Adjust the layout container to keep sidebar fixed */
+.layout-container {
+  min-height: 100vh;
+}
