@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaRobot, FaComments } from "react-icons/fa";
 import "../styles/StudentCourseContent.css";
 
 // Sample data - replace with API calls in production
@@ -47,21 +47,38 @@ const StudentCourseContent = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showChatbot, setShowChatbot] = useState(false);
+  const [showChatbotHint, setShowChatbotHint] = useState(false);
 
   useEffect(() => {
     // In a real app, you'd fetch the specific course by ID
     // For now, we'll use the sample data
     setCourse(SAMPLE_COURSE);
     setLoading(false);
+    
+    // Show chatbot hint after 3 seconds
+    const timer = setTimeout(() => {
+      setShowChatbotHint(true);
+    }, 3000);
+    
+    return () => clearTimeout(timer);
   }, [courseId]);
 
   const goBack = () => {
     navigate("/StudentDashboard");
   };
 
-  const toggleChatbot = () => {
-    setShowChatbot(!showChatbot);
+  const openChatbot = () => {
+    // Navigate to the VTA page with course context
+    navigate("/Vta", { 
+      state: { 
+        courseContext: {
+          courseId: course.id,
+          courseTitle: course.title,
+          instructor: course.instructor,
+          currentLesson: course.lessons[0]?.title || "Introduction" // Default to first lesson
+        } 
+      } 
+    });
   };
 
   if (loading) {
@@ -77,23 +94,20 @@ const StudentCourseContent = () => {
       <Navbar />
       
       <div className="course-content-container">
-        
-        
         <div className="course-header">
           <h1>{course.title}</h1>
         </div>
+        
         <div className="breadcrumb">
-          
           <div className="breadcrumb-links">
             <Link to="/StudentDashboard" onClick={goBack}>Dashboard</Link> / <span>{course.title}</span>
           </div>
         </div>
         
         <div className="lessons-section">
-            <button className="back-button" onClick={goBack}>
+          <button className="back-button" onClick={goBack}>
             <FaArrowLeft /> <span> Course</span>
           </button>
-          {/* <h3>COURSE</h3> */}
           
           <div className="lessons-list">
             {course.lessons.map((lesson) => (
@@ -124,17 +138,15 @@ const StudentCourseContent = () => {
         </div>
       </div>
 
-      {/* Chatbot toggle button */}
-      <div className="chatbot-toggle" onClick={toggleChatbot}>
-        <div className="chat-bubble">
-          {showChatbot && (
-            <div className="chatbot-popup">
-              <p className="chatbot-message">Hey There! Do you have any questions?</p>
-            </div>
-          )}
-          <div className="chat-icon">
-            <span>💬</span>
+      {/* Improved Chatbot Button */}
+      <div className="chatbot-button" onClick={openChatbot}>
+        {showChatbotHint && (
+          <div className="chatbot-hint">
+            <p>Need help with this course? Ask TALIM Assistant!</p>
           </div>
+        )}
+        <div className="chatbot-icon">
+          <FaRobot />
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import Assignment from "./pages/Assignment.js";
 import EnrolledCourses from "./pages/EnrolledCourses.js";
 import CreateCourse from "./pages/CreateCourse.js";
 import UploadCourseContent from "./pages/UploadCourseContent.js";
+import Vta from "./pages/Vta.js";
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/EnrolledCourses" element={<EnrolledCourses />} />
           <Route path="/CreateCourse" element={<CreateCourse />} />
           <Route path="/UploadCourseContent" element={<UploadCourseContent />} />
+          <Route path="/Vta" element={<Vta />} />
 
 
 
