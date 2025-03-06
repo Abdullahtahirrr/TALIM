@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import SimpleFooter from "../components/SimpleFooter";
 import courseImage1 from "../assets/course_image.jpeg";
-import "../styles/TeacherDashboard.css";
+import "../styles/StudentDashboard.css";
 
 const StudentDashboard = () => {
   // Sidebar links configuration
@@ -61,11 +61,45 @@ const StudentDashboard = () => {
                         All Courses <span className="arrow">→</span>
                       </button>
                     </div>
+          {/* Stats Cards */}
+          <h2 className="section-title">Dashboard</h2>
+          <div className="stats-container">
+          
+          <div className="stat-card pink-light">
+              <div className="stat-icon">
+                <FaBook />
+              </div>
+              <div className="stat-details">
+                <h2>957</h2>
+                <p>Total Courses</p>
+              </div>
+            </div>
+
+            <div className="stat-card purple-light">
+              <div className="stat-icon">
+                <FaBook />
+              </div>
+              <div className="stat-details">
+                <h2>97</h2>
+                <p>Enrolled</p>
+              </div>
+            </div>
+            
+            <div className="stat-card blue-light">
+              <div className="stat-icon">
+                <FaUserGraduate />
+              </div>
+              <div className="stat-details">
+                <h2>6</h2>
+                <p>Completed</p>
+              </div>
+            </div>
+          </div>
           <h1 className="dashboard-title">Let's Study , Mia</h1>
           
           {/* Recent Courses Section */}
           <div className="recent-courses">
-            <h2 className="section-title">My Courses</h2>
+            
             
             <div className="courses-grid">
               {recentCourses.map((course) => (
