@@ -190,16 +190,17 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             - Reference: {relevant_passage}"""
 
             oneshot_example = f"""
-            Prompt: Generate a quiz from {lecture_name} with the following details:
+            Prompt: Generate a quiz from Lec_AI - one  with the following details:
             Key Topics: Machine Learning Fundamentals and Advanced Techniques
-            Additional Requirements: Quantitative and technical depth in assessmentDetailed Parameters:
+            Additional Requirements: Quantitative and technical depth in assessment
+            Detailed Parameters:
             - Number of MCQs: 1
             - Number of Theoretical Questions: 2
             - Number of Numerical Questions: 2
             - Difficulty Level: Medium
             - Number of Versions: 1
             - Total Marks: 35
-            - Rubric: Detailed performance-based grading
+            - Rubric: Yes
             - Additional Requirements: Demonstrate deep understanding of ML techniques
 
             Comprehensive Quiz Example:
@@ -279,7 +280,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
             You are an assignment creation assistant for the course {course_name} on the topic of {lecture_name} with topics:{Key_Topics}.
             Always give maximum to the Numerical Questions. Total marks must be divided among all section.
             Please create an assignment based on the following details and maximum use the relevant passage from notes/slides for context and relevance:
-            Never generate the answer key unless specified and if yes then always generate quiz first then the answer key seperately.
+            Never generate the answer key unless specified and if yes then always generate quiz first then the answer key seperately .
             - Number of Theoretical Questions: {num_theoretical}
             - Number of Numerical Questions: {num_numerical}
             - Difficulty Level: {difficulty}
@@ -296,44 +297,68 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
 
             Detailed Parameters:
             - Number of Theoretical Questions: 2
-            - Number of Numerical/Practical Tasks: 3
+            - Number of Numerical/Practical Tasks: 2
             - Difficulty Level: Advanced
-            - Number of Versions: 1
+            - Number of Versions: 2
             - Total Marks: 100
-            - Rubric: Comprehensive project evaluation
+            - Rubric: Yes
             - Additional Requirements: Include data preprocessing, model development, and performance analysis
-            - Relevant Passage: Course materials on machine learning workflow 
+            - Relevant Passage: 
 
             Answer:
 
             Version 1: Advanced Machine Learning Project Assignment
 
-            Theoretical Component (40 marks Total):
+        1)    Theoretical Component (40 marks Total):
 
-           1) Ethical AI and Bias Analysis (20 marks) Can you conduct a comprehensive ethical audit of a machine learning system that reveals the hidden biases inherent in modern AI technologies? Develop a rigorous analysis that quantifies bias across multiple demographic attributes. Your investigation should answer: How can we mathematically measure and mitigate algorithmic discrimination? Demonstrate your approach by: Identifying and quantifying bias indices for at least three protected attributes with 95% statistical confidence. Explain the mathematical formulations behind bias measurements. Construct a detailed 10-page report that not only exposes potential biases but also provides a sophisticated mitigation strategy. How would you redesign the machine learning pipeline to ensure fairness and ethical AI deployment?
+            1) Ethical AI and Bias Analysis (20 marks) Can you conduct a comprehensive ethical audit of a machine learning system that reveals the hidden biases inherent in modern AI technologies? Develop a rigorous analysis that quantifies bias across multiple demographic attributes. Your investigation should answer: How can we mathematically measure and mitigate algorithmic discrimination? Demonstrate your approach by: Identifying and quantifying bias indices for at least three protected attributes with 95% statistical confidence. Explain the mathematical formulations behind bias measurements. Construct a detailed 10-page report that not only exposes potential biases but also provides a sophisticated mitigation strategy. How would you redesign the machine learning pipeline to ensure fairness and ethical AI deployment?
             2) Comparative Algorithmic Performance Analysis (20 marks) Conduct an in-depth comparative study of three advanced machine learning algorithms: Gradient Boosting Machine, Support Vector Machine with Advanced Kernels, and Deep Neural Network. Your challenge is to answer: Which algorithm truly represents the pinnacle of predictive performance across different complexity landscapes? Develop a comprehensive evaluation framework that goes beyond simple accuracy. How will you measure and compare these algorithms using multiple performance metrics? Implement cross-validation with stratified sampling and provide statistically significant evidence of each algorithm's strengths and limitations. Can you create a performance comparison matrix that reveals the nuanced capabilities of each approach?
             
-            Practical Component (60 total marks ):
+        2)  Practical Component (60 total marks ):
 
-            1) End-to-End Machine Learning Project (20 marks) Design and implement a cutting-edge machine learning solution that transforms raw, complex data into actionable insights. Your project must answer: Can you develop a machine learning system that demonstrates exceptional predictive power and technical sophistication? Tackle a real-world problem using a dataset with at least 100,000 data points and 10 complex features. How will you engineer features that unveil hidden patterns? Demonstrate your ability to implement multiple machine learning models, with a focus on ensemble methods and advanced hyperparameter optimization. Can you create a predictive system that not only performs exceptionally but also provides deep insights into its decision-making process?
-            2) Advanced Machine Learning Pipeline Challenge (20 marks) Can you construct a machine learning pipeline that represents the pinnacle of data preprocessing and model development? Your challenge is to transform messy, real-world data into a refined, predictive system that demonstrates exceptional technical prowess. How will you tackle the most challenging aspects of data cleaning, feature engineering, and model optimization? Develop innovative techniques for handling missing data, detecting and managing outliers, and creating custom feature transformations. Implement advanced hyperparameter optimization using Bayesian techniques. Can you create a pipeline that not only processes data effectively but also provides deep insights into its own functioning?
-            3) Innovative Modeling Research Challenge (20 marks) Propose and develop a groundbreaking machine learning solution that pushes the boundaries of current technological capabilities. Your task is to answer: Can you create an innovative approach that demonstrates true scientific and technological creativity? Design a novel machine learning method that addresses a complex, open-ended problem. How will you demonstrate both theoretical sophistication and empirical validation? Your solution will be evaluated on its originality, technical complexity, and potential real-world impact. Can you develop an approach that not only solves a challenging problem but also provides insights that could revolutionize the field of machine learning?
-            Submission Requirements:
+            1) End-to-End Machine Learning Project (30 marks) Design and implement a cutting-edge machine learning solution that transforms raw, complex data into actionable insights. Your project must answer: Can you develop a machine learning system that demonstrates exceptional predictive power and technical sophistication? Tackle a real-world problem using a dataset with at least 100,000 data points and 10 complex features. How will you engineer features that unveil hidden patterns? Demonstrate your ability to implement multiple machine learning models, with a focus on ensemble methods and advanced hyperparameter optimization. Can you create a predictive system that not only performs exceptionally but also provides deep insights into its decision-making process?
+            2) Advanced Machine Learning Pipeline Challenge 30 marks) Can you construct a machine learning pipeline that represents the pinnacle of data preprocessing and model development? Your challenge is to transform messy, real-world data into a refined, predictive system that demonstrates exceptional technical prowess. How will you tackle the most challenging aspects of data cleaning, feature engineering, and model optimization? Develop innovative techniques for handling missing data, detecting and managing outliers, and creating custom feature transformations. Implement advanced hyperparameter optimization using Bayesian techniques. Can you create a pipeline that not only processes data effectively but also provides deep insights into its own functioning?
             Provide comprehensive documentation that tells the story of your technical exploration. Your submission should be a narrative of innovation, challenging existing paradigms and demonstrating deep technical understanding.
 
-            Evaluation Criteria:
-             Each component will be evaluated on:
+        Evaluation Criteria (Rubric):
+            Each component will be evaluated on:
 
-            Technical sophistication
+            Technical usage
+            Application of concepts from course content
             Mathematical rigor
             Innovative approach
             Clarity of explanation
             Depth of analysis
-            Potential real-world impact"""
+            
+        Version 2: Advanced Machine Learning Project Assignment
+
+        1)   Theoretical Component (40 marks Total):
+
+            1) Ethical AI and Fairness (20 marks) Conduct an in-depth analysis of ethical concerns in AI, focusing on transparency and accountability. Can you design a systematic approach to auditing machine learning models for fairness? Provide a case study illustrating how fairness metrics can be applied to a real-world model. Develop a mathematical framework to quantify fairness disparities and propose mitigation strategies.
+            2) Deep Learning versus Traditional ML Models (20 marks) Conduct a critical evaluation comparing deep learning models with traditional machine learning approaches. How do they differ in terms of interpretability, computational complexity, and data requirements? Implement a benchmarking study on a dataset to assess their real-world effectiveness across different problem domains.
+                
+        2) Practical Component (60 total marks ):
+
+            1) Predictive Analytics Challenge (30 marks) Implement a machine learning system that predicts customer behavior for a retail business using a dataset of at least 500,000 transactions. Can you demonstrate how feature selection and engineering impact predictive accuracy? Compare logistic regression, XGBoost, and deep neural networks for this task.
+            2) Model Deployment and Optimization (30 marks) Deploy a machine learning model as an API and evaluate its scalability. Implement model pruning and quantization to optimize inference speed. How do these techniques affect performance trade-offs?
+           
+
+        Evaluation Criteria (Rubric):
+            Each component will be evaluated on:
+
+            Technical usage
+            Application of concepts from course content
+            Mathematical rigor
+            Innovative approach
+            Clarity of explanation
+            Depth of analysis
+        
+                
+            """
             
             chain_of_thought = """
             1. Project-Based Learning Approach:
-            - Simulate real-world machine learning challenges
+            - Simulate real-world  challenges
             - Assess practical skill development
             - Encourage innovative problem-solving
 
@@ -345,7 +370,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
 
             3. Learning Outcome Alignment:
             - Demonstrate course learning objectives
-            - Develop end-to-end machine learning skills"""
+            - Develop end-to-end skills"""
             
     
     prompt = f"""
@@ -359,7 +384,7 @@ def generate_prompt_teacher(query, course_name, relevant_passage):
 
      - Multiple versions means make multiple versions of the assessment with different questions but same difficulty level and marks distribution. 
     - Keep in mind that it does not mean to just instruct the teacher with ways of varying the assessment, you must provide as much versions as asked.
-    -versions can be made by switching the order of options or the options in MCQs, changing the numerical values in numerical questions, changing the theoretical questions with similar difficulty level.
+    - Versions can be made by switching the order of options or the options in MCQs, changing the numerical values in numerical questions, changing the theoretical questions with similar difficulty level.
     - the sum of marks of all questions in the assessment must be equal to the total marks.
     """
     return prompt
