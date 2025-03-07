@@ -17,12 +17,14 @@ const Quiz = () => {
 
   // Form state
   const [lectureName, setLectureName] = useState("");
+  const [keyTopic, setKeyTopic] = useState("");
   const [mcqs, setMcqs] = useState("");
   const [theoreticalQuestions, setTheoreticalQuestions] = useState("");
   const [numericals, setNumericals] = useState("");
   const [versions, setVersions] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("");
   const [rubric, setRubric] = useState("");
+  const [additionalReq, setAdditionalReq] = useState("");
   
   // Dialog state
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -77,6 +79,16 @@ const Quiz = () => {
                   maxLength="80"
                 />
                 <div className="character-count">{lectureName.length}/80</div>
+                <label htmlFor="keyTopic">Key Topic</label>
+                <input
+                  type="text"
+                  id="keyTopic"
+                  placeholder="Key Topic Here"
+                  value={keyTopic}
+                  onChange={(e) => setKeyTopic(e.target.value)}
+                  maxLength="80"
+                />
+                <div className="character-count">{keyTopic.length}/80</div>
               </div>
               
               <div className="form-row">
@@ -173,13 +185,25 @@ const Quiz = () => {
                   </select>
                 </div>
               </div>
+              <div className="form-group">
+                <label htmlFor="additionalReq">Additional Requirements: </label>
+                <input
+                  type="text"
+                  id="additionalReq"
+                  placeholder="Enter Additional Requirements Here"
+                  value={additionalReq}
+                  onChange={(e) => setAdditionalReq(e.target.value)}
+                  maxLength="200"
+                />
+                <div className="character-count">{additionalReq.length}/200</div>
+                </div>
               
               <div className="form-actions">
                 <button type="button" className="cancel-btn" onClick={() => window.history.back()}>
                   Cancel
                 </button>
                 <button type="submit" className="save-btn">
-                  Save
+                  Generate 
                 </button>
               </div>
             </form>

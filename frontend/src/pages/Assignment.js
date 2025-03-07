@@ -17,12 +17,14 @@ const Assignment = () => {
 
   // Form state
   const [lectureName, setLectureName] = useState("");
+  const [keyTopic, setKeyTopic] = useState("");
   const [numericals, setNumericals] = useState("");
   const [theoreticalQuestions, setTheoreticalQuestions] = useState("");
   const [versions, setVersions] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("");
   const [rubric, setRubric] = useState("");
-  
+  const[totalmarks,setTotalMarks]=useState("");
+  const [additionalReq, setAdditionalReq] = useState("");
   // Dialog state
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -76,6 +78,16 @@ const Assignment = () => {
                   maxLength="80"
                 />
                 <div className="character-count">{lectureName.length}/80</div>
+                <label htmlFor="keyTopic">Key Topic</label>
+                <input
+                  type="text"
+                  id="keyTopic"
+                  placeholder="Key Topic Here"
+                  value={keyTopic}
+                  onChange={(e) => setKeyTopic(e.target.value)}
+                  maxLength="80"
+                />
+                <div className="character-count">{keyTopic.length}/80</div>
               </div>
               
               <div className="form-row">
@@ -141,7 +153,22 @@ const Assignment = () => {
                   </select>
                 </div>
               </div>
-              
+            <div className="form-row">
+              <div className="form-group">
+                  <label htmlFor="totalmarks">Total Marks:</label>
+                  <select 
+                    id="totalmarks"
+                    value={totalmarks}
+                    onChange={(e) => setTotalMarks(e.target.value)}
+                  >
+                    <option value="" disabled>Select...</option>
+                    <option value="1">10</option>
+                    <option value="2">20</option>
+                    <option value="3">50</option>
+                    <option value="4">75</option>
+                    <option value="5">100</option>
+                  </select>
+                </div>
               <div className="form-group">
                 <label htmlFor="rubric">Generate Rubric</label>
                 <select 
@@ -153,14 +180,27 @@ const Assignment = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
-              </div>
+               </div>
+               </div>
+                <div className="form-group">
+                <label htmlFor="additionalReq">Additional Requirements: </label>
+                <input
+                  type="text"
+                  id="additionalReq"
+                  placeholder="Enter Additional Requirements Here"
+                  value={additionalReq}
+                  onChange={(e) => setAdditionalReq(e.target.value)}
+                  maxLength="200"
+                />
+                <div className="character-count">{additionalReq.length}/200</div>
+                </div>
               
               <div className="form-actions">
                 <Button variant="light" type="button" onClick={() => window.history.back()}>
                   Cancel
                 </Button>
                 <Button variant="dark" type="submit">
-                  Save
+                  Generate
                 </Button>
               </div>
             </form>
