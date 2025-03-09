@@ -80,6 +80,19 @@ const SignIn = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      // Get the Google auth URL from your backend
+      const response = await fetch('http://localhost:5000/api/auth/google/url');
+      const data = await response.json();
+      
+      // Redirect the user to Google's authentication page
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('Error starting Google authentication:', error);
+    }
+  };
+
   return (
     <div className="signin-container">
       <div className="signin-left">
@@ -159,6 +172,12 @@ const SignIn = () => {
               <Button type="submit" variant="dark">
                 Sign In →
               </Button>
+            <div className="social-login">
+              <p>Or sign in with:</p>
+              <button onClick={handleGoogleSignIn}>
+              Sign in with Google
+              </button>
+            </div>
             </div>
           </form>
         </div>

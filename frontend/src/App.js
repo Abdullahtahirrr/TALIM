@@ -12,6 +12,8 @@ import EnrolledCourses from "./pages/EnrolledCourses.js";
 import CreateCourse from "./pages/CreateCourse.js";
 import UploadCourseContent from "./pages/UploadCourseContent.js";
 import Vta from "./pages/Vta.js";
+import VerifyEmail from "./pages/VerifyEmail.js";
+import AuthCallback from "./pages/AuthCallback.js";
 
 
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/CreateCourse" element={<CreateCourse />} />
           <Route path="/UploadCourseContent" element={<UploadCourseContent />} />
           <Route path="/Vta" element={<Vta />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
 
 
 
