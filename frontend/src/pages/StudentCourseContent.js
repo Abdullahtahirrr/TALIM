@@ -17,7 +17,6 @@ const SAMPLE_COURSE = {
       id: "lesson-1",
       title: "Introduction to AI",
       instructor: "Seemab Latif",
-      description: "This lesson covers the basic concepts and history of artificial intelligence.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
         { type: "Lecture Notes", url: "#", icon: FaBook }
@@ -28,7 +27,6 @@ const SAMPLE_COURSE = {
       id: "lesson-2",
       title: "AI Intelligence",
       instructor: "Seemab Latif",
-      description: "Explore different types of intelligence and how they're implemented in AI systems.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
         { type: "Lecture Notes", url: "#", icon: FaBook },
@@ -39,7 +37,6 @@ const SAMPLE_COURSE = {
       id: "lesson-3",
       title: "Future of AI",
       instructor: "Seemab Latif",
-      description: "Discover emerging trends and the potential future impact of AI technologies.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
         { type: "Lecture Notes", url: "#", icon: FaBook }
