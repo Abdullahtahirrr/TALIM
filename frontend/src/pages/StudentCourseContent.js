@@ -11,12 +11,13 @@ const SAMPLE_COURSE = {
   id: "ai-101",
   title: "Artificial Intelligence Course",
   instructor: "Seemab Latif",
-  description: "Learn the fundamentals of artificial intelligence, machine learning algorithms, and practical applications in various industries.",
+  description: "Learn the fundamentals of artificial intelligence, machine learning algorithms, and practical applications in various industries. This comprehensive course covers everything from basic concepts to advanced techniques.",
   lessons: [
     {
       id: "lesson-1",
       title: "Introduction to AI",
       instructor: "Seemab Latif",
+      description: "This lesson covers the basic concepts and history of artificial intelligence.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
         { type: "Lecture Notes", url: "#", icon: FaBook }
@@ -27,9 +28,10 @@ const SAMPLE_COURSE = {
       id: "lesson-2",
       title: "AI Intelligence",
       instructor: "Seemab Latif",
+      description: "Explore different types of intelligence and how they're implemented in AI systems.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
-        { type: "Lecture Notes", url: "#", icon: FaBook }
+        { type: "Lecture Notes", url: "#", icon: FaBook },
       ],
       image: courseImage1
     },
@@ -37,9 +39,10 @@ const SAMPLE_COURSE = {
       id: "lesson-3",
       title: "Future of AI",
       instructor: "Seemab Latif",
+      description: "Discover emerging trends and the potential future impact of AI technologies.",
       resources: [
         { type: "Lecture Slides", url: "#", icon: FaFileAlt },
-        { type: "Lecture Notes", url: "#", icon: FaBook },
+        { type: "Lecture Notes", url: "#", icon: FaBook }
       ],
       image: courseImage1
     }
