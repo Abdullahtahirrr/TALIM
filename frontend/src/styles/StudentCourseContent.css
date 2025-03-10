@@ -1,85 +1,193 @@
+/* Main container styles */
 .course-content-page {
   min-height: 100vh;
   background-color: #f8f9fa;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .course-content-container {
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px */
+  width: 92%; /* Use percentage instead of 100% to reduce side emptiness */
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px 80px 20px; /* Added bottom padding for footer space */
+  flex: 1;
 }
 
+/* Course header styles */
 .course-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 35px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .course-header h1 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 42px; /* Increased from 32px */
+  font-weight: 700;
   color: #333;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.course-instructor {
+  font-size: 20px; /* Increased from 16px */
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.course-description {
+  max-width: 900px; /* Increased from 800px */
+  line-height: 1.7;
+  color: #444;
+  font-size: 18px; /* Added font size */
+}
+
+/* Navigation and breadcrumb */
+.course-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .breadcrumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #666;
+  font-size: 17px; /* Increased from 14px */
+  color: #555;
 }
 
 .breadcrumb a {
-  color: #666;
+  color: #661083;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .breadcrumb a:hover {
   text-decoration: underline;
 }
 
-.back-button-container {
-  margin-bottom: 30px;
-}
-
 .back-button {
   background: none;
   border: none;
   cursor: pointer;
+  color: #661083;
+  font-size: 18px; /* Increased from 15px */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.back-button:hover {
+  background-color: rgba(102, 16, 131, 0.1);
+  transform: translateX(-3px);
+}
+
+/* Course content layout */
+.course-content-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Increased sidebar width from 250px */
+  gap: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Lessons navigation */
+.lessons-nav {
+  background-color: #f3f4f6;
+  padding: 25px;
+  border-right: 1px solid #e5e7eb;
+}
+
+.lessons-nav h3 {
+  font-size: 20px; /* Increased from 16px */
+  font-weight: 600;
   color: #333;
-  font-size: 18px;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #661083;
+  letter-spacing: 0.5px;
+}
+
+.lessons-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lessons-nav li {
+  display: flex;
+  align-items: center;
+  padding: 15px 18px; /* Increased padding */
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lessons-nav li:hover {
+  background-color: rgba(102, 16, 131, 0.08);
+}
+
+.lessons-nav li.active {
+  background-color: rgba(102, 16, 131, 0.15);
+  color: #661083;
+  font-weight: 500;
+}
+
+.lesson-number {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-}
-
-.lessons-section h2 {
-  font-size: 14px;
+  width: 34px; /* Increased from 28px */
+  height: 34px; /* Increased from 28px */
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  margin-right: 14px;
+  font-size: 16px; /* Increased from 14px */
   font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-  text-transform: uppercase;
 }
 
-.lessons-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.lessons-nav li.active .lesson-number {
+  background-color: #661083;
+  color: white;
 }
 
-.lesson-card {
+.lesson-nav-title {
+  font-size: 17px; /* Increased from 14px */
+}
+
+/* Lessons content area */
+.lessons-content {
+  padding: 35px;
+  overflow-y: auto;
+}
+
+.lesson-detail {
+  display: none;
+}
+
+.lesson-detail.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+.lesson-header {
   display: flex;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 15px;
-  gap: 20px;
   align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
 }
 
 .lesson-image {
@@ -87,117 +195,91 @@
 }
 
 .lesson-image img {
-  width: 100px;
-  height: 70px;
-  border-radius: 4px;
+  width: 240px; /* Increased from 180px */
+  height: 160px; /* Increased from 120px */
+  border-radius: 10px;
   object-fit: cover;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-.lesson-details {
-  flex: 1;
-}
-
-.lesson-details h3 {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 5px;
+.lesson-header h2 {
+  font-size: 32px; /* Increased from 24px */
+  font-weight: 600;
+  margin-bottom: 15px;
   color: #333;
 }
 
 .instructor {
-  font-size: 14px;
-  color: #666;
+  font-size: 18px; /* Increased from 14px */
+  color: #555;
 }
 
-.lesson-resources {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.lesson-body {
+  margin-top: 25px;
 }
 
-.resource-link {
-  background-color: #f0f0f0;
-  color: #8e24aa;
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  transition: background-color 0.2s;
+.lesson-description {
+  font-size: 18px; /* Increased from 16px */
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eee;
 }
 
-.resource-link:hover {
-  background-color: #e0e0e0;
-}
-
-/* Chatbot styles */
-.chatbot-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 100;
-  cursor: pointer;
-}
-
-.chat-bubble {
-  position: relative;
-}
-
-.chat-icon {
-  width: 50px;
-  height: 50px;
-  background-color: #8e24aa;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 24px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.chatbot-popup {
-  position: absolute;
-  bottom: 60px;
-  right: 0;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  width: 240px;
-}
-
-.chatbot-message {
-  margin: 0;
-  font-size: 14px;
+/* Resources section */
+.lesson-resources h4 {
+  font-size: 24px; /* Increased from 18px */
+  font-weight: 600;
+  margin-bottom: 20px;
   color: #333;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .lesson-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .lesson-image img {
-    width: 100%;
-    height: 150px;
-  }
-  
-  .lesson-resources {
-    margin-top: 10px;
-    width: 100%;
-  }
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Increased card width */
+  gap: 20px;
 }
 
-/* Add these styles to your existing StudentCourseContent.css */
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 25px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+  height: 150px; /* Fixed height for consistency */
+}
 
-/* Improved Chatbot Button */
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #661083;
+  background-color: #fcf7fe;
+}
+
+.resource-icon {
+  font-size: 32px; /* Increased from 24px */
+  color: #661083;
+  margin-bottom: 16px;
+}
+
+.resource-card span {
+  font-size: 18px; /* Added font size */
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Chatbot styles */
 .chatbot-button {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  right: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -205,8 +287,8 @@
 }
 
 .chatbot-icon {
-  width: 60px;
-  height: 60px;
+  width: 70px; /* Increased from 60px */
+  height: 70px; /* Increased from 60px */
   border-radius: 50%;
   background-color: #661083;
   color: white;
@@ -214,45 +296,100 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(102, 16, 131, 0.4);
   transition: all 0.3s ease;
-  font-size: 24px;
+  font-size: 30px; /* Increased from 24px */
 }
 
 .chatbot-icon:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
   background-color: #7d1a9d;
+  box-shadow: 0 8px 20px rgba(102, 16, 131, 0.5);
 }
 
 .chatbot-hint {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   position: relative;
-  max-width: 250px;
+  max-width: 300px; /* Increased from 250px */
   animation: fadeIn 0.5s ease;
 }
 
 .chatbot-hint p {
   margin: 0;
-  font-size: 14px;
+  font-size: 17px; /* Increased from 14px */
   color: #333;
+  line-height: 1.5;
 }
 
 .chatbot-hint::after {
   content: '';
   position: absolute;
-  bottom: -10px;
-  right: 20px;
+  bottom: -12px;
+  right: 25px;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #fff;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid white;
 }
 
+/* Loading and error states */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(102, 16, 131, 0.2);
+  border-radius: 50%;
+  border-top-color: #661083;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+}
+
+.error-container h2 {
+  color: #e53e3e;
+  margin-bottom: 15px;
+}
+
+.primary-button {
+  background-color: #661083;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+
+.primary-button:hover {
+  background-color: #7d1a9d;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -261,5 +398,121 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .course-content-container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 900px) {
+  .course-content-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .lessons-nav {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .course-header h1 {
+    font-size: 36px;
+  }
+  
+  .course-description {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-header h1 {
+    font-size: 32px;
+  }
+  
+  .course-header {
+    padding: 30px 20px;
+  }
+  
+  .lesson-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .lesson-image img {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 20px;
+  }
+  
+  .resources-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+  
+  .course-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .lessons-content {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-content-container {
+    width: 100%;
+    padding: 20px 15px 60px 15px;
+  }
+  
+  .course-header {
+    padding: 25px 15px;
+  }
+  
+  .course-header h1 {
+    font-size: 28px;
+  }
+  
+  .course-instructor {
+    font-size: 16px;
+  }
+  
+  .course-description {
+    font-size: 16px;
+  }
+  
+  .lessons-content {
+    padding: 20px 15px;
+  }
+  
+  .lesson-header h2 {
+    font-size: 26px;
+  }
+  
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chatbot-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  .chatbot-button {
+    bottom: 30px;
+    right: 20px;
   }
 }
