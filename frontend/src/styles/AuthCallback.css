@@ -1,0 +1,59 @@
+.auth-callback-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .auth-callback-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .auth-callback-content h2 {
+    color: #661083;
+    margin-bottom: 20px;
+  }
+  
+  .auth-callback-content p {
+    color: #666;
+    margin-bottom: 25px;
+  }
+  
+  .auth-loader {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(102, 16, 131, 0.2);
+    border-radius: 50%;
+    border-top-color: #661083;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .auth-callback-button {
+    background-color: #661083;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-callback-button:hover {
+    background-color: #7a1499;
+  }

@@ -5,9 +5,12 @@ import InputField from "../components/InputField";
 import PersonalInfoModal from "../components/PersonalInfoModal";
 import logo from "../assets/LOGO.png";
 import "../styles/SignUp.css";
+import { useAuth } from "../utils/authContext"; // Import auth context
+import ErrorDialogBox from "../components/ErrorDialogBox"; // You may need to create this component
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { signUp } = useAuth(); // Use the auth context
   const [activeRole, setActiveRole] = useState("student");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -20,6 +23,9 @@ const SignUp = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showPersonalInfoModal, setShowPersonalInfoModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -86,8 +92,39 @@ const SignUp = () => {
       return;
     }
     
-    // Show the personal info modal
-    setShowPersonalInfoModal(true);
+    setIsLoading(true);
+    
+    try {
+      // Register user with Supabase
+      const { data, error } = await signUp(formData.email, formData.password);
+      
+      if (error) {
+        setErrorMessage(error.message || "Error creating account");
+        setShowErrorDialog(true);
+      } else {
+        // Store user metadata in Supabase or your own database
+        const { firstName, lastName } = formData;
+        
+        // Show the personal info modal to collect additional details
+        setShowPersonalInfoModal(true);
+        
+        // In a real app, you might want to update the user's metadata
+        // const { error: metadataError } = await supabase.from('user_profiles').insert({
+        //   user_id: data.user.id,
+        //   first_name: firstName,
+        //   last_name: lastName,
+        //   role: activeRole,
+        // });
+        
+        // You could navigate to a verification page or directly to dashboard if auto-confirm is enabled
+        // navigate("/verify-email");
+      }
+    } catch (err) {
+      setErrorMessage("An unexpected error occurred");
+      setShowErrorDialog(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const navigateToSignIn = () => {
@@ -203,8 +240,8 @@ const SignUp = () => {
             </div>
             
             <div className="button-container">
-              <Button type="submit" variant="dark">
-                Create Account →
+              <Button type="submit" variant="dark" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Create Account →"}
               </Button>
             </div>
           </form>
@@ -218,6 +255,16 @@ const SignUp = () => {
         userRole={activeRole}
         signupData={formData}
       />
+      
+      {/* Error Dialog */}
+      {showErrorDialog && (
+        <ErrorDialogBox 
+          isOpen={showErrorDialog}
+          title="Error"
+          message={errorMessage}
+          onClose={() => setShowErrorDialog(false)}
+        />
+      )}
     </div>
   );
 };

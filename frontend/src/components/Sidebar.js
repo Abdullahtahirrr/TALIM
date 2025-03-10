@@ -1,10 +1,28 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
-import "../styles/Sidebar.css"; // Import the CSS file
+import "../styles/Sidebar.css";
 import logo from "../assets/logo_light.png";
+import { useAuth } from "../utils/authContext";
 
 const Sidebar = ({ links }) => {
-  const [activeIndex, setActiveIndex] = useState(null); // Track active index
+  const [activeIndex, setActiveIndex] = useState(null);
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleNavigation = (href, index) => {
+    setActiveIndex(index);
+    navigate(href);
+  };
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (!error) {
+      navigate("/SignIn");
+    } else {
+      console.error("Error signing out:", error);
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -15,9 +33,9 @@ const Sidebar = ({ links }) => {
           {links.map((link, index) => (
             <a
               key={index}
-              href={link.href}
+              href="#"
               className={`nav-item ${activeIndex === index ? "active" : ""}`}
-              onClick={() => setActiveIndex(index)} // Set active state on click
+              onClick={() => handleNavigation(link.href, index)}
             >
               <link.icon size={20} />
               <span>{link.label}</span>
@@ -27,7 +45,7 @@ const Sidebar = ({ links }) => {
       </div>
 
       {/* Sign-out Button */}
-      <a href="#" className="sign-out">
+      <a href="#" className="sign-out" onClick={handleSignOut}>
         <FaSignOutAlt size={20} />
         <span>Sign-out</span>
       </a>

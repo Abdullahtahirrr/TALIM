@@ -4,9 +4,12 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import logo from "../assets/LOGO.png";
 import "../styles/SignIn.css";
+import { useAuth } from "../utils/authContext"; // Import auth context
+import ErrorDialogBox from "../components/ErrorDialogBox"; // You may need to create this component
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { signIn, signInWithGoogle } = useAuth(); // Use the auth context
   const [activeRole, setActiveRole] = useState("student");
   const [formData, setFormData] = useState({
     email: "",
@@ -15,6 +18,9 @@ const SignIn = () => {
   
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -64,11 +70,28 @@ const SignIn = () => {
       return;
     }
     
-    // Navigate to appropriate dashboard based on role
-    if (activeRole === "student") {
-      navigate("/StudentDashboard");
-    } else {
-      navigate("/TeacherDashboard");
+    setIsLoading(true);
+    
+    try {
+      // Sign in with Supabase
+      const { data, error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        setErrorMessage(error.message || "Invalid email or password");
+        setShowErrorDialog(true);
+      } else {
+        // Navigate to appropriate dashboard based on role
+        if (activeRole === "student") {
+          navigate("/StudentDashboard");
+        } else {
+          navigate("/TeacherDashboard");
+        }
+      }
+    } catch (err) {
+      setErrorMessage("An unexpected error occurred");
+      setShowErrorDialog(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,14 +105,16 @@ const SignIn = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      // Get the Google auth URL from your backend
-      const response = await fetch('http://localhost:5000/api/auth/google/url');
-      const data = await response.json();
+      const { data, error } = await signInWithGoogle();
       
-      // Redirect the user to Google's authentication page
-      window.location.href = data.url;
-    } catch (error) {
-      console.error('Error starting Google authentication:', error);
+      if (error) {
+        setErrorMessage(error.message || "Could not sign in with Google");
+        setShowErrorDialog(true);
+      }
+      // The redirect will be handled by Supabase and your AuthCallback component
+    } catch (err) {
+      setErrorMessage("An unexpected error occurred");
+      setShowErrorDialog(true);
     }
   };
 
@@ -168,20 +193,45 @@ const SignIn = () => {
               </div>
             </div>
             
+            {/* Primary Sign In Button */}
             <div className="button-container">
-              <Button type="submit" variant="dark">
-                Sign In →
+              <Button type="submit" variant="dark" disabled={isLoading}>
+                {isLoading ? "Signing In..." : "Sign In →"}
               </Button>
-            <div className="social-login">
-              <p>Or sign in with:</p>
-              <button onClick={handleGoogleSignIn}>
-              Sign in with Google
-              </button>
             </div>
+            
+            {/* Divider */}
+            <div className="auth-divider">
+              <span>Or sign in with:</span>
+            </div>
+            
+            {/* Google Sign In */}
+            <div className="social-login-container">
+              <button 
+                type="button" 
+                className="google-signin-button" 
+                onClick={handleGoogleSignIn}
+              >
+                <img 
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" 
+                  alt="Google logo" 
+                />
+                Sign in with Google
+              </button>
             </div>
           </form>
         </div>
       </div>
+      
+      {/* Error Dialog */}
+      {showErrorDialog && (
+        <ErrorDialogBox 
+          isOpen={showErrorDialog}
+          title="Error"
+          message={errorMessage}
+          onClose={() => setShowErrorDialog(false)}
+        />
+      )}
     </div>
   );
 };

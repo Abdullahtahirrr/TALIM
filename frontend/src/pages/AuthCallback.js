@@ -1,65 +1,108 @@
-// src/pages/AuthCallback.js
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
+import '../styles/AuthCallback.css';
 
 const AuthCallback = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const location = useLocation();
   const navigate = useNavigate();
   
   useEffect(() => {
-    const handleCallback = async () => {
+    async function handleAuthCallback() {
       try {
-        // Get query parameters
-        const queryParams = Object.fromEntries(
-          new URLSearchParams(location.search)
-        );
+        // Check if user is authenticated
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
         
-        // Send the query params to your backend
-        const response = await fetch('http://localhost:5000/api/auth/callback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ queryParams })
-        });
+        if (userError) throw userError;
         
-        const data = await response.json();
-        
-        if (response.ok) {
-          // Store user data and tokens
-          localStorage.setItem('user', JSON.stringify(data.user));
-          localStorage.setItem('token', data.session.access_token);
+        if (user) {
+          console.log("User authenticated:", user);
           
-          // Redirect to dashboard
-          navigate('/dashboard');
+          // Check if user has a profile in your database
+          // You'll need to create this table in your Supabase project
+          try {
+            const { data: profile, error: profileError } = await supabase
+              .from('user_profiles')
+              .select('*')
+              .eq('user_id', user.id)
+              .single();
+              
+            if (profileError && profileError.code !== 'PGRST116') {
+              // PGRST116 is "row not found" error - that's expected for new users
+              console.error("Profile error:", profileError);
+            }
+              
+            if (!profile) {
+              console.log("New user, redirecting to personal details");
+              // First-time user - redirect to complete profile setup
+              navigate('/UserPersonalDetail', { 
+                state: { 
+                  isNewUser: true,
+                  email: user.email 
+                } 
+              });
+            } else {
+              console.log("Existing user, redirecting to dashboard");
+              // Existing user - redirect to appropriate dashboard
+              navigate(profile.role === 'student' ? '/StudentDashboard' : '/TeacherDashboard');
+            }
+          } catch (error) {
+            console.error("Error checking user profile:", error);
+            // If there's an error checking the profile, still try to navigate the user somewhere
+            navigate('/UserPersonalDetail', { 
+              state: { 
+                isNewUser: true,
+                email: user.email 
+              } 
+            });
+          }
         } else {
-          setError(data.error);
+          console.log("No user found, redirecting to sign in");
+          // No user found - redirect to sign in
+          navigate('/SignIn');
         }
       } catch (error) {
+        console.error('Error in auth callback:', error);
         setError(error.message);
       } finally {
         setLoading(false);
       }
-    };
+    }
     
-    handleCallback();
-  }, [location, navigate]);
+    handleAuthCallback();
+  }, [navigate]);
   
-  return (
-    <div>
-      <h1>Signing you in...</h1>
-      {loading ? (
-        <p>Please wait while we complete your sign-in.</p>
-      ) : error ? (
-        <div>
-          <p>Error: {error}</p>
-          <button onClick={() => navigate('/signin')}>Back to Sign In</button>
+  if (loading) {
+    return (
+      <div className="auth-callback-container">
+        <div className="auth-callback-content">
+          <h2>Completing sign in...</h2>
+          <div className="auth-loader"></div>
+          <p>Please wait while we process your authentication.</p>
         </div>
-      ) : null}
-    </div>
-  );
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="auth-callback-container">
+        <div className="auth-callback-content">
+          <h2>Authentication Error</h2>
+          <p>There was a problem completing your sign in: {error}</p>
+          <button 
+            className="auth-callback-button" 
+            onClick={() => navigate('/SignIn')}
+          >
+            Return to Sign In
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  return null;
 };
 
 export default AuthCallback;
