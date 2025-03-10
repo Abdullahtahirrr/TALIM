@@ -4,10 +4,13 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import logo from "../assets/LOGO.png";
 import "../styles/UserPersonalDetails.css";
+import { supabase } from "../supabaseClient";
+import { useAuth } from "../utils/authContext";
 
 const UserPersonalDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     universityName: "",
     universityEmail: "",
@@ -19,17 +22,25 @@ const UserPersonalDetail = () => {
   
   const [errors, setErrors] = useState({});
   const [userRole, setUserRole] = useState("student"); // Default to student
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Get role and form data from location state (passed from SignUp)
+  // Get role and form data from location state (passed from SignUp or AuthCallback)
   useEffect(() => {
     if (location.state) {
-      const { role, formData: signupData } = location.state;
-      setUserRole(role || "student");
+      const { role, isNewUser, email } = location.state;
+      if (role) setUserRole(role);
       
-      // You could save the signup data if needed
-      console.log("Signup data:", signupData);
+      // For Google auth users, we may have their email from the auth process
+      if (email && formData.universityEmail === "") {
+        setFormData(prev => ({
+          ...prev,
+          universityEmail: email
+        }));
+      }
     }
-  }, [location]);
+  }, [location, formData.universityEmail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,16 +106,50 @@ const UserPersonalDetail = () => {
       return;
     }
     
-    // Navigate to appropriate dashboard based on role
-    if (userRole === "student") {
-      navigate("/StudentDashboard");
-    } else {
-      navigate("/TeacherDashboard");
+    setIsSubmitting(true);
+    setShowError(false);
+    
+    try {
+      // Get current user ID
+      const userId = user ? user.id : location.state?.userId;
+      
+      if (!userId) {
+        throw new Error("User not found. Please sign in again.");
+      }
+      
+      // Save user profile data to Supabase
+      const { error } = await supabase
+        .from('user_profiles')
+        .upsert({
+          id: userId,
+          university_name: formData.universityName,
+          university_email: formData.universityEmail,
+          university_address: formData.universityAddress,
+          phone_number: formData.phoneNumber,
+          semester: formData.semester,
+          degree: formData.degree,
+          role: userRole,
+          updated_at: new Date()
+        }, {
+          onConflict: 'id'
+        });
+      
+      if (error) throw error;
+      
+      // Navigate to appropriate dashboard based on role
+      navigate(userRole === "student" ? "/StudentDashboard" : "/TeacherDashboard");
+      
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      setErrorMessage(error.message);
+      setShowError(true);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleSignOut = () => {
-    navigate("/SignUp");
+    navigate("/SignIn");
   };
 
   return (
@@ -123,6 +168,12 @@ const UserPersonalDetail = () => {
       <div className="details-modal-wrapper">
         <div className="details-modal">
           <h1 className="details-title">PERSONAL INFORMATION</h1>
+          
+          {showError && (
+            <div className="error-message">
+              {errorMessage}
+            </div>
+          )}
           
           <form className="details-form" onSubmit={handleSubmit}>
             <InputField
@@ -182,8 +233,8 @@ const UserPersonalDetail = () => {
             />
             
             <div className="button-container">
-              <Button type="submit" variant="dark">
-                Create Account →
+              <Button type="submit" variant="dark" disabled={isSubmitting}>
+                {isSubmitting ? "Creating Account..." : "Create Account →"}
               </Button>
             </div>
           </form>

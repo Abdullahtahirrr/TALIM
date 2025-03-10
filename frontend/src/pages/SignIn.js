@@ -4,9 +4,12 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import logo from "../assets/LOGO.png";
 import "../styles/SignIn.css";
+import { useAuth } from "../utils/authContext"; // Import auth context
+import ErrorDialogBox from "../components/ErrorDialogBox"; // You may need to create this component
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { signIn, signInWithGoogle } = useAuth(); // Use the auth context
   const [activeRole, setActiveRole] = useState("student");
   const [formData, setFormData] = useState({
     email: "",
@@ -15,6 +18,9 @@ const SignIn = () => {
   
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -64,11 +70,28 @@ const SignIn = () => {
       return;
     }
     
-    // Navigate to appropriate dashboard based on role
-    if (activeRole === "student") {
-      navigate("/StudentDashboard");
-    } else {
-      navigate("/TeacherDashboard");
+    setIsLoading(true);
+    
+    try {
+      // Sign in with Supabase
+      const { data, error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        setErrorMessage(error.message || "Invalid email or password");
+        setShowErrorDialog(true);
+      } else {
+        // Navigate to appropriate dashboard based on role
+        if (activeRole === "student") {
+          navigate("/StudentDashboard");
+        } else {
+          navigate("/TeacherDashboard");
+        }
+      }
+    } catch (err) {
+      setErrorMessage("An unexpected error occurred");
+      setShowErrorDialog(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,6 +101,21 @@ const SignIn = () => {
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const { data, error } = await signInWithGoogle();
+      
+      if (error) {
+        setErrorMessage(error.message || "Could not sign in with Google");
+        setShowErrorDialog(true);
+      }
+      // The redirect will be handled by Supabase and your AuthCallback component
+    } catch (err) {
+      setErrorMessage("An unexpected error occurred");
+      setShowErrorDialog(true);
+    }
   };
 
   return (
@@ -155,14 +193,45 @@ const SignIn = () => {
               </div>
             </div>
             
+            {/* Primary Sign In Button */}
             <div className="button-container">
-              <Button type="submit" variant="dark">
-                Sign In →
+              <Button type="submit" variant="dark" disabled={isLoading}>
+                {isLoading ? "Signing In..." : "Sign In →"}
               </Button>
+            </div>
+            
+            {/* Divider */}
+            <div className="auth-divider">
+              <span>Or sign in with:</span>
+            </div>
+            
+            {/* Google Sign In */}
+            <div className="social-login-container">
+              <button 
+                type="button" 
+                className="google-signin-button" 
+                onClick={handleGoogleSignIn}
+              >
+                <img 
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" 
+                  alt="Google logo" 
+                />
+                Sign in with Google
+              </button>
             </div>
           </form>
         </div>
       </div>
+      
+      {/* Error Dialog */}
+      {showErrorDialog && (
+        <ErrorDialogBox 
+          isOpen={showErrorDialog}
+          title="Error"
+          message={errorMessage}
+          onClose={() => setShowErrorDialog(false)}
+        />
+      )}
     </div>
   );
 };
