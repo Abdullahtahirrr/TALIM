@@ -84,7 +84,7 @@ const Assignment = () => {
     }
   };
 
-  // Handle assignment download as PDF
+  // Handle assignment download as PDF with markdown formatting
   const handleDownload = () => {
     if (!generatedAssignment) return;
     
@@ -92,59 +92,165 @@ const Assignment = () => {
       // Create PDF document
       const doc = new jsPDF();
       
-      // Set title
-      doc.setFontSize(16);
+      // Set initial font styles
+      doc.setFont('helvetica');
+      const defaultFontSize = 12;
+      doc.setFontSize(defaultFontSize);
+      
+      // Add title
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
       doc.text(`Assignment: ${lectureName}`, 20, 20);
       
       // Add metadata
       doc.setFontSize(12);
+      doc.setFont('helvetica', 'normal');
       doc.text(`Topic: ${keyTopic}`, 20, 30);
       doc.text(`Difficulty: ${difficultyLevel || "Medium"}`, 20, 40);
       doc.text(`Total Marks: ${totalMarks || "50"}`, 20, 50);
       
-      // Split content into lines and add to PDF with proper formatting
+      // Split content into lines
       const contentLines = generatedAssignment.split('\n');
       let yPosition = 60;
       const maxWidth = 170;
+      let currentIndent = 0;
+      let listItemNumber = 1; // For ordered lists
+      let inCodeBlock = false;
       
+      // Process each line
       contentLines.forEach(line => {
-        // Skip empty lines
+        // Skip empty lines but add spacing
         if (line.trim() === '') {
           yPosition += 5;
           return;
         }
         
-        // Check if line is a heading (starts with # or ##)
+        // Add a new page if needed
+        if (yPosition > 270) {
+          doc.addPage();
+          yPosition = 20;
+        }
+        
+        // Handle markdown headings
         if (line.startsWith('# ')) {
           yPosition += 10;
-          doc.setFontSize(14);
-          doc.setFont(undefined, 'bold');
+          doc.setFontSize(16);
+          doc.setFont('helvetica', 'bold');
           doc.text(line.substring(2), 20, yPosition);
-          doc.setFont(undefined, 'normal');
-          doc.setFontSize(12);
-          yPosition += 10;
-        } else if (line.startsWith('## ')) {
-          yPosition += 7;
-          doc.setFontSize(13);
-          doc.setFont(undefined, 'bold');
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(defaultFontSize);
+          yPosition += 8;
+          return;
+        } 
+        else if (line.startsWith('## ')) {
+          yPosition += 8;
+          doc.setFontSize(14);
+          doc.setFont('helvetica', 'bold');
           doc.text(line.substring(3), 20, yPosition);
-          doc.setFont(undefined, 'normal');
-          doc.setFontSize(12);
-          yPosition += 7;
-        } else {
-          // Handle text wrapping for long lines
-          const splitText = doc.splitTextToSize(line, maxWidth);
-          splitText.forEach(textLine => {
-            // Add a new page if we're near the bottom
-            if (yPosition > 270) {
-              doc.addPage();
-              yPosition = 20;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(defaultFontSize);
+          yPosition += 6;
+          return;
+        }
+        else if (line.startsWith('### ')) {
+          yPosition += 6;
+          doc.setFontSize(13);
+          doc.setFont('helvetica', 'bold');
+          doc.text(line.substring(4), 20, yPosition);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(defaultFontSize);
+          yPosition += 5;
+          return;
+        }
+        
+        // Handle ordered lists (e.g., "1. Item")
+        const orderedListMatch = line.match(/^\d+\.\s(.+)/);
+        if (orderedListMatch) {
+          const text = orderedListMatch[1];
+          const splitText = doc.splitTextToSize(text, maxWidth - 25);
+          
+          // Number and first line
+          doc.text(`${listItemNumber}.`, 20, yPosition);
+          doc.text(splitText[0], 30, yPosition);
+          yPosition += 5;
+          
+          // Additional wrapped lines
+          for (let i = 1; i < splitText.length; i++) {
+            doc.text(splitText[i], 30, yPosition);
+            yPosition += 5;
+          }
+          
+          listItemNumber++;
+          return;
+        }
+        
+        // Handle unordered lists (e.g., "- Item" or "* Item")
+        const unorderedListMatch = line.match(/^[\*\-•]\s(.+)/);
+        if (unorderedListMatch) {
+          const text = unorderedListMatch[1];
+          const splitText = doc.splitTextToSize(text, maxWidth - 25);
+          
+          // Bullet and first line
+          doc.text("•", 20, yPosition);
+          doc.text(splitText[0], 30, yPosition);
+          yPosition += 5;
+          
+          // Additional wrapped lines
+          for (let i = 1; i < splitText.length; i++) {
+            doc.text(splitText[i], 30, yPosition);
+            yPosition += 5;
+          }
+          
+          return;
+        }
+        
+        // Handle bold text (e.g., **bold** or __bold__)
+        let processedLine = line;
+        let boldRegex = /(\*\*|__)(.*?)\1/g;
+        let boldMatches = [...processedLine.matchAll(boldRegex)];
+        
+        if (boldMatches.length > 0) {
+          let lastIndex = 0;
+          let xPosition = 20;
+          
+          for (const match of boldMatches) {
+            const beforeBold = processedLine.substring(lastIndex, match.index);
+            const boldText = match[2];
+            
+            // Render text before bold
+            if (beforeBold) {
+              doc.setFont('helvetica', 'normal');
+              const beforeTextWidth = doc.getTextWidth(beforeBold);
+              doc.text(beforeBold, xPosition, yPosition);
+              xPosition += beforeTextWidth;
             }
             
-            doc.text(textLine, 20, yPosition);
-            yPosition += 7;
-          });
+            // Render bold text
+            doc.setFont('helvetica', 'bold');
+            const boldTextWidth = doc.getTextWidth(boldText);
+            doc.text(boldText, xPosition, yPosition);
+            xPosition += boldTextWidth;
+            doc.setFont('helvetica', 'normal');
+            
+            lastIndex = match.index + match[0].length;
+          }
+          
+          // Render any remaining text after the last bold part
+          const remainingText = processedLine.substring(lastIndex);
+          if (remainingText) {
+            doc.text(remainingText, xPosition, yPosition);
+          }
+          
+          yPosition += 5;
+          return;
         }
+        
+        // Handle regular text with wrapping
+        const splitText = doc.splitTextToSize(line, maxWidth);
+        splitText.forEach(textLine => {
+          doc.text(textLine, 20, yPosition);
+          yPosition += 5;
+        });
       });
       
       // Save the PDF
@@ -238,6 +344,7 @@ const Assignment = () => {
                     onChange={(e) => setNumericals(e.target.value)}
                   >
                     <option value="" disabled>Select...</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -254,6 +361,7 @@ const Assignment = () => {
                     onChange={(e) => setTheoreticalQuestions(e.target.value)}
                   >
                     <option value="" disabled>Select...</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
