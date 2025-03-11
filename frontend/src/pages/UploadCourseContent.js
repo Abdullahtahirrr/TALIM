@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Button from "../components/Button";
 import SimpleFooter from "../components/SimpleFooter";
 import DialogBox from "../components/DialogBox";
-import { FaGraduationCap, FaBook, FaUserGraduate, FaChevronDown } from "react-icons/fa";
+import { FaGraduationCap, FaBook, FaUserGraduate, FaChevronDown,FaHome,FaPlusCircle } from "react-icons/fa";
 import { BsTrash, BsPencil } from "react-icons/bs";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import "../styles/UploadCourseContent.css";
