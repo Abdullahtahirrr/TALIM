@@ -11,7 +11,7 @@ const StudentMyCourses = () => {
   // Sidebar links configuration
   const sidebarLinks = [
     { label: "Dashboard", icon: FaHome, href: "/StudentDashboard" },
-    { label: "My Courses", icon: FaBook, href: "/TeacherCourseContent" },
+    { label: "My Courses", icon: FaBook, href: "/StudentMyCourses" },
   ];
 
   // Sample course data
@@ -57,7 +57,7 @@ const StudentMyCourses = () => {
                           <p className="profile-title">Student</p>
                         </div>
                       </div>
-                      <button className="all-courses-btn" onClick={() => window.location.href = "/AllCourses"}>
+                      <button className="all-courses-btn" onClick={() => window.location.href = "/EnrolledCourses"}>
                         All Courses <span className="arrow">→</span>
                       </button>
                     </div>
@@ -75,7 +75,7 @@ const StudentMyCourses = () => {
                     instructor={course.instructor}
                     university={course.university}
                     buttonText="Open Course"
-                    onButtonClick={() => window.location.href = `/TeacherCourseContent/${course.id}`}
+                    onButtonClick={() => window.location.href = `/StudentCourseContent/${course.id}`}
                   />
                   <div className="course-stats">
                     <p>{course.students} students enrolled</p>

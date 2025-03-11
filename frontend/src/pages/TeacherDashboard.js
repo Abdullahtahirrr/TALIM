@@ -112,7 +112,7 @@ const TeacherDashboard = () => {
                 <p className="profile-title">Assistant Professor</p>
               </div>
             </div>
-            <button className="all-courses-btn" onClick={() => window.location.href = "/AllCourses"}>
+            <button className="all-courses-btn" onClick={() => window.location.href = "/TeacherMyCourses"}>
               All Courses <span className="arrow">→</span>
             </button>
           </div>

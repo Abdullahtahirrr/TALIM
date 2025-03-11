@@ -175,8 +175,8 @@ const CreateCourse = () => {
           <option value="" disabled>Select...</option>
           <option value="computerScience">Computer Science</option>
           <option value="dataScience">Data Science</option>
-          <option value="artificialIntelligence">Artificial Intelligence</option>
-          <option value="webDevelopment">Web Development</option>
+          <option value="artificialIntelligence">Humanities</option>
+          <option value="webDevelopment">General Science</option>
           <option value="webDevelopment">Business Studies</option>
           <option value="webDevelopment">Others</option>
         </select>

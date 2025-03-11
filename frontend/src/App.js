@@ -72,6 +72,7 @@ function App() {
               <TeacherCourseContent />
             </ProtectedRoute>
           } />
+
           
           <Route path="/CreateCourse" element={
             <ProtectedRoute>

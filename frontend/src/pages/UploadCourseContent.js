@@ -30,10 +30,10 @@ const UploadCourseContent = () => {
 
   // Sidebar links configuration
   const sidebarLinks = [
-    { label: "Dashboard", icon: FaGraduationCap, href: "/TeacherDashboard" },
-    { label: "My Courses", icon: FaBook, href: "/TeacherMyCourses" },
-    { label: "Students", icon: FaUserGraduate, href: "/students" }
-  ];
+        { label: "Dashboard", icon: FaHome, href: "/TeacherDashboard" },
+        { label: "My Courses", icon: FaBook, href: "/TeacherMyCourses" },
+        { label: "Create a Course", icon: FaPlusCircle, href: "/TeacherStudents" },
+      ];
 
   // Handle lecture actions
   const handleAction = (action, lectureId) => {
