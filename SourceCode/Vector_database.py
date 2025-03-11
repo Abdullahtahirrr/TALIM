@@ -7,6 +7,10 @@ from dotenv import load_dotenv
 from Data_processing import process_pdf_v4,process_pdf_v3,semantic_chunking_process,recursive_chunking_process
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
+# Get the absolute path to your existing database
+SOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(SOURCE_DIR)
+DB_PATH = os.path.join(PARENT_DIR, "database")
 
 """ Explore embeddign """
 embeddings = GoogleGenerativeAIEmbeddings(model = "models/text-embedding-004")
@@ -16,7 +20,7 @@ def get_vector_store(course_name):
     collection_name = course_name
     vector_store = Chroma(collection_name=collection_name,
                           embedding_function=embeddings, 
-                          persist_directory="database",
+                          persist_directory=DB_PATH,
                           create_collection_if_not_exists=True
                             )
     return vector_store
