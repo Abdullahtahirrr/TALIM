@@ -1,4 +1,3 @@
-
 # routes/auth_routes.py
 
 from flask import Blueprint, request, jsonify, redirect
@@ -17,11 +16,18 @@ def signup():
     data = request.json
     email = data.get('email')
     password = data.get('password')
+    role = data.get('role', 'student')
     
     if not email or not password:
         return jsonify({'error': 'Email and password are required'}), 400
     
     try:
+        # Check if email already exists in profiles table
+        existing_profile = supabase.table('profiles').select('*').eq('email', email).execute()
+        
+        if existing_profile.data and len(existing_profile.data) > 0:
+            return jsonify({'error': 'Email already registered. Please sign in or use a different email.'}), 400
+        
         # Sign up with Supabase (this will trigger verification email)
         response = supabase.auth.sign_up({
             "email": email,
@@ -30,12 +36,14 @@ def signup():
         
         # Check if user was created successfully
         if response.user:
-            # Create additional user profile data if needed
+            # Create initial profile with basic data
             user_data = {
                 'id': response.user.id,
-                'display_name': data.get('displayName', email),
-                'role': data.get('role', 'student'),
-                'university': data.get('university', ''),
+                'first_name': data.get('firstName', ''),
+                'last_name': data.get('lastName', ''),
+                'email': email,
+                'role': role,
+                'email_verified': False  # Track verification status
             }
             
             # Insert into profiles table
@@ -71,8 +79,6 @@ def verify_email():
         return redirect(f"{frontend_url}/verify-email?token_hash={token_hash}&type={type}")
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-
-# routes/auth_routes.py (add these routes to the existing file)
 
 @auth_bp.route('/google/url', methods=['GET'])
 def get_google_auth_url():
@@ -110,12 +116,14 @@ def handle_auth_callback():
         profile_response = supabase.table('profiles').select('*').eq('id', user.id).execute()
         
         if not profile_response.data:
-            # Create profile if it doesn't exist
+            # Create profile for Google user if it doesn't exist
             profile_data = {
                 'id': user.id,
-                'display_name': user.user_metadata.get('full_name', ''),
+                'first_name': user.user_metadata.get('full_name', '').split(' ')[0] if user.user_metadata.get('full_name') else '',
+                'last_name': ' '.join(user.user_metadata.get('full_name', '').split(' ')[1:]) if user.user_metadata.get('full_name') else '',
+                'email': user.email,
                 'role': 'student',  # Default role
-                'email': user.email
+                'email_verified': True  # Google users are already verified
             }
             
             supabase.table('profiles').insert(profile_data).execute()
@@ -133,3 +141,22 @@ def handle_auth_callback():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+@auth_bp.route('/resend-verification', methods=['POST'])
+def resend_verification():
+    try:
+        data = request.json
+        email = data.get('email')
+        
+        if not email:
+            return jsonify({'error': 'Email is required'}), 400
+            
+        # Resend verification email
+        response = supabase.auth.resend_signup_email(email)
+        
+        return jsonify({
+            'message': 'Verification email has been resent. Please check your inbox.'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+

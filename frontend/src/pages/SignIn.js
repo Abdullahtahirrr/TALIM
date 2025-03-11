@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import logo from "../assets/LOGO.png";
 import "../styles/SignIn.css";
-import { useAuth } from "../utils/authContext"; // Import auth context
-import ErrorDialogBox from "../components/ErrorDialogBox"; // You may need to create this component
+import { useAuth } from "../utils/authContext";
+import { supabase } from '../supabaseClient';
+import ErrorDialogBox from "../components/ErrorDialogBox";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle } = useAuth(); // Use the auth context
+  const location = useLocation();
+  const { signIn, signInWithGoogle, signOut } = useAuth();
   const [activeRole, setActiveRole] = useState("student");
   const [formData, setFormData] = useState({
     email: "",
@@ -21,6 +23,52 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // Check for existing session on page load
+  useEffect(() => {
+    const checkExistingSession = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (session) {
+        // User is already logged in, redirect to appropriate dashboard
+        try {
+          // Get user's role from profiles table
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+            
+          if (profileError) throw profileError;
+          
+          // Redirect based on role
+          const role = profile?.role || 'student';
+          navigate(role === 'student' ? '/StudentDashboard' : '/TeacherDashboard', { replace: true });
+        } catch (err) {
+          console.error("Error checking user profile:", err);
+          // Default to student dashboard if can't determine role
+          navigate('/StudentDashboard', { replace: true });
+        }
+      }
+    };
+    
+    checkExistingSession();
+  }, [navigate]);
+
+  // Check for success message from redirects (like email verification)
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      
+      // Clear the message after 5 seconds
+      const timer = setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -73,21 +121,93 @@ const SignIn = () => {
     setIsLoading(true);
     
     try {
-      // Sign in with Supabase
+      // First, check if the email exists and matches the selected role
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('email', formData.email)
+        .single();
+      
+      if (profileError && profileError.code !== 'PGRST116') {
+        // PGRST116 is "row not found" error, which means email not registered
+        console.error("Error checking profile:", profileError);
+      }
+      
+      // If profile exists but role doesn't match
+      if (profileData && profileData.role !== activeRole) {
+        setErrorMessage(`This email is registered as a ${profileData.role}. Please select the correct role.`);
+        setShowErrorDialog(true);
+        setIsLoading(false);
+        return;
+      }
+      
+      // If everything is fine, proceed with sign in
       const { data, error } = await signIn(formData.email, formData.password);
       
       if (error) {
         setErrorMessage(error.message || "Invalid email or password");
         setShowErrorDialog(true);
       } else {
-        // Navigate to appropriate dashboard based on role
-        if (activeRole === "student") {
-          navigate("/StudentDashboard");
+        // Get user profile to check verification status and role
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+        
+        if (profileError) {
+          console.error("Error fetching profile:", profileError);
+        }
+        
+        // Confirm role matches what user selected
+        if (profile && profile.role !== activeRole) {
+          // Log user out, since they signed in with wrong role
+          await signOut();
+          setErrorMessage(`This account is registered as a ${profile.role}. Please select the correct role to sign in.`);
+          setShowErrorDialog(true);
+          setIsLoading(false);
+          return;
+        }
+        
+        // Check if user details are completed
+        const { data: userDetails, error: detailsError } = await supabase
+          .from('user_details')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+          
+        if (detailsError && detailsError.code !== 'PGRST116') {
+          console.error("Error fetching user details:", detailsError);
+        }
+        
+        // Route user based on profile status
+        if (!userDetails) {
+          // User needs to complete profile
+          navigate('/UserPersonalDetail', {
+            state: {
+              userId: data.user.id,
+              email: data.user.email,
+              role: profile ? profile.role : activeRole
+            }
+          });
         } else {
-          navigate("/TeacherDashboard");
+          // Check if email is verified
+          if (profile && !profile.email_verified) {
+            // Allow access but show a warning about verification
+            // This is our hybrid approach - allowing access but reminding about verification
+            const role = profile.role || activeRole;
+            navigate(role === 'student' ? '/StudentDashboard' : '/TeacherDashboard', {
+              state: { showVerificationWarning: true }
+            });
+          } else {
+            // Fully verified user with completed profile
+            const role = profile ? profile.role : activeRole;
+            navigate(role === 'student' ? '/StudentDashboard' : '/TeacherDashboard');
+          }
         }
       }
     } catch (err) {
+      console.error("Sign-in error:", err);
       setErrorMessage("An unexpected error occurred");
       setShowErrorDialog(true);
     } finally {
@@ -117,6 +237,27 @@ const SignIn = () => {
       setShowErrorDialog(true);
     }
   };
+  
+  const handleResendVerification = async () => {
+    if (!formData.email) {
+      setErrors({ email: "Please enter your email address" });
+      return;
+    }
+    
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: formData.email
+      });
+      
+      if (error) throw error;
+      
+      setSuccessMessage("Verification email has been resent. Please check your inbox.");
+    } catch (err) {
+      setErrorMessage("Could not resend verification email. Please try again later.");
+      setShowErrorDialog(true);
+    }
+  };
 
   return (
     <div className="signin-container">
@@ -142,6 +283,13 @@ const SignIn = () => {
         <div className="signin-form-container">
           <h1 className="signin-title">Sign in to your account</h1>
           
+          {/* Success message */}
+          {successMessage && (
+            <div className="success-message">
+              {successMessage}
+            </div>
+          )}
+          
           <div className="role-toggle">
             <button 
               className={`role-button ${activeRole === 'student' ? 'active' : ''}`}
@@ -161,9 +309,10 @@ const SignIn = () => {
             <InputField
               label="Email"
               type="email"
+              name="email"
               placeholder="Enter email address"
               value={formData.email}
-              onChange={(e) => handleChange({ target: { name: 'email', value: e.target.value } })}
+              onChange={handleChange}
               error={errors.email}
             />
             
@@ -171,9 +320,10 @@ const SignIn = () => {
               <InputField
                 label="Password"
                 type={showPassword ? "text" : "password"}
+                name="password"
                 placeholder="Enter password"
                 value={formData.password}
-                onChange={(e) => handleChange({ target: { name: 'password', value: e.target.value } })}
+                onChange={handleChange}
                 error={errors.password}
               />
               <div className="password-toggle">
@@ -189,7 +339,12 @@ const SignIn = () => {
                 <label htmlFor="remember">Remember me</label>
               </div>
               <div className="forgot-password">
-                <span>Forgot password?</span>
+                <div className="password-options">
+                  <span className="forgot-pw-link">Forgot password?</span>
+                  <span className="verification-link" onClick={handleResendVerification}>
+                    Resend verification email
+                  </span>
+                </div>
               </div>
             </div>
             

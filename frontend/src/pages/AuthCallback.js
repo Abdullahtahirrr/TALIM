@@ -19,33 +19,59 @@ const AuthCallback = () => {
         if (user) {
           console.log("User authenticated:", user);
           
-          // Check if user has a profile in your database
-          // You'll need to create this table in your Supabase project
+          // Check if user has a profile
           try {
             const { data: profile, error: profileError } = await supabase
-              .from('user_profiles')
+              .from('profiles')
               .select('*')
-              .eq('user_id', user.id)
+              .eq('id', user.id)
               .single();
               
             if (profileError && profileError.code !== 'PGRST116') {
-              // PGRST116 is "row not found" error - that's expected for new users
               console.error("Profile error:", profileError);
             }
               
             if (!profile) {
-              console.log("New user, redirecting to personal details");
-              // First-time user - redirect to complete profile setup
+              console.log("New Google user, creating profile");
+              
+              // Create a profile for this Google user
+              const newProfile = {
+                id: user.id,
+                email: user.email,
+                first_name: user.user_metadata?.full_name?.split(' ')[0] || '',
+                last_name: user.user_metadata?.full_name?.split(' ').slice(1).join(' ') || '',
+                role: 'student', // Default role
+                email_verified: true  // Google users are already verified
+              };
+              
+              await supabase.from('profiles').insert(newProfile);
+            }
+            
+            // Check if user has completed their details
+            const { data: userDetails, error: detailsError } = await supabase
+              .from('user_details')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+              
+            if (detailsError && detailsError.code !== 'PGRST116') {
+              console.error("User details error:", detailsError);
+            }
+              
+            if (!userDetails) {
+              // User needs to complete profile
               navigate('/UserPersonalDetail', { 
                 state: { 
                   isNewUser: true,
-                  email: user.email 
+                  email: user.email,
+                  userId: user.id,
+                  role: profile ? profile.role : 'student'
                 } 
               });
             } else {
-              console.log("Existing user, redirecting to dashboard");
-              // Existing user - redirect to appropriate dashboard
-              navigate(profile.role === 'student' ? '/StudentDashboard' : '/TeacherDashboard');
+              // Existing user with complete profile - redirect to appropriate dashboard
+              const role = profile ? profile.role : 'student';
+              navigate(role === 'student' ? '/StudentDashboard' : '/TeacherDashboard');
             }
           } catch (error) {
             console.error("Error checking user profile:", error);
@@ -53,7 +79,8 @@ const AuthCallback = () => {
             navigate('/UserPersonalDetail', { 
               state: { 
                 isNewUser: true,
-                email: user.email 
+                email: user.email, 
+                userId: user.id
               } 
             });
           }

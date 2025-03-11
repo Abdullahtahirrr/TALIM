@@ -21,6 +21,11 @@ def create_app():
     from routes.auth_routes import auth_bp
     app.register_blueprint(auth_bp)
     
+    # Root route for testing
+    @app.route('/')
+    def index():
+        return jsonify({'message': 'TALIM API is running'}), 200
+    
     return app
 
 if __name__ == '__main__':

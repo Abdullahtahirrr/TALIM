@@ -17,7 +17,9 @@ const UserPersonalDetail = () => {
     universityAddress: "",
     phoneNumber: "",
     semester: "",
-    degree: ""
+    degree: "",
+    designation: "",
+    domain: ""
   });
   
   const [errors, setErrors] = useState({});
@@ -25,22 +27,69 @@ const UserPersonalDetail = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showVerificationWarning, setShowVerificationWarning] = useState(false);
 
-  // Get role and form data from location state (passed from SignUp or AuthCallback)
+  // Get role and form data from location state
   useEffect(() => {
-    if (location.state) {
-      const { role, isNewUser, email } = location.state;
-      if (role) setUserRole(role);
-      
-      // For Google auth users, we may have their email from the auth process
-      if (email && formData.universityEmail === "") {
-        setFormData(prev => ({
-          ...prev,
-          universityEmail: email
-        }));
+    const fetchUserInfo = async () => {
+      // Try to get user info from location state first
+      if (location.state) {
+        const { role, email, userId } = location.state;
+        if (role) setUserRole(role);
+        
+        if (email && formData.universityEmail === "") {
+          setFormData(prev => ({
+            ...prev,
+            universityEmail: email
+          }));
+        }
       }
-    }
-  }, [location, formData.universityEmail]);
+      
+      // If no user in location state, try to get from auth
+      const userId = location.state?.userId || (user ? user.id : null);
+      
+      if (userId) {
+        try {
+          // Get profile information
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single();
+            
+          if (profileError) {
+            console.error("Error fetching profile:", profileError);
+          } else if (profile) {
+            setUserRole(profile.role || 'student');
+            
+            // Check verification status
+            if (!profile.email_verified) {
+              const createdAt = new Date(profile.created_at);
+              const now = new Date();
+              const hoursDiff = (now - createdAt) / (1000 * 60 * 60);
+              
+              // Show warning if account is older than 1 hour
+              if (hoursDiff > 1) {
+                setShowVerificationWarning(true);
+              }
+            }
+            
+            // Pre-fill email from profile
+            if (profile.email) {
+              setFormData(prev => ({
+                ...prev,
+                universityEmail: profile.email
+              }));
+            }
+          }
+        } catch (error) {
+          console.error("Error in user data fetch:", error);
+        }
+      }
+    };
+    
+    fetchUserInfo();
+  }, [location, user, formData.universityEmail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,9 +137,14 @@ const UserPersonalDetail = () => {
       newErrors.semester = "Semester is required";
     }
     
-    // Degree validation
-    if (!formData.degree.trim()) {
-      newErrors.degree = "Degree is required";
+    // Designation validation (only for teachers)
+    if (userRole === "teacher" && !formData.designation.trim()) {
+      newErrors.designation = "Designation is required";
+    }
+    
+    // Domain validation
+    if (!formData.domain.trim()) {
+      newErrors.domain = "Domain is required";
     }
     
     return newErrors;
@@ -119,16 +173,17 @@ const UserPersonalDetail = () => {
       
       // Save user profile data to Supabase
       const { error } = await supabase
-        .from('user_profiles')
+        .from('user_details')
         .upsert({
           id: userId,
           university_name: formData.universityName,
           university_email: formData.universityEmail,
           university_address: formData.universityAddress,
           phone_number: formData.phoneNumber,
-          semester: formData.semester,
+          semester: userRole === "student" ? formData.semester : null,
           degree: formData.degree,
-          role: userRole,
+          designation: userRole === "teacher" ? formData.designation : null,
+          domain: formData.domain,
           updated_at: new Date()
         }, {
           onConflict: 'id'
@@ -136,8 +191,16 @@ const UserPersonalDetail = () => {
       
       if (error) throw error;
       
-      // Navigate to appropriate dashboard based on role
-      navigate(userRole === "student" ? "/StudentDashboard" : "/TeacherDashboard");
+      // Check if the user's email is verified
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('email_verified')
+        .eq('id', userId)
+        .single();
+      
+      navigate(userRole === "student" ? "/StudentDashboard" : "/TeacherDashboard", {
+        state: { showVerificationWarning: profile && !profile.email_verified }
+      });
       
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -145,6 +208,23 @@ const UserPersonalDetail = () => {
       setShowError(true);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: formData.universityEmail
+      });
+      
+      if (error) throw error;
+      
+      // Show success message
+      alert("Verification email has been resent. Please check your inbox.");
+    } catch (error) {
+      console.error("Error resending verification:", error);
+      alert("Could not resend verification email. Please try again later.");
     }
   };
 
@@ -169,6 +249,15 @@ const UserPersonalDetail = () => {
         <div className="details-modal">
           <h1 className="details-title">PERSONAL INFORMATION</h1>
           
+          {showVerificationWarning && (
+            <div className="verification-warning">
+              <p>Your email address has not been verified yet. Please check your inbox for a verification link.</p>
+              <button className="resend-button" onClick={handleResendVerification}>
+                Resend Verification Email
+              </button>
+            </div>
+          )}
+          
           {showError && (
             <div className="error-message">
               {errorMessage}
@@ -180,8 +269,9 @@ const UserPersonalDetail = () => {
               label="University Name"
               type="text"
               placeholder="Enter university name"
+              name="universityName"
               value={formData.universityName}
-              onChange={(e) => handleChange({ target: { name: 'universityName', value: e.target.value } })}
+              onChange={(e) => handleChange(e)}
               error={errors.universityName}
             />
             
@@ -189,8 +279,9 @@ const UserPersonalDetail = () => {
               label="University Email"
               type="email"
               placeholder="Enter university email"
+              name="universityEmail"
               value={formData.universityEmail}
-              onChange={(e) => handleChange({ target: { name: 'universityEmail', value: e.target.value } })}
+              onChange={(e) => handleChange(e)}
               error={errors.universityEmail}
             />
             
@@ -198,8 +289,9 @@ const UserPersonalDetail = () => {
               label="University Address"
               type="text"
               placeholder="Enter university address"
+              name="universityAddress"
               value={formData.universityAddress}
-              onChange={(e) => handleChange({ target: { name: 'universityAddress', value: e.target.value } })}
+              onChange={(e) => handleChange(e)}
               error={errors.universityAddress}
             />
             
@@ -207,8 +299,9 @@ const UserPersonalDetail = () => {
               label="Phone Number"
               type="tel"
               placeholder="Enter phone number"
+              name="phoneNumber"
               value={formData.phoneNumber}
-              onChange={(e) => handleChange({ target: { name: 'phoneNumber', value: e.target.value } })}
+              onChange={(e) => handleChange(e)}
               error={errors.phoneNumber}
             />
             
@@ -217,8 +310,9 @@ const UserPersonalDetail = () => {
                 label="Semester"
                 type="text"
                 placeholder="Enter current semester"
+                name="semester"
                 value={formData.semester}
-                onChange={(e) => handleChange({ target: { name: 'semester', value: e.target.value } })}
+                onChange={(e) => handleChange(e)}
                 error={errors.semester}
               />
             )}
@@ -227,14 +321,37 @@ const UserPersonalDetail = () => {
               label="Degree"
               type="text"
               placeholder="Enter degree program"
+              name="degree"
               value={formData.degree}
-              onChange={(e) => handleChange({ target: { name: 'degree', value: e.target.value } })}
+              onChange={(e) => handleChange(e)}
               error={errors.degree}
+            />
+            
+            {userRole === "teacher" && (
+              <InputField
+                label="Designation"
+                type="text"
+                placeholder="Enter your designation"
+                name="designation"
+                value={formData.designation}
+                onChange={(e) => handleChange(e)}
+                error={errors.designation}
+              />
+            )}
+            
+            <InputField
+              label="Domain"
+              type="text"
+              placeholder="Enter your domain/field"
+              name="domain"
+              value={formData.domain}
+              onChange={(e) => handleChange(e)}
+              error={errors.domain}
             />
             
             <div className="button-container">
               <Button type="submit" variant="dark" disabled={isSubmitting}>
-                {isSubmitting ? "Creating Account..." : "Create Account →"}
+                {isSubmitting ? "Saving..." : "Create Account →"}
               </Button>
             </div>
           </form>

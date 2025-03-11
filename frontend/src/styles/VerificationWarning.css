@@ -1,0 +1,117 @@
+.verification-warning-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1000;
+    background-color: #fff8e1;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+  
+  .verification-warning-content {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+  }
+  
+  .verification-icon {
+    font-size: 24px;
+    margin-right: 16px;
+  }
+  
+  .verification-message {
+    flex: 1;
+  }
+  
+  .verification-message p {
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .warning-text {
+    font-size: 14px;
+    color: #f57c00;
+    margin-top: 4px !important;
+  }
+  
+  .success-text {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+  
+  .error-text {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 8px !important;
+  }
+  
+  .resend-verification-btn {
+    margin-top: 12px;
+    background-color: #661083;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .resend-verification-btn:hover {
+    background-color: #500a66;
+  }
+  
+  .resend-verification-btn:disabled {
+    background-color: #b39dbe;
+    cursor: not-allowed;
+  }
+  
+  .dismiss-btn {
+    background: none;
+    border: none;
+    color: #661083;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .dismiss-btn:hover {
+    background-color: rgba(102, 16, 131, 0.05);
+  }
+  
+  /* For mobile screens */
+  @media (max-width: 576px) {
+    .verification-warning-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .verification-icon {
+      margin-right: 0;
+      margin-bottom: 12px;
+    }
+    
+    .dismiss-btn {
+      margin-left: 0;
+      margin-top: 12px;
+    }
+  }

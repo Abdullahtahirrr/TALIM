@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './utils/authContext';
+import { AuthProvider } from './utils/authContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import AuthCallback from './pages/AuthCallback';
+import VerifyEmail from './pages/VerifyEmail';
+import VerificationNeeded from './pages/VerificationNeeded';
 import StudentDashboard from './pages/StudentDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentMyCourses from './pages/StudentMyCourses';
@@ -19,21 +22,6 @@ import Assignment from './pages/Assignment';
 import Vta from './pages/Vta';
 import './App.css';
 
-// Protected route component
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
-  
-  if (!user) {
-    return <Navigate to="/SignIn" />;
-  }
-  
-  return children;
-};
-
 function App() {
   return (
     <AuthProvider>
@@ -44,6 +32,9 @@ function App() {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/verify-needed" element={<VerificationNeeded />} />
+          <Route path="/UserPersonalDetail" element={<UserPersonalDetail />} />
           
           {/* Protected routes */}
           <Route path="/StudentDashboard" element={
@@ -93,8 +84,6 @@ function App() {
               <UploadCourseContent />
             </ProtectedRoute>
           } />
-          
-          <Route path="/UserPersonalDetail" element={<UserPersonalDetail />} />
           
           <Route path="/EnrolledCourses" element={
             <ProtectedRoute>

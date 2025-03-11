@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import PersonalInfoModal from "../components/PersonalInfoModal";
 import logo from "../assets/LOGO.png";
 import "../styles/SignUp.css";
-import { useAuth } from "../utils/authContext"; // Import auth context
-import ErrorDialogBox from "../components/ErrorDialogBox"; // You may need to create this component
+import { useAuth } from "../utils/authContext"; 
+import { supabase } from '../supabaseClient';
+import ErrorDialogBox from "../components/ErrorDialogBox"; 
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { signUp } = useAuth(); // Use the auth context
-  const [activeRole, setActiveRole] = useState("student");
+  
+  // Get role from location state if provided (from RoleSelection page)
+  const initialRole = location.state?.role || "student";
+  const [activeRole, setActiveRole] = useState(initialRole);
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,12 +26,44 @@ const SignUp = () => {
     confirmPassword: ""
   });
   
+  const [userData, setUserData] = useState(null);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showPersonalInfoModal, setShowPersonalInfoModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Check for existing session on page load
+  useEffect(() => {
+    const checkExistingSession = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (session) {
+        // User is already logged in, redirect to appropriate dashboard
+        try {
+          // Get user's role from profiles table
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+            
+          if (profileError) throw profileError;
+          
+          // Redirect based on role
+          const role = profile?.role || 'student';
+          navigate(role === 'student' ? '/StudentDashboard' : '/TeacherDashboard', { replace: true });
+        } catch (err) {
+          console.error("Error checking user profile:", err);
+          // Default to student dashboard if can't determine role
+          navigate('/StudentDashboard', { replace: true });
+        }
+      }
+    };
+    
+    checkExistingSession();
+  }, [navigate]);
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -95,31 +133,51 @@ const SignUp = () => {
     setIsLoading(true);
     
     try {
+      // First, check if the email already exists
+      const { data: existingProfiles, error: profileCheckError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('email', formData.email)
+        .limit(1);
+        
+      if (profileCheckError) {
+        console.error("Error checking existing profiles:", profileCheckError);
+      }
+      
+      // If email already exists, show error
+      if (existingProfiles && existingProfiles.length > 0) {
+        setErrorMessage("This email is already registered. Please sign in or use a different email.");
+        setShowErrorDialog(true);
+        setIsLoading(false);
+        return;
+      }
+      
       // Register user with Supabase
-      const { data, error } = await signUp(formData.email, formData.password);
+      const { data, error } = await signUp({
+        email: formData.email, 
+        password: formData.password,
+        options: {
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            role: activeRole
+          }
+        }
+      });
       
       if (error) {
         setErrorMessage(error.message || "Error creating account");
         setShowErrorDialog(true);
       } else {
-        // Store user metadata in Supabase or your own database
-        const { firstName, lastName } = formData;
+        // Store the entire user data object
+        console.log("User created:", data.user);
+        setUserData(data.user);
         
-        // Show the personal info modal to collect additional details
+        // Show the personal info modal
         setShowPersonalInfoModal(true);
-        
-        // In a real app, you might want to update the user's metadata
-        // const { error: metadataError } = await supabase.from('user_profiles').insert({
-        //   user_id: data.user.id,
-        //   first_name: firstName,
-        //   last_name: lastName,
-        //   role: activeRole,
-        // });
-        
-        // You could navigate to a verification page or directly to dashboard if auto-confirm is enabled
-        // navigate("/verify-email");
       }
     } catch (err) {
+      console.error("Signup error:", err);
       setErrorMessage("An unexpected error occurred");
       setShowErrorDialog(true);
     } finally {
@@ -133,6 +191,17 @@ const SignUp = () => {
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handlePersonalInfoClose = () => {
+    setShowPersonalInfoModal(false);
+    
+    // Navigate to SignIn with verification message
+    navigate("/SignIn", {
+      state: { 
+        message: "Account created successfully! Please check your email to verify your account before signing in."
+      }
+    });
   };
 
   return (
@@ -180,9 +249,10 @@ const SignUp = () => {
                 <InputField
                   label="First Name"
                   type="text"
+                  name="firstName"
                   placeholder="Enter first name"
                   value={formData.firstName}
-                  onChange={(e) => handleChange({ target: { name: 'firstName', value: e.target.value } })}
+                  onChange={handleChange}
                   error={errors.firstName}
                 />
               </div>
@@ -190,9 +260,10 @@ const SignUp = () => {
                 <InputField
                   label="Last Name"
                   type="text"
+                  name="lastName"
                   placeholder="Enter last name"
                   value={formData.lastName}
-                  onChange={(e) => handleChange({ target: { name: 'lastName', value: e.target.value } })}
+                  onChange={handleChange}
                   error={errors.lastName}
                 />
               </div>
@@ -201,9 +272,10 @@ const SignUp = () => {
             <InputField
               label="Email"
               type="email"
+              name="email"
               placeholder="Enter email address"
               value={formData.email}
-              onChange={(e) => handleChange({ target: { name: 'email', value: e.target.value } })}
+              onChange={handleChange}
               error={errors.email}
             />
             
@@ -211,9 +283,10 @@ const SignUp = () => {
               <InputField
                 label="Password"
                 type={showPassword ? "text" : "password"}
+                name="password"
                 placeholder="Enter password"
                 value={formData.password}
-                onChange={(e) => handleChange({ target: { name: 'password', value: e.target.value } })}
+                onChange={handleChange}
                 error={errors.password}
               />
               <div className="password-toggle">
@@ -227,9 +300,10 @@ const SignUp = () => {
               <InputField
                 label="Confirm Password"
                 type={showPassword ? "text" : "password"}
+                name="confirmPassword"
                 placeholder="Confirm your password"
                 value={formData.confirmPassword}
-                onChange={(e) => handleChange({ target: { name: 'confirmPassword', value: e.target.value } })}
+                onChange={handleChange}
                 error={errors.confirmPassword}
               />
               <div className="password-toggle">
@@ -251,9 +325,10 @@ const SignUp = () => {
       {/* Personal Information Modal */}
       <PersonalInfoModal 
         isOpen={showPersonalInfoModal}
-        onClose={() => setShowPersonalInfoModal(false)}
+        onClose={handlePersonalInfoClose}
         userRole={activeRole}
         signupData={formData}
+        userData={userData}
       />
       
       {/* Error Dialog */}
