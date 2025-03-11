@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { FaHome, FaBook, FaUserGraduate, FaPlusCircle, FaCog } from "react-icons/fa";
+import React from "react";
+import { FaHome, FaBook, FaUserGraduate } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import SimpleFooter from "../components/SimpleFooter";
-import VerificationWarning from "../components/VerificationWarning";
 import courseImage1 from "../assets/course_image.jpeg";
 import "../styles/StudentDashboard.css";
-import { useAuth } from "../utils/authContext";
-import { supabase } from "../supabaseClient";
 
 const StudentDashboard = () => {
-  const location = useLocation();
-  const { user } = useAuth();
-  const [showVerificationWarning, setShowVerificationWarning] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-  
   // Sidebar links configuration
   const sidebarLinks = [
     { label: "Dashboard", icon: FaHome, href: "/StudentDashboard" },
@@ -50,60 +41,9 @@ const StudentDashboard = () => {
       students: 24,
     },
   ];
-  
-  useEffect(() => {
-    // Check if there's a verification warning flag from location state
-    if (location.state?.showVerificationWarning) {
-      setShowVerificationWarning(true);
-    }
-    
-    // Otherwise check profile for verification status
-    const checkVerification = async () => {
-      if (user) {
-        setUserEmail(user.email);
-        
-        try {
-          const { data, error } = await supabase
-            .from('profiles')
-            .select('email_verified, created_at')
-            .eq('id', user.id)
-            .single();
-            
-          if (error) throw error;
-          
-          if (data && !data.email_verified) {
-            const createdAt = new Date(data.created_at);
-            const now = new Date();
-            const hoursDiff = (now - createdAt) / (1000 * 60 * 60);
-            
-            // Show warning if not verified and more than 1 hour old
-            if (hoursDiff > 1) {
-              setShowVerificationWarning(true);
-            }
-          }
-        } catch (error) {
-          console.error("Error checking verification:", error);
-        }
-      }
-    };
-    
-    checkVerification();
-  }, [location, user]);
-  
-  const dismissVerificationWarning = () => {
-    setShowVerificationWarning(false);
-  };
 
   return (
     <div className="dashboard-container">
-      {/* Verification Warning Banner */}
-      {showVerificationWarning && (
-        <VerificationWarning 
-          email={userEmail}
-          onDismiss={dismissVerificationWarning}
-        />
-      )}
-      
       <Sidebar links={sidebarLinks} />
       
       <div className="dashboard-content">
@@ -121,11 +61,10 @@ const StudentDashboard = () => {
               All Courses <span className="arrow">→</span>
             </button>
           </div>
-          {/* Stats Cards */}
+          {/* Rest of the component remains the same */}
           <h2 className="section-title">Dashboard</h2>
           <div className="stats-container">
-          
-          <div className="stat-card pink-light">
+            <div className="stat-card pink-light">
               <div className="stat-icon">
                 <FaBook />
               </div>
@@ -155,12 +94,10 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
-          <h1 className="dashboard-title">Let's Study , Mia</h1>
+          <h1 className="dashboard-title">Let's Study, Mia</h1>
           
           {/* Recent Courses Section */}
           <div className="recent-courses">
-            
-            
             <div className="courses-grid">
               {recentCourses.map((course) => (
                 <div key={course.id} className="course-container">

@@ -38,14 +38,34 @@ const VerifyEmail = () => {
         if (userError) throw userError;
         
         if (user) {
-          // Update the user's profile to mark email as verified
-          const { error: updateError } = await supabase
-            .from('profiles')
-            .update({ email_verified: true })
-            .eq('id', user.id);
-          
-          if (updateError) throw updateError;
-        }
+  console.log("User found, updating profile:", user.id);
+  
+  // First, check if there's a profile for this user
+  const { data: existingProfile, error: profileCheckError } = await supabase
+    .from('profiles')
+    .select('id, email_verified')
+    .eq('id', user.id)
+    .single();
+  
+  if (profileCheckError) {
+    console.error("Error checking profile:", profileCheckError);
+  }
+  
+  console.log("Existing profile:", existingProfile);
+  
+  // Update the user's profile to mark email as verified
+  const { data: updateData, error: updateError } = await supabase
+    .from('profiles')
+    .update({ email_verified: true })
+    .eq('id', user.id);
+  
+  if (updateError) {
+    console.error("Error updating profile:", updateError);
+    throw updateError;
+  }
+  
+  console.log("Profile updated successfully:", updateData);
+}
         
         setSuccess(true);
         setVerifying(false);
