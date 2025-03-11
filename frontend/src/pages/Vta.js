@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { FaGraduationCap, FaBook, FaUserGraduate, FaArrowLeft, FaPaperPlane } from "react-icons/fa";
+import { FaGraduationCap, FaBook, FaUserGraduate, FaArrowLeft, FaPaperPlane, FaSpinner } from "react-icons/fa";
+import { generateChatResponse } from "../utils/api-service";
 import "../styles/Vta.css";
 
 const Vta = () => {
@@ -26,6 +27,9 @@ const Vta = () => {
   
   // State for the current message being typed
   const [currentMessage, setCurrentMessage] = useState("");
+  
+  // State for tracking loading status
+  const [isLoading, setIsLoading] = useState(false);
   
   // Reference to chat container for auto-scrolling
   const chatContainerRef = useRef(null);
@@ -51,7 +55,7 @@ const Vta = () => {
   
   // Handles sending a new message
   const handleSendMessage = async () => {
-    if (!currentMessage.trim()) return;
+    if (!currentMessage.trim() || isLoading) return;
     
     // Add user message to chat
     const userMessage = {
@@ -62,32 +66,44 @@ const Vta = () => {
     
     setMessages(prevMessages => [...prevMessages, userMessage]);
     setCurrentMessage("");
+    setIsLoading(true);
     
-    // Simulate bot response (this would be replaced with your API call to your RAG system)
-    setTimeout(async () => {
-      let botResponse;
+    try {
+      // Format chat history for the API
+      const chatHistory = messages.map(msg => ({
+        sender: msg.sender === "user" ? "Human" : "AI",
+        message: msg.content
+      }));
       
-      // Simple pattern matching for demo purposes
-      if (currentMessage.toLowerCase().includes("what is ai")) {
-        botResponse = "Artificial intelligence is a technology that allows computers to perform tasks that typically require human intelligence, such as learning, problem-solving, and understanding natural language.";
-      } else if (currentMessage.toLowerCase().includes("hello") || currentMessage.toLowerCase().includes("hi")) {
-        botResponse = "Hello! How can I assist you with your studies today?";
-      } else if (currentMessage.toLowerCase().includes("help") || currentMessage.toLowerCase().includes("assistance")) {
-        botResponse = `I can help you understand concepts from ${courseContext.currentLesson}, explain difficult topics, or answer questions about the course materials. What specific aspect are you finding challenging?`;
-      } else if (currentMessage.toLowerCase().includes("instructor") || currentMessage.toLowerCase().includes("teacher")) {
-        botResponse = `This course is taught by ${courseContext.instructor || "an expert instructor"}. They have designed the curriculum to help you master the concepts step by step.`;
-      } else {
-        botResponse = `I'm here to help with your questions about ${courseContext.courseTitle}. Currently, we're studying ${courseContext.currentLesson}. What specific topic would you like to explore further?`;
-      }
+      // Call the API
+      const { answer, relevantSources } = await generateChatResponse(
+        currentMessage, 
+        chatHistory,
+        courseContext
+      );
       
+      // Add bot response to chat
       const botMessage = {
         sender: "bot",
-        content: botResponse,
+        content: answer,
         timestamp: new Date()
       };
       
       setMessages(prevMessages => [...prevMessages, botMessage]);
-    }, 1000);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      
+      // Add error message
+      const errorMessage = {
+        sender: "bot",
+        content: "I'm sorry, I encountered an error processing your request. Please try again later.",
+        timestamp: new Date()
+      };
+      
+      setMessages(prevMessages => [...prevMessages, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   // Handles pressing enter to send a message
@@ -124,7 +140,7 @@ const Vta = () => {
         {/* Navbar */}
         <Navbar />
         
-        {/* Chat Interface */}
+        {/* Chat Interface - Restructured for fixed input at bottom */}
         <div className="vta-chat-section">
           {/* Chat Header */}
           <div className="vta-chat-header">
@@ -150,35 +166,45 @@ const Vta = () => {
             </div>
           </div>
           
-          {/* Chat Messages */}
-          <div className="vta-chat-messages" ref={chatContainerRef}>
-            {Object.entries(groupedMessages).map(([date, dateMessages]) => (
-              <div key={date} className="vta-message-group">
-                <div className="vta-date-divider">
-                  <span>{date}</span>
-                </div>
-                
-                {dateMessages.map((message, index) => (
-                  <div 
-                    key={index} 
-                    className={`vta-message ${message.sender === "bot" ? "vta-bot-message" : "vta-user-message"}`}
-                  >
-                    {message.sender === "bot" && (
-                      <div className="vta-bot-avatar-small">
-                        <div className="vta-bot-icon-small">T</div>
-                      </div>
-                    )}
-                    <div className={`vta-message-bubble ${message.sender === "bot" ? "vta-bot-bubble" : "vta-user-bubble"}`}>
-                      {message.content}
-                    </div>
-                    <span className="vta-message-time">{formatTime(message.timestamp)}</span>
+          {/* Chat Messages Area - This will scroll */}
+          <div className="vta-chat-messages-container">
+            <div className="vta-chat-messages" ref={chatContainerRef}>
+              {Object.entries(groupedMessages).map(([date, dateMessages]) => (
+                <div key={date} className="vta-message-group">
+                  <div className="vta-date-divider">
+                    <span>{date}</span>
                   </div>
-                ))}
-              </div>
-            ))}
+                  
+                  {dateMessages.map((message, index) => (
+                    <div 
+                      key={index} 
+                      className={`vta-message ${message.sender === "bot" ? "vta-bot-message" : "vta-user-message"}`}
+                    >
+                      {message.sender === "bot" && (
+                        <div className="vta-bot-avatar-small">
+                          <div className="vta-bot-icon-small">T</div>
+                        </div>
+                      )}
+                      <div className={`vta-message-bubble ${message.sender === "bot" ? "vta-bot-bubble" : "vta-user-bubble"}`}>
+                        {message.content}
+                      </div>
+                      <span className="vta-message-time">{formatTime(message.timestamp)}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              
+              {/* Loading indicator */}
+              {isLoading && (
+                <div className="vta-loading-indicator">
+                  <FaSpinner className="vta-spinner" />
+                  <span>TALIM is thinking...</span>
+                </div>
+              )}
+            </div>
           </div>
           
-          {/* Chat Input */}
+          {/* Fixed Chat Input at Bottom */}
           <div className="vta-chat-input-area">
             <div className="vta-input-container">
               <input
@@ -188,13 +214,14 @@ const Vta = () => {
                 value={currentMessage}
                 onChange={(e) => setCurrentMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
+                disabled={isLoading}
               />
               <button 
                 className="vta-send-button"
                 onClick={handleSendMessage}
-                disabled={!currentMessage.trim()}
+                disabled={!currentMessage.trim() || isLoading}
               >
-                <FaPaperPlane />
+                {isLoading ? <FaSpinner className="vta-spinner" /> : <FaPaperPlane />}
               </button>
             </div>
           </div>
