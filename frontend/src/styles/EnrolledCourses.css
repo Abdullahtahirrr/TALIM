@@ -70,16 +70,54 @@
     margin-bottom: 30px;
   }
   
-  .search-input {
+  .search-input-container {
+    position: relative;
     width: 100%;
     max-width: 500px;
-    padding: 12px 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: white;
   }
   
+  .search-input {
+    width: 100%;
+    padding: 12px 45px 12px 20px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-size: 1rem;
+    background-color: #f0f4f9;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #661083;
+    background-color: white;
+    box-shadow: 0 6px 8px rgba(102, 16, 131, 0.1);
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #661083;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .search-input:focus + .search-icon {
+    color: #661083;
+  }
+  
+  .search-input::placeholder {
+    color: #999;
+    transition: color 0.3s ease;
+  }
+  
+  .search-input:focus::placeholder {
+    color: #661083;
+  }
   .courses-grid {
     display: flex;
     flex-wrap: wrap;
