@@ -55,6 +55,73 @@ const EnrolledCourses = () => {
     },
   ];
   
+  // useEffect(() => {
+  //   const fetchCourses = async () => {
+  //     try {
+  //       if (user) {
+  //         // Get user profile
+  //         const profileData = await getUserProfile(user.id);
+  //         setProfile(profileData);
+          
+  //         // Check if courses table exists
+  //         const coursesExist = await tableExists('courses');
+          
+  //         if (coursesExist) {
+  //           // Get all available courses that the user is not enrolled in
+  //           const { data: enrolledCoursesIds, error: enrolledError } = await supabase
+  //             .from('course_enrollments')
+  //             .select('course_id')
+  //             .eq('student_id', user.id);
+              
+  //           if (enrolledError) throw enrolledError;
+            
+  //           const enrolledIds = enrolledCoursesIds.map(item => item.course_id);
+  //           console.log("Enrolled course IDs:", enrolledIds);
+            
+  //           // Get all published courses
+  //           const { data: allCourses, error: coursesError } = await supabase
+  //             .from('courses')
+  //             .select(`
+  //               id,
+  //               title,
+  //               description,
+  //               thumbnail_url,
+  //               instructor_id,
+  //               profiles:instructor_id (
+  //                 first_name,
+  //                 last_name
+  //               )
+  //             `)
+  //             .eq('is_published', true)
+  //             .not('id', 'in', enrolledIds.length > 0 ? `(${enrolledIds.join(',')})` : '(0)');
+  //             console.log("All courses:", allCourses);
+  //           if (coursesError) throw coursesError;
+            
+  //           // Format the courses for display
+  //           const formattedCourses = allCourses.map(course => ({
+  //             id: course.id,
+  //             title: course.title,
+  //             instructor: course.profiles ? `${course.profiles.first_name} ${course.profiles.last_name}` : "Unknown Instructor",
+  //             university: "NUST", // Can be updated if you add this to user_details
+  //             image: course.thumbnail_url || courseImage
+  //           }));
+            
+  //           setCourses(formattedCourses);
+  //         } else {
+  //           // Fallback to sample data
+  //           setCourses(sampleCourses);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching courses:", error);
+  //       setCourses(sampleCourses); // Fallback to sample data
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+    
+  //   fetchCourses();
+  // }, [user]);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -62,25 +129,30 @@ const EnrolledCourses = () => {
           // Get user profile
           const profileData = await getUserProfile(user.id);
           setProfile(profileData);
-          
+  
           // Check if courses table exists
-          const coursesExist = await tableExists('courses');
-          
+          const coursesExist = await tableExists("courses");
+  
           if (coursesExist) {
-            // Get all available courses that the user is not enrolled in
+            // Get all enrolled course IDs
             const { data: enrolledCoursesIds, error: enrolledError } = await supabase
-              .from('course_enrollments')
-              .select('course_id')
-              .eq('student_id', user.id);
-              
+              .from("course_enrollments")
+              .select("course_id")
+              .eq("student_id", user.id);
+  
             if (enrolledError) throw enrolledError;
-            
-            const enrolledIds = enrolledCoursesIds.map(item => item.course_id);
-            
-            // Get all published courses
-            const { data: allCourses, error: coursesError } = await supabase
-              .from('courses')
-              .select(`
+  
+            const enrolledCourseIDs = enrolledCoursesIds?.map((item) => item.course_id) ?? [];
+  
+            if (enrolledCourseIDs.length === 0) {
+              console.warn("No enrolled courses found, skipping filter.");
+            }
+  
+            // Construct query for fetching courses
+            let query = supabase
+              .from("courses")
+              .select(
+                `
                 id,
                 title,
                 description,
@@ -90,21 +162,32 @@ const EnrolledCourses = () => {
                   first_name,
                   last_name
                 )
-              `)
-              .eq('is_published', true)
-              .not('id', 'in', enrolledIds.length > 0 ? `(${enrolledIds.join(',')})` : '(0)');
-              
+              `
+              )
+              .eq("is_published", true);
+  
+            // Apply filtering only if there are enrolled courses
+            if (enrolledCourseIDs.length > 0) {
+              query = query.not("id", "in", `(${enrolledCourseIDs.join(",")})`);
+            }
+  
+            const { data: allCourses, error: coursesError } = await query;
+  
             if (coursesError) throw coursesError;
-            
+  
+            console.log("All courses:", allCourses);
+  
             // Format the courses for display
-            const formattedCourses = allCourses.map(course => ({
+            const formattedCourses = allCourses.map((course) => ({
               id: course.id,
               title: course.title,
-              instructor: course.profiles ? `${course.profiles.first_name} ${course.profiles.last_name}` : "Unknown Instructor",
+              instructor: course.profiles
+                ? `${course.profiles.first_name} ${course.profiles.last_name}`
+                : "Unknown Instructor",
               university: "NUST", // Can be updated if you add this to user_details
-              image: course.thumbnail_url || courseImage
+              image: course.thumbnail_url || courseImage,
             }));
-            
+  
             setCourses(formattedCourses);
           } else {
             // Fallback to sample data
@@ -118,9 +201,10 @@ const EnrolledCourses = () => {
         setLoading(false);
       }
     };
-    
+  
     fetchCourses();
   }, [user]);
+  
   
   // Handle enrollment button click
   const handleEnrollClick = (course) => {
