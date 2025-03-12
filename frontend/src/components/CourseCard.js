@@ -1,8 +1,7 @@
-import {React,useState} from "react";
+import React, { useState } from "react";
 import "../styles/CourseCard.css";
 import courseImage1 from "../assets/course_image.jpeg";
 
-// In CourseCard.js
 const CourseCard = ({ image, instructor, university, title, buttonText, onButtonClick }) => {
   // State to track image loading errors
   const [imgSrc, setImgSrc] = useState(image || courseImage1);
@@ -10,6 +9,7 @@ const CourseCard = ({ image, instructor, university, title, buttonText, onButton
   // Handle image loading errors
   const handleImageError = () => {
     if (imgSrc !== courseImage1) {
+      console.log(`Image failed to load: ${imgSrc}, falling back to default`);
       setImgSrc(courseImage1);
     }
   };

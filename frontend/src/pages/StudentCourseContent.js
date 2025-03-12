@@ -4,10 +4,12 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SimpleFooter from "../components/SimpleFooter";
 import courseImage1 from "../assets/course_image.jpeg";
-import { FaArrowLeft, FaRobot, FaBook, FaFileAlt, FaPlayCircle } from "react-icons/fa";
+import { FaHome, FaUserGraduate,FaArrowLeft, FaRobot, FaBook, FaFileAlt, FaPlayCircle } from "react-icons/fa";
 import { getCourseDetails } from "../utils/api-service";
 import { useAuth } from "../utils/authContext";
 import "../styles/StudentCourseContent.css";
+import BackButton from "../components/BackButton";
+
 
 const StudentCourseContent = () => {
   const navigate = useNavigate();
@@ -173,9 +175,12 @@ useEffect(() => {
       </div>
     );
   }
-
+  
+  
   return (
     <div className="course-content-page">
+
+    
       <Navbar />
       
       <div className="course-content-container">
@@ -189,10 +194,12 @@ useEffect(() => {
           <div className="breadcrumb">
             <Link to="/StudentDashboard">Dashboard</Link> / <span>{course.title}</span>
           </div>
-          
-          <button className="back-button" onClick={goBack}>
-            <FaArrowLeft /> <span>Back to Courses</span>
-          </button>
+          <BackButton to="/StudentMyCourses" />
+
+{/* <button className="back-button" onClick={goBack}>
+            <FaArrowLeft /> <span>Back to Dashboard</span>
+          </button> */}
+      
         </div>
         
         <div className="course-content-layout">

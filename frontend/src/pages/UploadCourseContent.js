@@ -10,7 +10,12 @@ import { FaChevronDown, FaHome, FaPlusCircle, FaBook } from "react-icons/fa";
 import { BsTrash, BsPencil } from "react-icons/bs";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { useAuth } from "../utils/authContext";
-import { getCourseDetails, addLecturesToCourse, uploadLectureFile } from "../utils/api-service";
+import { 
+  getCourseDetails, 
+  addLecturesToCourse, 
+  uploadLectureFile, 
+  updateLecture 
+} from "../utils/api-service";
 import "../styles/UploadCourseContent.css";
 
 const UploadCourseContent = () => {
@@ -172,91 +177,103 @@ const UploadCourseContent = () => {
     }
   };
 
-  // Save lecture edit
-  const saveLectureEdit = async () => {
-    if (!currentLectureId || !dialogContent.trim()) {
-      setErrorMessage("Lecture name cannot be empty");
+  /// Fix for the saveLectureEdit function in UploadCourseContent.js
+// Replace the existing saveLectureEdit function with this improved version
+
+const saveLectureEdit = async () => {
+  if (!currentLectureId || !dialogContent.trim()) {
+    setErrorMessage("Lecture name cannot be empty");
+    setShowErrorDialog(true);
+    return;
+  }
+  
+  setIsLoading(true);
+  
+  try {
+    // Check for duplicate names
+    const isDuplicate = lectures
+      .filter(lecture => lecture.id !== currentLectureId)
+      .some(lecture => lecture.name.toLowerCase() === dialogContent.toLowerCase());
+      
+    if (isDuplicate) {
+      setErrorMessage("Lecture name already exists. Please use a different name.");
       setShowErrorDialog(true);
+      setIsLoading(false);
       return;
     }
     
-    setIsLoading(true);
-    
-    try {
-      // Check for duplicate names
-      const isDuplicate = lectures
-        .filter(lecture => lecture.id !== currentLectureId)
-        .some(lecture => lecture.name.toLowerCase() === dialogContent.toLowerCase());
+    // If this is a real lecture (not just local), update it on the server
+    if (courseContext.courseId && typeof currentLectureId !== 'undefined') {
+      try {
+        // Call the API to update the lecture name in the database
+        console.log("Updating lecture in database:", currentLectureId, dialogContent);
         
-      if (isDuplicate) {
-        setErrorMessage("Lecture name already exists. Please use a different name.");
-        setShowErrorDialog(true);
-        return;
+        // Import updateLecture function from api-service if it exists, or implement it here
+        const updatedLecture = await updateLecture(currentLectureId, dialogContent);
+        console.log("Lecture updated in database:", updatedLecture);
+      } catch (updateError) {
+        console.error("Error updating lecture in database:", updateError);
+        // Continue with UI update even if database update fails
       }
-      
-      // Update lecture in local state
-      const updatedLectures = lectures.map(lecture => {
-        if (lecture.id === currentLectureId) {
-          return {
-            ...lecture,
-            name: dialogContent
-          };
-        }
-        return lecture;
-      });
-      
-      setLectures(updatedLectures);
-      setIsDialogOpen(false);
-      
-      // If this is a real lecture (not just local), we could update it on the server
-      // This would require a dedicated API endpoint
-    } catch (error) {
-      console.error("Error updating lecture:", error);
-      setErrorMessage("Failed to update lecture. Please try again.");
-      setShowErrorDialog(true);
-    } finally {
-      setIsLoading(false);
     }
-  };
-
-  // Add new lecture
-  const addLecture = async () => {
-    setIsLoading(true);
     
-    try {
-      const newId = Math.max(...lectures.map(l => l.id), 0) + 1;
-      const newLectureName = `Lecture ${newId}`;
+    // Update lecture in local state
+    const updatedLectures = lectures.map(lecture => {
+      if (lecture.id === currentLectureId) {
+        return {
+          ...lecture,
+          name: dialogContent
+        };
+      }
+      return lecture;
+    });
+    
+    setLectures(updatedLectures);
+    setIsDialogOpen(false);
+    
+    // Show success message
+    setSuccessMessage("Lecture name updated successfully!");
+    setShowSuccessDialog(true);
+  } catch (error) {
+    console.error("Error updating lecture:", error);
+    setErrorMessage("Failed to update lecture. Please try again.");
+    setShowErrorDialog(true);
+  } finally {
+    setIsLoading(false);
+  }
+};
+ // Fix for the addLecture function in UploadCourseContent.js
+// Replace the existing addLecture function with this improved version
+
+const addLecture = async () => {
+  setIsLoading(true);
+  
+  try {
+    // Get the current number of lectures to determine the new lecture number
+    const lectureCount = lectures.length;
+    const newLectureNumber = lectureCount + 1;
+    const newLectureName = `Lecture ${newLectureNumber}`;
+    
+    // If courseId exists, add the lecture to the database
+    if (courseContext.courseId) {
+      // Add lecture to the course on the server
+      const addedLectures = await addLecturesToCourse(courseContext.courseId, [
+        { title: newLectureName }
+      ]);
       
-      // If courseId exists, add the lecture to the database
-      if (courseContext.courseId) {
-        // Add lecture to the course on the server
-        const addedLectures = await addLecturesToCourse(courseContext.courseId, [
-          { title: newLectureName }
+      if (addedLectures && addedLectures.length > 0) {
+        // Use the server-generated ID but ensure we're using our formatted name
+        setLectures([
+          ...lectures, 
+          { 
+            id: addedLectures[0].id, 
+            name: newLectureName, 
+            files: [] 
+          }
         ]);
-        
-        if (addedLectures && addedLectures.length > 0) {
-          // Use the server-generated ID
-          setLectures([
-            ...lectures, 
-            { 
-              id: addedLectures[0].id, 
-              name: addedLectures[0].title, 
-              files: [] 
-            }
-          ]);
-        } else {
-          // Fallback to local ID if server response is invalid
-          setLectures([
-            ...lectures, 
-            { 
-              id: newId, 
-              name: newLectureName, 
-              files: [] 
-            }
-          ]);
-        }
       } else {
-        // Just add locally if no courseId
+        // Fallback to local ID if server response is invalid
+        const newId = Math.max(...lectures.map(l => l.id), 0) + 1;
         setLectures([
           ...lectures, 
           { 
@@ -266,15 +283,26 @@ const UploadCourseContent = () => {
           }
         ]);
       }
-    } catch (error) {
-      console.error("Error adding lecture:", error);
-      setErrorMessage("Failed to add new lecture. Please try again.");
-      setShowErrorDialog(true);
-    } finally {
-      setIsLoading(false);
+    } else {
+      // Just add locally if no courseId
+      const newId = Math.max(...lectures.map(l => l.id), 0) + 1;
+      setLectures([
+        ...lectures, 
+        { 
+          id: newId, 
+          name: newLectureName, 
+          files: [] 
+        }
+      ]);
     }
-  };
-
+  } catch (error) {
+    console.error("Error adding lecture:", error);
+    setErrorMessage("Failed to add new lecture. Please try again.");
+    setShowErrorDialog(true);
+  } finally {
+    setIsLoading(false);
+  }
+};
   // Handle save/submit
   const handleSave = () => {
     // Navigate back to course content

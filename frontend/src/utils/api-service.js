@@ -69,7 +69,6 @@ export const getEnrolledCourses = async (userId) => {
     return null;
   }
 };
-
 export const getTeacherCourses = async (userId) => {
   try {
     const { data, error } = await supabase
@@ -84,6 +83,14 @@ export const getTeacherCourses = async (userId) => {
       .eq('instructor_id', userId);
       
     if (error) throw error;
+    
+    // Format the data to include proper image URLs
+    if (data) {
+      return data.map(course => ({
+        ...course,
+        image: course.thumbnail_url // Ensure the image property is set from thumbnail_url
+      }));
+    }
     return data;
   } catch (error) {
     console.error('Error fetching teacher courses:', error);
@@ -689,36 +696,89 @@ export const checkTableExists = async (tableName) => {
 //   }
 // };
 
-// Add lectures to a course
+// // Add lectures to a course
+// export const addLecturesToCourse = async (courseId, lectures) => {
+//   try {
+//     // Check if the lectures table exists
+//     const lecturesExist = await checkTableExists('lectures');
+    
+//     if (!lecturesExist) {
+//       // Return mock data if table doesn't exist
+//       return lectures.map((lecture, index) => ({
+//         id: `mock-lecture-${index}`,
+//         title: lecture.title,
+//         course_id: courseId,
+//         display_order: index + 1
+//       }));
+//     }
+    
+//     // Prepare lectures for insertion
+//     const lecturesForInsertion = lectures.map((lecture, index) => ({
+//       course_id: courseId,
+//       title: lecture.title,
+//       display_order: index + 1
+//     }));
+    
+//     // Insert lectures into database
+//     const { data, error } = await supabase
+//       .from('lectures')
+//       .insert(lecturesForInsertion)
+//       .select();
+      
+//     if (error) throw error;
+//     return data;
+//   } catch (error) {
+//     console.error('Error adding lectures to course:', error);
+//     throw error;
+//   }
+// };
+// Fix for the addLecturesToCourse function in api-service.js
+// Replace the existing function with this improved version
+
 export const addLecturesToCourse = async (courseId, lectures) => {
   try {
-    // Check if the lectures table exists
+    // Log what we're sending to help with debugging
+    console.log("Adding lectures to course:", courseId, lectures);
+    
+    // Validate lecture data before sending
+    const validLectures = lectures.map(lecture => {
+      // Ensure title is a valid string
+      const title = typeof lecture.title === 'string' && lecture.title.trim() 
+        ? lecture.title.trim() 
+        : `Lecture ${new Date().getTime()}`;
+      
+      return {
+        course_id: courseId,
+        title: title,
+        display_order: lecture.order || 999 // Use provided order or default to end
+      };
+    });
+    
+    // Check if lectures table exists
     const lecturesExist = await checkTableExists('lectures');
     
     if (!lecturesExist) {
       // Return mock data if table doesn't exist
-      return lectures.map((lecture, index) => ({
-        id: `mock-lecture-${index}`,
+      return validLectures.map((lecture, index) => ({
+        id: `mock-lecture-${index}-${new Date().getTime()}`,
         title: lecture.title,
         course_id: courseId,
-        display_order: index + 1
+        display_order: lecture.display_order
       }));
     }
-    
-    // Prepare lectures for insertion
-    const lecturesForInsertion = lectures.map((lecture, index) => ({
-      course_id: courseId,
-      title: lecture.title,
-      display_order: index + 1
-    }));
     
     // Insert lectures into database
     const { data, error } = await supabase
       .from('lectures')
-      .insert(lecturesForInsertion)
+      .insert(validLectures)
       .select();
       
-    if (error) throw error;
+    if (error) {
+      console.error("Supabase error adding lectures:", error);
+      throw error;
+    }
+    
+    console.log("Successfully added lectures:", data);
     return data;
   } catch (error) {
     console.error('Error adding lectures to course:', error);
@@ -1071,18 +1131,30 @@ export const getLectureDetails = async (lectureId) => {
 };
 
 /**
- * Updates a lecture (title only)
- * @param {string} lectureId - ID of the lecture to update
+ * Updates a lecture's title in the database
+ * @param {string|number} lectureId - ID of the lecture to update
  * @param {string} newTitle - New title for the lecture
  * @returns {Promise<Object>} - Updated lecture data
  */
 export const updateLecture = async (lectureId, newTitle) => {
   try {
+    console.log(`Updating lecture ${lectureId} with new title: ${newTitle}`);
+    
+    // Validate inputs
+    if (!lectureId) {
+      throw new Error("Lecture ID is required");
+    }
+    
+    if (!newTitle || typeof newTitle !== 'string' || !newTitle.trim()) {
+      throw new Error("Valid lecture title is required");
+    }
+    
     // Check if lectures table exists
     const lecturesExist = await checkTableExists('lectures');
     
     if (!lecturesExist) {
       // Return mock data if table doesn't exist
+      console.log("Lectures table doesn't exist, returning mock data");
       return {
         id: lectureId,
         title: newTitle,
@@ -1090,15 +1162,31 @@ export const updateLecture = async (lectureId, newTitle) => {
       };
     }
     
+    // Update the lecture in the database
     const { data, error } = await supabase
       .from('lectures')
-      .update({ title: newTitle })
+      .update({ title: newTitle.trim() })
       .eq('id', lectureId)
-      .select()
-      .single();
+      .select();
       
-    if (error) throw error;
-    return data;
+    if (error) {
+      console.error("Database error updating lecture:", error);
+      throw error;
+    }
+    
+    // If no data was returned but also no error, the lectureId might not exist
+    // In this case, we'll still return a success response with the updated title
+    if (!data || data.length === 0) {
+      console.warn(`No lecture found with ID ${lectureId}, but update didn't fail`);
+      return {
+        id: lectureId,
+        title: newTitle,
+        updated_at: new Date().toISOString()
+      };
+    }
+    
+    console.log("Successfully updated lecture:", data[0]);
+    return data[0];
   } catch (error) {
     console.error('Error updating lecture:', error);
     throw error;

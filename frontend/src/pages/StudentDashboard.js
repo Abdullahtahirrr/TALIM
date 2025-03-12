@@ -9,8 +9,10 @@ import courseImage1 from "../assets/course_image.jpeg";
 import { getUserProfile, getUserDetails, getEnrolledCourses } from "../utils/api-service";
 import { useAuth } from "../utils/authContext";
 import "../styles/StudentDashboard.css";
+import { useNavigate } from 'react-router-dom';
 
 const StudentDashboard = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -167,21 +169,21 @@ const StudentDashboard = () => {
           {/* Recent Courses Section */}
           <div className="recent-courses">
             <div className="courses-grid">
-              {courses.map((course) => (
-                <div key={course.id} className="course-container">
-                  <CourseCard
-                    image={course.image || courseImage1}
-                    title={course.title}
-                    instructor={course.instructor}
-                    university={course.university || "NUST"}
-                    buttonText="Open Course"
-                    onButtonClick={() => window.location.href = `/StudentCourseContent/${course.id}`}
-                  />
-                  <div className="course-stats">
-                    <p>{course.students || 20} students enrolled</p>
-                  </div>
-                </div>
-              ))}
+            {courses.map((course) => (
+  <div key={course.id} className="course-container">
+    <CourseCard
+      image={course.image || courseImage1}
+      title={course.title}
+      instructor={course.instructor}
+      university={course.university || "NUST"}
+      buttonText="Open Course"
+      onButtonClick={() => navigate(`/StudentCourseContent/${course.id}`)}
+    />
+    <div className="course-stats">
+      <p>{course.students || 20} students enrolled</p>
+    </div>
+  </div>
+))}
             </div>
           </div>
         </div>

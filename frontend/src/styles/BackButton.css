@@ -1,0 +1,91 @@
+/* Elegant Back Button Styles */
+.elegant-back-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    text-decoration: none;
+    user-select: none;
+  }
+  
+  .elegant-back-button .back-icon {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .elegant-back-button .back-text {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+  }
+  
+  .elegant-back-button .button-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  /* Hover Effects */
+  .elegant-back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .elegant-back-button:hover .back-icon {
+    transform: translateX(-3px);
+  }
+  
+  .elegant-back-button:hover .button-overlay {
+    opacity: 1;
+  }
+  
+  /* Active/Pressed State */
+  .elegant-back-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Variant Styles */
+  .elegant-back-button.default {
+    background-color: #661083;
+    color: white;
+  }
+  
+  .elegant-back-button.light {
+    background-color: #f0f0f0;
+    color: #661083;
+  }
+  
+  .elegant-back-button.dark {
+    background-color: #333;
+    color: white;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .elegant-back-button {
+      padding: 8px 15px;
+      font-size: 0.9rem;
+    }
+    
+    .elegant-back-button .back-icon {
+      margin-right: 6px;
+    }
+  }

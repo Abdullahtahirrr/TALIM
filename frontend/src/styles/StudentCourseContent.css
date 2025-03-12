@@ -516,3 +516,104 @@
     right: 20px;
   }
 }
+/* Add to StudentCourseContent.css */
+.course-content-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.course-content-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-content-container {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+}
+
+/* Style improvements for back button */
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #e8e8e8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for hamburger/menu icons in lecture list */
+.lesson-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eaeaea;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.lesson-item:hover {
+  background-color: #f8f8f8;
+}
+
+.lecture-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lecture-name-icon {
+  color: #661083;
+  font-size: 18px;
+}
+
+/* Style for lessons in the side navigation */
+.lessons-nav ul li {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lessons-nav ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.lessons-nav ul li.active {
+  background-color: #f0e6f5; /* Light purple */
+  border-left: 3px solid #661083;
+}
+
+.lesson-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #661083;
+  color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Add the same styles to TeacherCourseContent.css */

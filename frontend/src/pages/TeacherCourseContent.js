@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SimpleFooter from "../components/SimpleFooter";
 import courseImage1 from "../assets/course_image.jpeg";
+import BackButton from "../components/BackButton";
 import { 
   FaArrowLeft, 
   FaBook, 
@@ -11,11 +12,13 @@ import {
   FaPlayCircle, 
   FaClipboardList, 
   FaFileUpload,
-  FaTasks
+  FaTasks,FaHome,FaPlusCircle
 } from "react-icons/fa";
+
 import { getCourseDetails } from "../utils/api-service";
 import { useAuth } from "../utils/authContext";
 import "../styles/TeacherCourseContent.css";
+import Sidebar from "../components/Sidebar";
 
 const TeacherCourseContent = () => {
   const navigate = useNavigate();
@@ -190,9 +193,14 @@ if (courseData) {
       </div>
     );
   }
-
+  const sidebarLinks = [
+    { label: "Dashboard", icon: FaHome, href: "/TeacherDashboard" },
+    { label: "My Courses", icon: FaBook, href: "/TeacherMyCourses" },
+    { label: "Create a Course", icon: FaPlusCircle, href: "/CreateCourse" },
+  ];
   return (
     <div className="course-content-page">
+      {/* <Sidebar links={sidebarLinks} /> */}
       <Navbar />
       
       <div className="course-content-container">
@@ -243,10 +251,12 @@ if (courseData) {
             <Link to="/TeacherDashboard">Dashboard</Link> / <span>{course.title}</span>
           </div>
           
-          <button className="back-button" onClick={goBack}>
+          {/* <button className="back-button" onClick={goBack}>
             <FaArrowLeft /> <span>Back to Courses</span>
-          </button>
-        </div>
+          </button> */}
+<     BackButton to="/TeacherMyCourses" />
+
+</div>
         
         <div className="course-content-layout">
           {/* Side navigation for lessons */}
