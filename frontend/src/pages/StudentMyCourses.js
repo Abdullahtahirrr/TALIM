@@ -107,7 +107,7 @@ const StudentMyCourses = () => {
                 <p className="profile-title">Student</p>
               </div>
             </div>
-            <button className="all-courses-btn" onClick={() => window.location.href = "/EnrolledCourses"}>
+            <button className="all-courses-btn" onClick={() => window.location.href = "/AllCourses"}>
               All Courses <span className="arrow">→</span>
             </button>
           </div>

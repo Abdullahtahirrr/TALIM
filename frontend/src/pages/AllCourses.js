@@ -1,4 +1,4 @@
-// src/pages/EnrolledCourses.js
+// src/pages/AllCourses.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -11,9 +11,9 @@ import courseImage from "../assets/course_image.jpeg";
 import { tableExists, getUserProfile } from "../utils/api-service";
 import { useAuth } from "../utils/authContext";
 import { supabase } from "../supabaseClient";
-import "../styles/EnrolledCourses.css";
+import "../styles/AllCourses.css";
 
-const EnrolledCourses = () => {
+const AllCourses = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   
@@ -68,14 +68,14 @@ const EnrolledCourses = () => {
           
   //         if (coursesExist) {
   //           // Get all available courses that the user is not enrolled in
-  //           const { data: enrolledCoursesIds, error: enrolledError } = await supabase
+  //           const { data: AllCoursesIds, error: enrolledError } = await supabase
   //             .from('course_enrollments')
   //             .select('course_id')
   //             .eq('student_id', user.id);
               
   //           if (enrolledError) throw enrolledError;
             
-  //           const enrolledIds = enrolledCoursesIds.map(item => item.course_id);
+  //           const enrolledIds = AllCoursesIds.map(item => item.course_id);
   //           console.log("Enrolled course IDs:", enrolledIds);
             
   //           // Get all published courses
@@ -135,14 +135,14 @@ const EnrolledCourses = () => {
   
           if (coursesExist) {
             // Get all enrolled course IDs
-            const { data: enrolledCoursesIds, error: enrolledError } = await supabase
+            const { data: AllCoursesIds, error: enrolledError } = await supabase
               .from("course_enrollments")
               .select("course_id")
               .eq("student_id", user.id);
   
             if (enrolledError) throw enrolledError;
   
-            const enrolledCourseIDs = enrolledCoursesIds?.map((item) => item.course_id) ?? [];
+            const enrolledCourseIDs = AllCoursesIds?.map((item) => item.course_id) ?? [];
   
             if (enrolledCourseIDs.length === 0) {
               console.warn("No enrolled courses found, skipping filter.");
@@ -377,4 +377,4 @@ const EnrolledCourses = () => {
   );
 };
 
-export default EnrolledCourses;
+export default AllCourses;

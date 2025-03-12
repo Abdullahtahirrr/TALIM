@@ -16,7 +16,7 @@ import TeacherCourseContent from './pages/TeacherCourseContent';
 import CreateCourse from './pages/CreateCourse';
 import UploadCourseContent from './pages/UploadCourseContent';
 import UserPersonalDetail from './pages/UserPersonalDetail';
-import EnrolledCourses from './pages/EnrolledCourses';
+import AllCourses from './pages/AllCourses';
 import Quiz from './pages/Quiz';
 import Assignment from './pages/Assignment';
 import Vta from './pages/Vta';
@@ -86,9 +86,9 @@ function App() {
             </ProtectedRoute>
           } />
           
-          <Route path="/EnrolledCourses" element={
+          <Route path="/AllCourses" element={
             <ProtectedRoute>
-              <EnrolledCourses />
+              <AllCourses />
             </ProtectedRoute>
           } />
           
