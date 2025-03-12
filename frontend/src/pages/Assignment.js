@@ -1,15 +1,23 @@
+// src/pages/Assignment.js
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import SimpleFooter from "../components/SimpleFooter";
 import Button from "../components/Button";
 import DialogBox from "../components/DialogBox";
 import { FaChartBar, FaBook, FaPlus, FaSpinner, FaDownload } from "react-icons/fa";
-import { generateAssessment } from "../utils/api-service";
+import { generateAssessment, saveGeneratedAssignment } from "../utils/api-service";
 import { jsPDF } from "jspdf";
+import { useAuth } from "../utils/authContext";
 import "../styles/Assignment.css";
 
 const Assignment = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const courseContext = location.state?.courseContext || {};
+  
   // Sidebar links configuration
   const sidebarLinks = [
     { icon: FaChartBar, label: "Dashboard", href: "/TeacherDashboard" },
@@ -18,8 +26,8 @@ const Assignment = () => {
   ];
 
   // Form state
-  const [lectureName, setLectureName] = useState("");
-  const [keyTopic, setKeyTopic] = useState("");
+  const [lectureName, setLectureName] = useState(courseContext.lectureName || "");
+  const [keyTopic, setKeyTopic] = useState(courseContext.keyTopic || "");
   const [numericals, setNumericals] = useState("");
   const [theoreticalQuestions, setTheoreticalQuestions] = useState("");
   const [versions, setVersions] = useState("");
@@ -61,15 +69,31 @@ const Assignment = () => {
         Version: versions || "1",
         Total_marks: totalMarks || "50",
         Rubric: rubric || "No",
-        Additional_requirements: additionalReq || ""
+        Additional_requirements: additionalReq || "",
+        course_id: courseContext.courseId,
+        lecture_id: courseContext.lectureId,
+        created_by: user?.id
       };
       
       // Call the API service
       const result = await generateAssessment(assignmentData);
       
-      if (result.assessment) {
+      if (result.answer) {
         // Store results without displaying it
-        setGeneratedAssignment(result.assessment);
+        setGeneratedAssignment(result.answer);
+        
+        // If database tables are ready, save the assignment
+        try {
+          if (user && courseContext.courseId) {
+            // We don't actually save to database here to avoid errors if tables don't exist yet
+            // But in production, you would uncomment this:
+            // await saveGeneratedAssignment(assignmentData, result.answer);
+            console.log("Assignment would be saved to database in production");
+          }
+        } catch (dbError) {
+          console.error("Error saving assignment to database:", dbError);
+          // Continue showing the dialog even if saving to DB fails
+        }
         
         // Open dialog
         setIsDialogOpen(true);

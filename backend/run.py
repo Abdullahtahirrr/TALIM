@@ -16,7 +16,9 @@ if __name__ == "__main__":
     print(f"API endpoints:")
     print(f"  - Chat: http://{host}:{port}/api/chat")
     print(f"  - Assessment: http://{host}:{port}/api/assessment")
-    print(f"  - Health check: http://{host}:{port}/api/health")
+    print(f"  - Health check: http://{host}:{port}/api/health")    
+    print(f"  - Courses: http://{host}:{port}/api/courses")
+
     
     # Run the Flask app
     app.run(host=host, port=port, debug=debug)

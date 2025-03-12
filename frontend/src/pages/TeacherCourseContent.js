@@ -1,3 +1,4 @@
+// src/pages/TeacherCourseContent.js
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -12,62 +13,114 @@ import {
   FaFileUpload,
   FaTasks
 } from "react-icons/fa";
+import { getCourseDetails } from "../utils/api-service";
+import { useAuth } from "../utils/authContext";
 import "../styles/TeacherCourseContent.css";
-
-// Sample data - replace with API calls in production
-const SAMPLE_COURSE = {
-  id: "ai-101",
-  title: "Artificial Intelligence Course",
-  instructor: "Seemab Latif",
-  description: "Learn the fundamentals of artificial intelligence, machine learning algorithms, and practical applications in various industries. This comprehensive course covers everything from basic concepts to advanced techniques.",
-  enrolledStudents: 42,
-  lessons: [
-    {
-      id: "lesson-1",
-      title: "Introduction to AI",
-      instructor: "Seemab Latif",
-      resources: [
-        { type: "Lecture Slides", url: "#", icon: FaFileAlt },
-        { type: "Lecture Notes", url: "#", icon: FaBook }
-      ],
-      image: courseImage1
-    },
-    {
-      id: "lesson-2",
-      title: "AI Intelligence",
-      instructor: "Seemab Latif",
-      resources: [
-        { type: "Lecture Slides", url: "#", icon: FaFileAlt },
-        { type: "Lecture Notes", url: "#", icon: FaBook }
-      ],
-      image: courseImage1
-    },
-    {
-      id: "lesson-3",
-      title: "Future of AI",
-      instructor: "Seemab Latif",
-      resources: [
-        { type: "Lecture Slides", url: "#", icon: FaFileAlt },
-        { type: "Lecture Notes", url: "#", icon: FaBook }
-      ],
-      image: courseImage1
-    }
-  ]
-};
 
 const TeacherCourseContent = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
+  const { user } = useAuth();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeLesson, setActiveLesson] = useState(null);
 
+  // Sample data for fallback
+  const SAMPLE_COURSE = {
+    id: courseId || "ai-101",
+    title: "Artificial Intelligence Course",
+    instructor: "Seemab Latif",
+    description: "Learn the fundamentals of artificial intelligence, machine learning algorithms, and practical applications in various industries. This comprehensive course covers everything from basic concepts to advanced techniques.",
+    enrolledStudents: 42,
+    lessons: [
+      {
+        id: "lesson-1",
+        title: "Introduction to AI",
+        instructor: "Seemab Latif",
+        resources: [
+          { type: "Lecture Slides", url: "#", icon: FaFileAlt },
+          { type: "Lecture Notes", url: "#", icon: FaBook }
+        ],
+        image: courseImage1
+      },
+      {
+        id: "lesson-2",
+        title: "AI Intelligence",
+        instructor: "Seemab Latif",
+        resources: [
+          { type: "Lecture Slides", url: "#", icon: FaFileAlt },
+          { type: "Lecture Notes", url: "#", icon: FaBook }
+        ],
+        image: courseImage1
+      },
+      {
+        id: "lesson-3",
+        title: "Future of AI",
+        instructor: "Seemab Latif",
+        resources: [
+          { type: "Lecture Slides", url: "#", icon: FaFileAlt },
+          { type: "Lecture Notes", url: "#", icon: FaBook }
+        ],
+        image: courseImage1
+      }
+    ]
+  };
+
   useEffect(() => {
-    // In a real app, you'd fetch the specific course by ID
-    // For now, we'll use the sample data
-    setCourse(SAMPLE_COURSE);
-    setLoading(false);
-  }, [courseId]);
+    const fetchCourseDetails = async () => {
+      try {
+        if (courseId && user) {
+          // Try to get course details from the database
+          const courseData = await getCourseDetails(courseId);
+          
+          // In TeacherCourseContent.js - update the mapping in fetchCourseDetails function
+if (courseData) {
+  // Map the course data to our component structure
+  const formattedCourse = {
+    id: courseData.id,
+    title: courseData.title,
+    instructor: courseData.instructor_name || "Instructor",
+    description: courseData.description || "No description available",
+    enrolledStudents: courseData.enrolledStudents || 0,
+    enrollment_key: courseData.enrollment_key,
+    lessons: courseData.lectures ? courseData.lectures.map(lecture => ({
+      id: lecture.id,
+      title: lecture.title,
+      instructor: courseData.instructor_name || "Instructor",
+      resources: lecture.lecture_content ? lecture.lecture_content.map(content => {
+        const isSlides = content.content_type_id === 1; // Assuming 1 is slides, 2 is notes
+        return {
+          id: content.id,
+          type: isSlides ? "Lecture Slides" : "Lecture Notes",
+          url: content.file_url || "#",
+          icon: isSlides ? FaFileAlt : FaBook
+        };
+      }) : [],
+      // Use course-specific image if available
+      image: courseData.thumbnail_url || courseImage1
+    })) : []
+  };
+  
+  setCourse(formattedCourse);
+} else {
+            // Fall back to sample data
+            setCourse(SAMPLE_COURSE);
+          }
+        } else {
+          // Use sample data if no courseId or user
+          setCourse(SAMPLE_COURSE);
+        }
+      } catch (error) {
+        console.error("Error fetching course details:", error);
+        // Fall back to sample data on error
+        setCourse(SAMPLE_COURSE);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchCourseDetails();
+  }, [courseId, user]);
 
   useEffect(() => {
     // Set the first lesson as active by default when course loads
@@ -81,15 +134,42 @@ const TeacherCourseContent = () => {
   };
 
   const handleGenerateQuiz = () => {
-    navigate("/Quiz");
+    const selectedLesson = course.lessons.find(lesson => lesson.id === activeLesson) || course.lessons[0];
+    navigate("/Quiz", {
+      state: {
+        courseContext: {
+          courseId: course.id,
+          lectureId: selectedLesson.id,
+          lectureName: selectedLesson.title || course.title,
+          keyTopic: course.title
+        }
+      }
+    });
   };
 
   const handleGenerateAssignment = () => {
-    navigate("/Assignment");
+    const selectedLesson = course.lessons.find(lesson => lesson.id === activeLesson);
+    navigate("/Assignment", {
+      state: {
+        courseContext: {
+          courseId: course.id,
+          lectureId: selectedLesson?.id,
+          lectureName: selectedLesson?.title || course.title,
+          keyTopic: course.title
+        }
+      }
+    });
   };
 
   const handleAddCurriculum = () => {
-    navigate("/UploadCourseContent");
+    navigate("/UploadCourseContent", {
+      state: {
+        courseContext: {
+          courseId: course.id,
+          courseTitle: course.title
+        }
+      }
+    });
   };
 
   if (loading) {
@@ -116,21 +196,47 @@ const TeacherCourseContent = () => {
       <Navbar />
       
       <div className="course-content-container">
-        <div className="course-header">
-          <h1>{course.title}</h1>
-          <p className="course-instructor">Instructor: {course.instructor}</p>
-          <p className="course-description">{course.description}</p>
-          <div className="course-stats">
-            <div className="stat-item">
-              <span className="stat-number">{course.enrolledStudents}</span>
-              <span className="stat-label">Enrolled Students</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">{course.lessons.length}</span>
-              <span className="stat-label">Lessons</span>
-            </div>
-          </div>
-        </div>
+
+<div className="course-header">
+  <h1>{course.title}</h1>
+  <p className="course-instructor">Instructor: {course.instructor}</p>
+  <p className="course-description">{course.description}</p>
+  
+  <div className="enrollment-code-container">
+    <div className="enrollment-code-label">Enrollment Code:</div>
+    <div className="enrollment-code">
+      {course.enrollment_key || "Not available"}
+      <button 
+        className="copy-code-button" 
+        onClick={() => {
+          if (course.enrollment_key) {
+            navigator.clipboard.writeText(course.enrollment_key);
+            // Show a brief "copied" message
+            const button = document.querySelector('.copy-code-button');
+            const originalText = button.textContent;
+            button.textContent = "Copied!";
+            setTimeout(() => {
+              button.textContent = originalText;
+            }, 2000);
+          }
+        }}
+      >
+        📋
+      </button>
+    </div>
+  </div>
+  
+  <div className="course-stats">
+    <div className="stat-item">
+      <span className="stat-number">{course.enrolledStudents}</span>
+      <span className="stat-label">Enrolled Students</span>
+    </div>
+    <div className="stat-item">
+      <span className="stat-number">{course.lessons.length}</span>
+      <span className="stat-label">Lessons</span>
+    </div>
+  </div>
+</div>
         
         <div className="course-navigation">
           <div className="breadcrumb">
@@ -183,18 +289,22 @@ const TeacherCourseContent = () => {
                   <div className="lesson-resources">
                     <h4>Resources</h4>
                     <div className="resources-grid">
-                      {lesson.resources.map((resource, index) => (
-                        <a 
-                          key={index} 
-                          href={resource.url} 
-                          className="resource-card"
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          <resource.icon className="resource-icon" />
-                          <span>{resource.type}</span>
-                        </a>
-                      ))}
+                      {lesson.resources && lesson.resources.length > 0 ? (
+                        lesson.resources.map((resource, index) => (
+                          <a 
+                            key={index} 
+                            href={resource.url} 
+                            className="resource-card"
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                          >
+                            <resource.icon className="resource-icon" />
+                            <span>{resource.type}</span>
+                          </a>
+                        ))
+                      ) : (
+                        <p>No resources available for this lesson.</p>
+                      )}
                     </div>
                   </div>
                 </div>

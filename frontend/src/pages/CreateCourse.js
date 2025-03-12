@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import SimpleFooter from "../components/SimpleFooter";
 import DialogBox from "../components/DialogBox";
 import Button from "../components/Button";
+import ErrorDialogBox from "../components/ErrorDialogBox";
 import { FaHome, FaBook, FaCopy, FaFileAlt } from "react-icons/fa";
+import { getCourseCategories, addLecturesToCourse, uploadLectureFile } from "../utils/api-service";
+import { useAuth } from "../utils/authContext";
 import "../styles/CreateCourse.css";
 
+import { 
+  createStorageBucketIfNotExists, 
+  uploadLectureContentFile, 
+  createNewCourse, 
+  publishCourse,
+  
+} from "../utils/api-service";
+
 const CreateCourse = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  
   // State for tracking current step
   const [currentStep, setCurrentStep] = useState("basic"); // basic, advance, curriculum
   
@@ -24,6 +39,10 @@ const CreateCourse = () => {
     ]
   });
   
+  
+  // State for categories
+  const [categories, setCategories] = useState([]);
+  
   // State for validation error
   const [validationError, setValidationError] = useState("");
   
@@ -31,12 +50,34 @@ const CreateCourse = () => {
   const [showEnrollmentKey, setShowEnrollmentKey] = useState(false);
   const [enrollmentKey, setEnrollmentKey] = useState("");
   
+  // State for error dialog
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  // New states for error and success handling
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");  
+  // State for loading
+  const [isLoading, setIsLoading] = useState(false);
+  
   // Sidebar links
   const sidebarLinks = [
     { label: "Dashboard", icon: FaHome, href: "/TeacherDashboard" },
     { label: "Create New Course", icon: FaBook, href: "/CreateCourse" },
     { label: "My Courses", icon: FaCopy, href: "/TeacherMyCourses" },
   ];
+  
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await getCourseCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    
+    fetchCategories();
+  }, []);
   
   // Handle form input changes
   const handleInputChange = (field, value) => {
@@ -84,7 +125,23 @@ const CreateCourse = () => {
   
   // Handle step navigation
   const goToStep = (step) => {
+    // Validate current step before proceeding
+    if (currentStep === "basic" && step === "advance") {
+      if (!courseData.title.trim()) {
+        setValidationError("Course title is required");
+        return;
+      }
+    }
+    
+    if (currentStep === "advance" && step === "curriculum") {
+      if (!courseData.description.trim()) {
+        setValidationError("Course description is required");
+        return;
+      }
+    }
+    
     setCurrentStep(step);
+    setValidationError("");
   };
   
   // Handle lecture title change
@@ -140,12 +197,107 @@ const CreateCourse = () => {
     setCourseData({ ...courseData, lectures: updatedLectures });
   };
   
-  // Handle course publish
-  const handlePublishCourse = () => {
-    // Generate a random enrollment key
-    const generatedKey = Math.floor(Math.random() * 9000000000) + 1000000000;
-    setEnrollmentKey(generatedKey.toString());
-    setShowEnrollmentKey(true);
+  // Validate all lectures before publishing
+  const validateLecturesBeforePublish = () => {
+    // Check if there are any lectures with missing fields
+    const invalidLectures = courseData.lectures.filter(lecture => 
+      !lecture.title.trim() || 
+      (lecture.pdfFile && !lecture.contentType)
+    );
+    
+    if (invalidLectures.length > 0) {
+      setValidationError("Please provide a title and content type for all lectures with uploaded files");
+      return false;
+    }
+    
+    return true;
+  };
+  
+  const handlePublishCourse = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Validate and convert category to a number if needed
+      const categoryId = courseData.category 
+        ? parseInt(courseData.category, 10) 
+        : null;
+      
+      // Existing course creation logic
+      const course = await createNewCourse({
+        title: courseData.title,
+        description: courseData.description,
+        categoryId: categoryId,
+        semester: courseData.semester,
+        thumbnail: courseData.thumbnail,
+        isPublished: true,
+        lectures: courseData.lectures
+      }, user.id);
+  
+      // Add lectures to the course
+      if (courseData.lectures && courseData.lectures.length > 0) {
+        const lectureInsertPromises = courseData.lectures.map(async (lecture, index) => {
+          try {
+            // Create lecture
+            const newLecture = await addLecturesToCourse(course.id, [{
+              title: lecture.title,
+              order: index + 1
+            }]);
+  
+            // Upload lecture content if PDF exists
+            if (lecture.pdfFile && newLecture && newLecture[0]) {
+              await uploadLectureContentFile(
+                newLecture[0].id, 
+                lecture.pdfFile, 
+                lecture.contentType || 'slides'
+              );
+            }
+          } catch (lectureError) {
+            console.error(`Error processing lecture ${lecture.title}:`, lectureError);
+          }
+        });
+  
+        await Promise.allSettled(lectureInsertPromises);
+      }
+  
+      // Final publication step
+      await publishCourse(course.id);
+  
+      // Show success message
+      setSuccessMessage('Course published successfully!');
+      setEnrollmentKey(course.enrollment_key);
+      setShowEnrollmentKey(true);
+      
+    } catch (error) {
+      console.error('Comprehensive course publish error:', error);
+      setErrorMessage(`Failed to publish course: ${error.message || 'Unknown error'}`);
+      setShowErrorDialog(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  // Handle Copy Enrollment Key
+  const copyEnrollmentKey = () => {
+    navigator.clipboard.writeText(enrollmentKey)
+      .then(() => {
+        // Show a temporary message that copying was successful
+        const copyBtn = document.querySelector('.copy-btn');
+        if (copyBtn) {
+          copyBtn.textContent = '✓';
+          setTimeout(() => {
+            copyBtn.textContent = '📋';
+          }, 2000);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  };
+  
+  // After successful enrollment key dialog close, navigate to teacher courses
+  const handleEnrollmentKeyClose = () => {
+    setShowEnrollmentKey(false);
+    navigate("/TeacherMyCourses");
   };
   
   // Render Basic Information step
@@ -153,12 +305,18 @@ const CreateCourse = () => {
     <div className="form-container">
       <h2>Basic Information</h2>
       
+      {validationError && (
+        <div className="validation-error">
+          {validationError}
+        </div>
+      )}
+      
       <div className="form-group">
         <label htmlFor="title">Title</label>
         <input
           type="text"
           id="title"
-          placeholder="You course title"
+          placeholder="Your course title"
           value={courseData.title}
           onChange={(e) => handleInputChange("title", e.target.value)}
         />
@@ -173,12 +331,11 @@ const CreateCourse = () => {
           onChange={(e) => handleInputChange("category", e.target.value)}
         >
           <option value="" disabled>Select...</option>
-          <option value="computerScience">Computer Science</option>
-          <option value="dataScience">Data Science</option>
-          <option value="artificialIntelligence">Humanities</option>
-          <option value="webDevelopment">General Science</option>
-          <option value="webDevelopment">Business Studies</option>
-          <option value="webDevelopment">Others</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
       
@@ -202,7 +359,13 @@ const CreateCourse = () => {
   // Render Advance Information step
   const renderAdvanceInfo = () => (
     <div className="form-container">
-      <h2>Advance Informations</h2>
+      <h2>Advance Information</h2>
+      
+      {validationError && (
+        <div className="validation-error">
+          {validationError}
+        </div>
+      )}
       
       <div className="thumbnail-section">
         <h3>Course Thumbnail</h3>
@@ -241,15 +404,6 @@ const CreateCourse = () => {
           onChange={(e) => handleInputChange("description", e.target.value)}
           rows={6}
         />
-        <div className="text-editor-buttons">
-          <button className="editor-btn"><strong>B</strong></button>
-          <button className="editor-btn"><em>I</em></button>
-          <button className="editor-btn"><u>U</u></button>
-          <button className="editor-btn">S</button>
-          <button className="editor-btn">Link</button>
-          <button className="editor-btn">•</button>
-          <button className="editor-btn">1.</button>
-        </div>
       </div>
       
       <div className="form-actions">
@@ -347,7 +501,13 @@ const CreateCourse = () => {
       
       <div className="form-actions">
         <Button variant="light" onClick={() => goToStep("advance")}>Previous</Button>
-        <Button variant="dark" onClick={handlePublishCourse}>Publish Course</Button>
+        <Button 
+          variant="dark" 
+          onClick={handlePublishCourse}
+          disabled={isLoading}
+        >
+          {isLoading ? "Publishing..." : "Publish Course"}
+        </Button>
       </div>
     </div>
   );
@@ -357,11 +517,15 @@ const CreateCourse = () => {
     <DialogBox
       isOpen={showEnrollmentKey}
       title="COURSE ENROLLMENT KEY"
-      onClose={() => setShowEnrollmentKey(false)}
+      onClose={handleEnrollmentKeyClose}
     >
       <div className="enrollment-key-container">
-        <h3 className="enrollment-key">{enrollmentKey} <button className="copy-btn">📋</button></h3>
-        <Button variant="dark" onClick={() => setShowEnrollmentKey(false)}>OK</Button>
+        <p>Your course has been successfully published! Share this enrollment key with your students:</p>
+        <h3 className="enrollment-key">
+          {enrollmentKey} 
+          <button className="copy-btn" onClick={copyEnrollmentKey}>📋</button>
+        </h3>
+        <Button variant="dark" onClick={handleEnrollmentKeyClose}>OK</Button>
       </div>
     </DialogBox>
   );
@@ -382,7 +546,7 @@ const CreateCourse = () => {
           <FaFileAlt />
         </div>
         <div className="step-label">Advance Information</div>
-        <div className="step-completion">{currentStep === "curriculum" ? "✓" : "1/2"}</div>
+        <div className="step-completion">{currentStep === "curriculum" ? "✓" : "2/3"}</div>
       </div>
       
       <div className={`step-indicator ${currentStep === "curriculum" ? "active" : ""}`}>
@@ -390,7 +554,7 @@ const CreateCourse = () => {
           <FaCopy />
         </div>
         <div className="step-label">Curriculum</div>
-        <div className="step-completion">{currentStep === "curriculum" ? "7/12" : ""}</div>
+        <div className="step-completion">{currentStep === "curriculum" ? "3/3" : ""}</div>
       </div>
     </div>
   );
@@ -406,7 +570,7 @@ const CreateCourse = () => {
           <div className="content-container">
             <div className="header-section">
               <div>
-                <p className="greeting">Good Morning</p>
+                <p className="greeting">Good {new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Evening"}</p>
                 <h1 className="page-title">Create a new course</h1>
               </div>
             </div>
@@ -419,8 +583,14 @@ const CreateCourse = () => {
               {currentStep === "curriculum" && renderCurriculum()}
             </div>
             
-            
             {renderEnrollmentKeyDialog()}
+            
+            <ErrorDialogBox
+              isOpen={showErrorDialog}
+              title="Error"
+              message={errorMessage}
+              onClose={() => setShowErrorDialog(false)}
+            />
           </div>
           
           <SimpleFooter />

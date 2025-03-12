@@ -1,15 +1,23 @@
+// src/pages/Quiz.js
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import SimpleFooter from "../components/SimpleFooter";
 import Button from "../components/Button";
 import DialogBox from "../components/DialogBox";
 import { FaChartBar, FaBook, FaPlus, FaSpinner, FaDownload } from "react-icons/fa";
-import { generateAssessment } from "../utils/api-service";
+import { generateAssessment, saveGeneratedQuiz } from "../utils/api-service";
 import { jsPDF } from "jspdf";
+import { useAuth } from "../utils/authContext";
 import "../styles/Quiz.css";
 
 const Quiz = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const courseContext = location.state?.courseContext || {};
+  
   // Sidebar links configuration
   const sidebarLinks = [
     { icon: FaChartBar, label: "Dashboard", href: "/TeacherDashboard" },
@@ -18,8 +26,8 @@ const Quiz = () => {
   ];
 
   // Form state
-  const [lectureName, setLectureName] = useState("");
-  const [keyTopic, setKeyTopic] = useState("");
+  const [lectureName, setLectureName] = useState(courseContext.lectureName || "");
+  const [keyTopic, setKeyTopic] = useState(courseContext.keyTopic || "");
   const [mcqs, setMcqs] = useState("");
   const [theoreticalQuestions, setTheoreticalQuestions] = useState("");
   const [numericals, setNumericals] = useState("");
@@ -62,15 +70,31 @@ const Quiz = () => {
         Version: versions || "1",
         Total_marks: totalMarks || "10",
         Rubric: rubric || "No",
-        Additional_requirements: additionalReq || ""
+        Additional_requirements: additionalReq || "",
+        course_id: courseContext.courseId,
+        lecture_id: courseContext.lectureId,
+        created_by: user?.id
       };
       
-      // Call the API service
+      // Call the API service to generate the quiz
       const result = await generateAssessment(quizData);
       
-      if (result.assessment) {
-        // Store result without displaying it
-        setGeneratedQuiz(result.assessment);
+      if (result.answer) {
+        // Store results without displaying it
+        setGeneratedQuiz(result.answer);
+        
+        // If database tables are ready, save the quiz
+        try {
+          if (user && courseContext.courseId) {
+            // We don't actually save to database here to avoid errors if tables don't exist yet
+            // But in production, you would uncomment this:
+            // await saveGeneratedQuiz(quizData, result.answer);
+            console.log("Quiz would be saved to database in production");
+          }
+        } catch (dbError) {
+          console.error("Error saving quiz to database:", dbError);
+          // Continue showing the dialog even if saving to DB fails
+        }
         
         // Open dialog
         setIsDialogOpen(true);
@@ -84,8 +108,7 @@ const Quiz = () => {
       setIsLoading(false);
     }
   };
-
- 
+  
   // Handle quiz download as PDF with markdown formatting
   const handleDownload = () => {
     if (!generatedQuiz) return;

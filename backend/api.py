@@ -140,6 +140,80 @@ def health_check():
         'message': 'TALIM API is running'
     })
 
+
+@app.route('/api/courses', methods=['POST'])
+def create_course():
+    """
+    Endpoint for creating a new course
+    """
+    try:
+        # Get course data from request
+        course_data = request.json
+        
+        # Validate required fields
+        required_fields = ['title', 'description', 'category', 'semester', 'instructorId']
+        for field in required_fields:
+            if field not in course_data:
+                return jsonify({
+                    'error': f'Missing required field: {field}'
+                }), 400
+        
+        # Create course
+        try:
+            # Generate a unique enrollment key
+            enrollment_key = str(random.randint(100000, 999999))
+            
+            # Insert course into database
+            course_insert = {
+                'title': course_data['title'],
+                'description': course_data['description'],
+                'category_id': course_data['category'],
+                'semester': course_data['semester'],
+                'instructor_id': course_data['instructorId'],
+                'enrollment_key': enrollment_key,
+                'is_published': False
+            }
+            
+            # Optional fields
+            if 'thumbnailUrl' in course_data:
+                course_insert['thumbnail_url'] = course_data['thumbnailUrl']
+            
+            # Insert the course
+            course = supabase.table('courses').insert(course_insert).execute()
+            
+            # Process lectures if provided
+            if 'lectures' in course_data and course_data['lectures']:
+                lectures_insert = []
+                for index, lecture in enumerate(course_data['lectures']):
+                    lecture_data = {
+                        'course_id': course.data[0]['id'],
+                        'title': lecture['title'],
+                        'display_order': index + 1
+                    }
+                    lectures_insert.append(lecture_data)
+                
+                # Insert lectures
+                lectures = supabase.table('lectures').insert(lectures_insert).execute()
+            
+            return jsonify({
+                'course': course.data[0],
+                'enrollment_key': enrollment_key,
+                'lectures': lectures.data if 'lectures' in locals() else []
+            }), 201
+        
+        except Exception as db_error:
+            print(f"Database error: {str(db_error)}")
+            return jsonify({
+                'error': 'Failed to create course in database',
+                'details': str(db_error)
+            }), 500
+    
+    except Exception as error:
+        print(f"Unexpected error: {str(error)}")
+        return jsonify({
+            'error': 'An unexpected error occurred',
+            'details': str(error)
+        }), 500
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     host = os.environ.get('HOST', '0.0.0.0')

@@ -596,3 +596,42 @@
       font-size: 10px;
     }
   }
+  /* Add to your TeacherCourseContent.css file */
+
+.enrollment-code-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.enrollment-code-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.enrollment-code {
+  display: flex;
+  align-items: center;
+  font-family: monospace;
+  font-size: 16px;
+  color: #661083;
+  font-weight: bold;
+}
+
+.copy-code-button {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 5px;
+  transition: transform 0.2s;
+}
+
+.copy-code-button:hover {
+  transform: scale(1.2);
+}

@@ -1,11 +1,28 @@
-import React from "react";
+import {React,useState} from "react";
 import "../styles/CourseCard.css";
+import courseImage1 from "../assets/course_image.jpeg";
 
+// In CourseCard.js
 const CourseCard = ({ image, instructor, university, title, buttonText, onButtonClick }) => {
+  // State to track image loading errors
+  const [imgSrc, setImgSrc] = useState(image || courseImage1);
+  
+  // Handle image loading errors
+  const handleImageError = () => {
+    if (imgSrc !== courseImage1) {
+      setImgSrc(courseImage1);
+    }
+  };
+  
   return (
     <div className="course-card">
-      {/* Course Image */}
-      <img src={image} alt={title} className="course-image" />
+      {/* Course Image with fallback */}
+      <img 
+        src={imgSrc} 
+        alt={title} 
+        className="course-image" 
+        onError={handleImageError}
+      />
 
       {/* Course Details */}
       <div className="course-info">
