@@ -66,8 +66,8 @@ const TeacherDashboard = () => {
               title: course.title,
               instructor: profileData ? `${profileData.first_name} ${profileData.last_name}` : "Instructor",
               university: "NUST", // Can be updated if you add this to user_details
-              // image: course.thumbnail_url || courseImage1,
-              image: courseImage1,
+              image: course.thumbnail_url || courseImage1,
+              // image: courseImage1,
               students: Math.floor(Math.random() * 30) + 10 // Random count for demo purposes
             }));
             

@@ -105,12 +105,21 @@ const SignUp = () => {
       newErrors.email = "Email is invalid";
     }
     
-    // Password validation
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+// Password validation
+if (!formData.password) {
+  newErrors.password = "Password is required";
+} else if (formData.password.length < 8) {
+  newErrors.password = "Password must be at least 8 characters long";
+} else if (!/[A-Z]/.test(formData.password)) {
+  newErrors.password = "Password must contain at least one uppercase letter";
+} else if (!/[a-z]/.test(formData.password)) {
+  newErrors.password = "Password must contain at least one lowercase letter";
+} else if (!/[0-9]/.test(formData.password)) {
+  newErrors.password = "Password must contain at least one digit";
+} else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+  newErrors.password = "Password must contain at least one special character";
+}
+
     
     // Confirm Password validation
     if (formData.password !== formData.confirmPassword) {
